@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<dimen name="entry_txt">23sp</dimen>
+<dimen name="clock_txt">24sp</dimen>
+<dimen name="notice_txt">28sp</dimen>
+<dimen name="phonenum_txt">30sp</dimen>
+<dimen name="phonenum_edittext_width">220dp</dimen>
+<dimen name="phonenum_edittext_height">50dp</dimen>
+<dimen name="login_btn_width">110dp</dimen>
+<dimen name="login_btn_height">50dp</dimen>
+
+<dimen name="login_edittext_width">300dp</dimen>
+<dimen name="login_view_width">500dp</dimen>
+
+
+<dimen name="login_edittext_height">50dp</dimen>
+
+<dimen name="login_txt_width">150dp</dimen>
+<dimen name="login_txt_size">20dp</dimen>
+
+<dimen name="entry_img_width">199dp</dimen>
+<dimen name="entry_img_height">213dp</dimen>
+<dimen name="phonenum_img_width">78dp</dimen>
+<dimen name="phonenum_img_height">46dp</dimen>
+<dimen name="num_menu_img_width">47dp</dimen>
+<dimen name="num_menu_img_height">49dp</dimen>
+<dimen name="phone_book_img_width">93dp</dimen>
+<dimen name="phone_book_img_height">99dp</dimen>
+<dimen name="home_img_width">57dp</dimen>
+<dimen name="home_img_height">57dp</dimen>
+<dimen name="time_img_width">36dp</dimen>
+<dimen name="time_img_height">35dp</dimen>
+<dimen name="emergency_img_width">109dp</dimen>
+<dimen name="emergency_img_height">107dp</dimen>
+<dimen name="linphone_video_img_width">50dp</dimen>
+<dimen name="linphone_video_img_height">107dp</dimen>
+<dimen name="video_category_img_width">180dp</dimen>
+<dimen name="video_category_img_height">180dp</dimen>
+
+<dimen name="search_rating_title">25dp</dimen>
+<dimen name="search_rating_nurse_name">20dp</dimen>
+<dimen name="search_rating_nurse_rank">18dp</dimen>
+<dimen name="search_rating_total_score">18dp</dimen>
+
+<dimen name="category_item_img_width">180dp</dimen>
+<dimen name="category_item_img_height">120dp</dimen>
+<dimen name="category_item_text_size">22dp</dimen>
+
+
+</resources>

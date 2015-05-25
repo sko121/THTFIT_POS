@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/function"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/main_background"
+    android:baselineAligned="true"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:baselineAligned="true">
+
+        <fragment
+            android:id="@+id/function_fragment_title_bar"
+            android:name="com.thtfit.pos.fragment.TitleBarFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3" />
+       
+        <fragment
+            android:id="@+id/function_fragment2"
+            android:name="com.thtfit.pos.fragment.MainFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/function_fragment_title_bar"
+            android:layout_above="@+id/function_fragment_bottom_bar"
+            android:layout_centerVertical="true"
+            android:layout_weight="24" />
+
+        <fragment
+            android:id="@+id/function_fragment_bottom_bar"
+            android:name="com.thtfit.pos.fragment.BottomBarFragment"
+            android:layout_alignParentBottom="true"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp" /> 
+    </RelativeLayout> 
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="2.5"
+        android:baselineAligned="true"
+        android:orientation="horizontal" >
+
+        <fragment
+            android:id="@+id/function_fragment"
+            android:name="com.thtfit.pos.fragment.CallFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+    </LinearLayout>
+</LinearLayout>

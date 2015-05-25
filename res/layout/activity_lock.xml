@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_lock"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout_top"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkorange" >
+
+        <fragment
+            android:id="@+id/view"
+            android:name="com.thtfit.pos.fragment.TopBarFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayout_bottom"
+        android:layout_below="@+id/linearLayout_top"
+        android:background="#48423D"
+        tools:context=".MainActivity" >
+
+        <TextView
+            android:id="@+id/lock_point"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:gravity="center"
+            android:text="@string/input_sign_password"
+            android:textSize="19sp" />
+
+        <com.thtfit.pos.ui.LockPatternView
+            android:id="@+id/lock_pattern"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/darkorange" >
+
+        <fragment
+            android:id="@+id/function_fragment_bottom_bar"
+            android:name="com.thtfit.pos.fragment.BottomBarFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp" />
+    </LinearLayout>
+
+</RelativeLayout>

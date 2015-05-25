@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/grid_itemId"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/four_bg"
+    android:padding="1dp" >
+
+    <ImageView
+        android:id="@+id/grid_itemImage"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/image"
+        android:scaleType="centerCrop"
+        android:layout_margin="10dp" >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/grid_itemName"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/grid_itemImage"
+        android:ellipsize="end"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:minLines="2"
+        android:textColor="@color/darkgrey"
+        android:textSize="15sp" >
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/grid_itemName"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign1"
+            android:textColor="@color/crimson"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/grid_itemPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_num"
+            android:textColor="@color/crimson"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</RelativeLayout>

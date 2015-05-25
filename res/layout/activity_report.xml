@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_report"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout_top"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkorange" >
+
+        <fragment
+            android:id="@+id/view"
+            android:name="com.thtfit.pos.fragment.TopBarFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/linearLayout_bottom"
+        android:layout_below="@+id/linearLayout_top"
+        android:baselineAligned="false"
+        android:orientation="horizontal" >
+
+        <fragment
+            android:id="@+id/titleList_fragment"
+            android:name="com.thtfit.pos.fragment.ReportSidesFragment"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.2" />
+
+        <LinearLayout
+            android:id="@+id/content_fragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/darkorange" >
+
+        <fragment
+            android:id="@+id/function_fragment_bottom_bar"
+            android:name="com.thtfit.pos.fragment.BottomBarFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp" />
+    </LinearLayout>
+
+</RelativeLayout>

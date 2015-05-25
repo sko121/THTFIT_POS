@@ -1,0 +1,66 @@
+[net]
+#bw,in kbps
+download_bw=500
+upload_bw=500
+firewall_policy=0
+mtu=0
+adaptive_rate_control=0
+
+[sip]
+sip_port=5060
+sip_random_port=0
+guess_hostname=1
+contact=sip:unknown@unknown-host
+inc_timeout=45
+use_info=0
+use_ipv6=0
+register_only_when_network_is_up=1
+default_proxy=0
+auto_net_state_mon=0
+keepalive_period=10000
+auto_answer_replacing_calls=1
+media_encryption=zrtp
+media_encryption_mandatory=0
+
+[rtp]
+audio_rtp_port=7076
+video_rtp_port=9078
+audio_jitt_comp=30
+video_jitt_comp=30
+nortp_timeout=15
+rtcp_enabled=1
+
+[sound]
+playback_dev_id=ANDROID SND: Android Sound card
+ringer_dev_id=ANDROID SND: Android Sound card
+capture_dev_id=ANDROID SND: Android Sound card
+remote_ring=/data/data/com.thtfit.smarthomein/files/ringback.wav
+local_ring=/data/data/com.thtfit.iseeu/files/oldphone_mono.wav
+#turn on/off echo cancellation
+echocancellation=0
+#Expected delay of echo in milliseconds
+#Use this when you have a fixed latency in the sound hardware.
+#This allows to reduce the tail length of the echo canceller, which speeds up convergence
+#and reduces complexity of computations.
+ec_delay=0
+#Tail length of echo canceller in milliseconds.
+#Ideally it should be no more than the expected duration of the echo.
+ec_tail_len=120
+#Frame size for AU-MDF echo canceller algorithm
+#This is a parameter internal to the echo canceller, recommended is too keep to its default value.
+ec_framesize=128
+# Echo limiter
+echolimiter=0
+el_type=mic
+el_thres=0.03
+el_force=100000
+el_sustain=600
+el_transmit_thres=1.7
+agc=0
+ng_floorgain=0.01
+
+[video]
+size=qvga
+
+[misc]
+max_calls=10

@@ -1,0 +1,229 @@
+package com.thtfit.pos.fragment;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.thtfit.pos.R;
+import com.thtfit.pos.activity.SwipeCardActivity;
+import com.thtfit.pos.adapter.TotalListAdapter;
+import com.thtfit.pos.model.Product;
+import com.thtfit.pos.util.Utils;
+
+public class TotalFragment extends Fragment implements OnClickListener {
+	private String LOG_TAG = "TotalFragment";
+	private Context mContext;
+	private View mView;
+	private static TotalFragment totalFragment = null;
+	// private View headerView;
+	public static ListView listView;
+	public static List<String> serialList = new ArrayList<String>();
+	public static List<Product> listItems = new ArrayList<Product>();
+	public static Map<String, String> numberList = new HashMap<String, String>();
+	public static Button checkout;
+	public static Button checkoutright;
+	public Button clear;
+	public static float subBill = 0;
+	private TotalListAdapter totalListAdapter;
+	private Product product;
+	private String serial;
+
+	public TotalFragment() {
+	}
+
+	public TotalFragment(Context context) {
+		this.mContext = context;
+	}
+
+	public synchronized TotalFragment getInstance(Bundle bundle) {
+
+		TotalFragment totalFragment = new TotalFragment();
+		totalFragment.setArguments(bundle);
+		return totalFragment;
+	}
+
+	public synchronized static TotalFragment getInstance(Context context) {
+		return totalFragment == null ? totalFragment = new TotalFragment(
+				context) : totalFragment;
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		Log.d(LOG_TAG, "=====on onCreateView =====");
+		if (null == mView) {
+			mView = inflater.inflate(R.layout.fragment_total, container, false);
+		}
+		return mView;
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		initView();
+		// setView();
+	}
+
+	public void initView() {
+		checkout = (Button) mView.findViewById(R.id.total_checkout);
+		checkoutright = (Button) mView.findViewById(R.id.total_checkout_right);
+		clear = (Button) mView.findViewById(R.id.total_clear);
+		listView = (ListView) mView.findViewById(R.id.fragment_total_list);
+
+		clear.setOnClickListener(this);
+		checkout.setOnClickListener(this);
+		checkoutright.setOnClickListener(this);
+	}
+
+	public void setView() {
+		try {
+			if (getArguments() != null) {
+				product = (Product) getArguments().getSerializable("product");
+				serial = product.getSerial() + "";
+
+				String biilPrice = product.getPrice();
+				try {
+					subBill = subBill + (Float.parseFloat(biilPrice));
+					setBill(subBill);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				if (serialList.contains(serial)) {
+					int tmpNumber = Integer.parseInt(numberList.get(serial));
+					String number = Integer.toString(tmpNumber + 1);
+					numberList.put(serial, number);
+
+					product.setNumber(number);
+					// lstItems.remove(product.getSerial());
+					totalListAdapter = new TotalListAdapter(listItems,
+							getActivity());
+					listView.setAdapter(totalListAdapter);
+					totalListAdapter.notifyDataSetChanged();
+				} else {
+					numberList.put(serial, "1");
+					serialList.add(serial);
+					product.setNumber("1");
+					listItems.add(product);
+					totalListAdapter = new TotalListAdapter(listItems,
+							getActivity());
+					listView.setAdapter(totalListAdapter);
+					totalListAdapter.notifyDataSetChanged();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void setBill(float subBill) {
+		  BigDecimal  decimal  =   new  BigDecimal(subBill);  
+		  subBill   =  decimal.setScale(2,  BigDecimal.ROUND_HALF_UP).floatValue();  
+		
+		TotalFragment.checkout.setText("￥" + subBill);
+	}
+
+	public void showMSG(String content) {
+		Toast.makeText(getActivity(), content, Toast.LENGTH_SHORT).show();
+	}
+
+	public void clearData() {
+		subBill = 0;
+		setBill(subBill);
+		serialList.clear();
+		numberList.clear();
+		listItems.removeAll(listItems);
+	}
+
+	@Override
+	public void onClick(View v) {
+
+		switch (v.getId()) {
+		case R.id.total_clear:
+			clearData();
+			totalListAdapter = new TotalListAdapter(listItems, getActivity());
+			listView.setAdapter(totalListAdapter);
+			totalListAdapter.notifyDataSetChanged();
+			break;
+		case R.id.total_checkout:
+			checkout();
+			break;
+		case R.id.total_checkout_right:
+			checkout();
+		}
+	}
+
+	private void checkout() {
+		if (subBill == 0) {
+			Toast.makeText(getActivity(), "尚未选择商品", 3000).show();
+			return;
+		}
+		Toast.makeText(getActivity(), "您要支付金额为：" + checkout.getText(), 3000)
+				.show();
+		// 跳转到支付
+		Intent intent1 = new Intent(getActivity(), SwipeCardActivity.class);
+		String amount = checkout.getText().toString();
+		amount = Utils.removeAmountDollar(amount);
+		intent1.putExtra("amount", amount);
+		intent1.putExtra("listItems", (Serializable) listItems);
+		getActivity().startActivity(intent1);
+
+	}
+
+	public synchronized void updateList(Product pro) {
+
+		System.out.println("product=" + pro.getName().toString());
+		try {
+			product = pro;
+			serial = product.getSerial() + "";
+
+			String billPrice = product.getPrice();
+			try {
+				subBill = subBill + (Float.parseFloat(billPrice));
+				setBill(subBill);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			if (serialList.contains(serial)) {
+				int tmpNumber = Integer.parseInt(numberList.get(serial));
+				String number = Integer.toString(tmpNumber + 1);
+				numberList.put(serial, number);
+
+				product.setNumber(number);
+				// lstItems.remove(product.getSerial());
+				totalListAdapter = new TotalListAdapter(listItems, mContext);
+				listView.setAdapter(totalListAdapter);
+				totalListAdapter.notifyDataSetChanged();
+			} else {
+				numberList.put(serial, "1");
+				serialList.add(serial);
+				product.setNumber("1");
+				listItems.add(product);
+				totalListAdapter = new TotalListAdapter(listItems, mContext);
+				listView.setAdapter(totalListAdapter);
+				totalListAdapter.notifyDataSetChanged();
+
+			}
+			System.out.println("listItems.size()=" + listItems.size());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

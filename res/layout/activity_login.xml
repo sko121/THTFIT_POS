@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/login_form"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/default_bk" >
+
+    <LinearLayout
+        style="@style/LoginFormContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="70dp"
+            android:background="@null" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp" >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true" >
+
+                <EditText
+                    android:id="@+id/loginname_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/tt_message_text_bg"
+                    android:hint="@string/input_account"
+                    android:maxLines="1"
+                    android:paddingLeft="40dp"
+                    android:singleLine="true"
+                    android:textColorHint="@color/login_hint_color"
+                    android:textSize="20sp" />
+
+                <!--
+                     <TextView 
+                    android:id="@+id/loginname_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignBottom="@+id/loginname_edit"
+                    android:layout_alignLeft="@+id/loginname_edit"
+                    android:paddingLeft="40dp"
+                    android:text=""/>
+                -->
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignBottom="@+id/loginname_edit"
+                    android:layout_alignLeft="@+id/loginname_edit"
+                    android:layout_alignTop="@+id/loginname_edit"
+                    android:paddingLeft="10dp"
+                    android:src="@drawable/tt_login_user" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp" >
+
+                <EditText
+                    android:id="@+id/password_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/tt_message_text_bg"
+                    android:hint="@string/input_password"
+                    android:imeActionId="@+id/login"
+                    android:imeActionLabel="@string/entry"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:paddingLeft="40dp"
+                    android:singleLine="true"
+                    android:textColorHint="@color/login_hint_color"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignBottom="@+id/password_edit"
+                    android:layout_alignLeft="@+id/password_edit"
+                    android:layout_alignTop="@+id/password_edit"
+                    android:paddingLeft="10dp"
+                    android:src="@drawable/tt_login_pwd" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/signin_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/tt_default_btn_bk"
+                android:text="@string/login"
+                android:textColor="@android:color/white"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/content"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="bottom|center_horizontal"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/logout_manager_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="@string/logout_manager"
+                android:textColor="#A9A9A9" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#A9A9A9" />
+
+            <Button
+                android:id="@+id/switch_manager_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="@string/change_manager"
+                android:textColor="#A9A9A9" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

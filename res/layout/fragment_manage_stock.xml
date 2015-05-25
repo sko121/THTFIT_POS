@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:gravity="top"
+    android:padding="40dp" >
+
+    <LinearLayout
+        android:id="@+id/buttonlayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/buttonlayout2"
+        android:gravity="bottom"
+        android:minHeight="45dp"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/search_editText_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="输入你想查找的商品 或选择类别"
+            android:inputType="text"
+            android:maxHeight="125dp"
+            android:singleLine="true"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/search_button_clear"
+            android:layout_width="20dip"
+            android:layout_height="20dip"
+            android:layout_marginRight="8dip"
+            android:background="@drawable/icon_clear"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonlayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="15dp" >
+
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/search" />
+    </LinearLayout>
+
+    <LinearLayout
+        
+        android:id="@+id/buttonlayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/buttonlayout2"
+        android:paddingTop="15dp" >
+
+        <Spinner
+            android:id="@+id/manage_type"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/product_type"
+            android:prompt="@string/product_type_title"
+            android:spinnerMode="dialog" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/search_listView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/buttonlayout3"
+        android:cacheColorHint="#00000000"
+        android:divider="#9fcbff"
+        android:dividerHeight="1dp" >
+    </ListView>
+
+</RelativeLayout>

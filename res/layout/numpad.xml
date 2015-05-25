@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"  android:layout_weight="1">
+
+	<TableRow android:layout_weight="1">
+		<org.linphone.ui.Digit android:id="@+id/Digit1"	android:text="@string/num_1" style="@style/DialerDigit" />
+		<org.linphone.ui.Digit android:id="@+id/Digit2"	android:text="@string/num_2" style="@style/DialerDigit" />
+		<org.linphone.ui.Digit android:id="@+id/Digit3"	android:text="@string/num_3" style="@style/DialerDigit" />
+	</TableRow>
+	
+	<TableRow android:layout_weight="1">
+		<org.linphone.ui.Digit android:id="@+id/Digit4"	android:text="@string/num_4" style="@style/DialerDigit" />
+		<org.linphone.ui.Digit android:id="@+id/Digit5"	android:text="@string/num_5" style="@style/DialerDigit" />
+		<org.linphone.ui.Digit android:id="@+id/Digit6"	android:text="@string/num_6" style="@style/DialerDigit" />
+	</TableRow>
+	
+	<TableRow android:layout_weight="1">
+		<org.linphone.ui.Digit android:id="@+id/Digit7"	android:text="@string/num_7" style="@style/DialerDigit" />
+		<org.linphone.ui.Digit android:id="@+id/Digit8"	android:text="@string/num_8" style="@style/DialerDigit" />
+		<org.linphone.ui.Digit android:id="@+id/Digit9"	android:text="@string/num_9" style="@style/DialerDigit" />
+	</TableRow>
+	
+	<TableRow android:layout_weight="1">
+		<org.linphone.ui.Digit android:id="@+id/DigitStar" android:text="@string/digitstar" style="@style/DialerDigit" />
+		<org.linphone.ui.Digit android:id="@+id/Digit00" android:text="@string/digit0" style="@style/DialerDigit" />
+		<org.linphone.ui.Digit android:id="@+id/DigitHash" android:text="@string/digithash" style="@style/DialerDigit" />
+	</TableRow>
+</TableLayout>
+<!-- android:layout_width="fill_parent" android:layout_height="fill_parent" android:textColor="@android:color/black" android:background="@drawable/clavier_bg" android:textStyle="bold" android:textSize="20sp" android:layout_weight="1" -->
+        

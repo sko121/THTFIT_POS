@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_search"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout_top"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkorange" >
+
+        <fragment
+            android:id="@+id/view"
+            android:name="com.thtfit.pos.fragment.TopBarFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayout_bottom"
+        android:layout_below="@+id/linearLayout_top"
+        android:background="#ffffff"
+        android:gravity="top"
+        android:padding="40dp" >
+
+        <LinearLayout
+            android:id="@+id/buttonlayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/buttonlayout2"
+            android:gravity="bottom"
+            android:minHeight="45dp"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/search_editText_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="输入你想查找的商品"
+                android:inputType="text"
+                android:maxHeight="125dp"
+                android:singleLine="true"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/search_button_clear"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_marginRight="8dip"
+                android:background="@drawable/icon_clear"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonlayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:paddingLeft="15dp" >
+
+            <Button
+                android:id="@+id/search_button"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/search" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/search_listView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="50dp"
+            android:cacheColorHint="#00000000"
+            android:divider="#9fcbff"
+            android:dividerHeight="1dp" >
+        </ListView>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/darkorange" >
+
+        <fragment
+            android:id="@+id/function_fragment_bottom_bar"
+            android:name="com.thtfit.pos.fragment.BottomBarFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp" />
+    </LinearLayout>
+
+</RelativeLayout>

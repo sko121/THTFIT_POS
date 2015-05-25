@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">THTFITPOS</string>
+    <string name="action_settings">设置</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">关闭</string>
+    <string name="zero_dollar">$0.00</string>
+    <string name="number_zero">0</string>
+    <string name="first_name_hint">First Name</string>
+    <string name="last_name_hint">Last Name</string>
+    <string name="email_cap">EMAIL</string>
+    <string name="print_cap">打印</string>
+    <string name="print_header">星标打印</string>
+    <string name="send_receipt">发送收据</string>
+    <string name="no_receipt">无收据</string>
+    <string name="print_receipt">打印收据</string>
+    <string name="Actionbar_Cart">使用购物车图标上的操作栏查看购物车.</string>
+    <string name="add_additional_emails">添加额外的电子邮件</string>
+    
+    <!-- 手势锁提示文字 -->
+    <string name="lockpattern_recording_incorrect_too_short" >"至少连接4个点，请重试"</string>
+    <string name="lockpattern_error" >"手势密码不对"</string>
+    <!-- Accessibility description sent when user starts drawing a lock pattern. [CHAR LIMIT=NONE] -->
+    <string name="lockscreen_access_pattern_start">图案启动</string>
+    <!-- Accessibility description sent when the pattern times out and is cleared. [CHAR LIMIT=NONE] -->
+    <string name="lockscreen_access_pattern_cleared">图案清除</string>
+    <!-- Accessibility description sent when user adds a cell to the pattern. [CHAR LIMIT=NONE] -->
+    <string name="lockscreen_access_pattern_cell_added">添加锁屏</string>
+    <!-- Accessibility description sent when user completes drawing a pattern. [CHAR LIMIT=NONE] -->
+    <string name="lockscreen_access_pattern_detected">图案绘制完成</string>
+    <string name="setup_gesture_code">设置手势密码</string>
+    <string name="setup_gesture_pattern">绘制解锁图案</string>
+    <string name="setup_gesture_pattern_again">再次绘制解锁图案</string>
+    <string name="forget_gesture_code">忘记手势密码?</string>
+    <string name="use_other_account_login">用其他账号登录</string>
+    <string name="set_gesture_pattern">绘制解锁图案</string>
+    <string name="set_gesture_pattern_reason">设置手势密码，防止他人未经授权查看敏感信息</string>
+    <string name="reset_gesture_code">重新设置手势密码</string>
+    
+    
+    
+    
+     <!-- 下拉刷新中相关文字 -->
+    <string name="pull_to_refresh_pull_label">下拉刷新</string>
+    <string name="pull_to_refresh_release_label">松开后刷新</string>
+    <string name="pull_to_refresh_refreshing_label">正在刷新...</string>
+    <string name="pull_to_refresh_footer_release_label">松开后加载</string>
+    <string name="pull_to_refresh_footer_pull_label">上拉加载更多</string>
+    <string name="pull_to_refresh_footer_refreshing_label">加载中\u2026</string>
+    
+    
+    <!-- ListView底部加载更多提示的文字 -->
+    <string name="loading_moreValues">加载更多</string>
+    <string name="hasloading_moreValues">加载中...</string>
+	
+
+    <!-- 主页面 -->
+    <string name="choose_menu_login">登录</string>
+    <string name="choose_menu_shoping">购物</string>
+    <string name="choose_menu_report">报表</string>
+    <string name="choose_menu_manage">管理</string>
+    <string name="choose_menu_search">搜索</string>
+    <string name="choose_menu_setting">设置</string>
+    
+    <string name="category_item_new_name">功能</string>
+    <string name="category_item_new_title">function</string>
+    
+    
+    <string name="manage_image_text">图片:</string>
+    <string name="manage_serial_text">编号：</string>
+    <string name="manage_name_text">名称：</string>
+    <string name="manage_price_text">价格：</string>
+    <string name="manage_describe_text">描述：</string>
+    <string name="manage_note_text">备注：</string>
+    <string name="manage_stock_text">库存：</string>
+    <string name="manage_type_text">类别：</string>
+    <string name="manage_submit_text">提交</string>
+    <string name="manage_typename_text">类别名称：</string>
+    
+    <string name="title_alert">提示信息</string>
+
+    
+    <string name="num_1">1</string>
+	<string name="num_2">2</string>
+	<string name="num_3">3</string>
+	<string name="num_4">4</string>
+	<string name="num_5">5</string>
+	<string name="num_6">6</string>
+	<string name="num_7">7</string>
+	<string name="num_8">8</string>
+	<string name="num_9">9</string>
+	<string name="digitstar">*</string>
+	<string name="digit0">0+</string>
+	<string name="digithash">#</string>
+    
+    <string name="swipe_scan_device">选择设备</string>
+    <string name="swipe_check_card">刷卡</string>
+    <string name="swipe_disconnect">中止刷卡</string>
+    
+    <string name="image"></string>
+    
+    <string name="product_type_title">请选择类别</string>
+    <string-array name="product_type">
+        <item>类别一</item>
+        <item>类别二</item>
+        <item>类别三</item>
+        <item>类别四</item>
+        <item>类别五</item>
+    </string-array>
+
+    
+    <string name="status">状态</string>
+    <string name="status_com">状态:</string>
+    <string name="app_name1">芯片和PIN付款</string>
+    <string name="waiting_for_card">请插入或刷磁卡</string>
+    <string name="no_card_detected">未检测到磁卡，请取下并重试</string>
+    <string name="icc_card_inserted">ICC卡已插入</string>
+    <string name="card_inserted">卡已插入(并非ICC卡)</string>
+    <string name="bad_swipe">读取失败，请取下卡并重试</string>
+    <string name="card_swiped">已刷卡: </string>
+    <string name="mag_head_fail">磁头故障</string>
+    <string name="card_no_response">刷卡无反应</string>
+    <string name="card_swiped_track2_only">Card Swiped (Track 2 only):\n</string>
+    <string name="format_id">格式ID: </string>
+    <string name="masked_pan">Masked PAN: </string>
+    <string name="expiry_date">到期日: </string>
+    <string name="card_holder_name">持卡人姓名: </string>
+    <string name="ksn">KSN: </string>
+    <string name="service_code">服务代码: </string>
+    <string name="encrypted_track_1">加密轨道 1: </string>
+    <string name="encrypted_track_2">加密轨道 2: </string>
+    <string name="encrypted_track_3">加密轨道 3: </string>
+    <string name="card_data">刷卡数据: </string>
+    <string name="start_emv_fail">启动EMV失败</string>
+    <string name="start_emv_success">启动EMV成功</string>
+    <string name="app_version">应用版本: </string>
+    <string name="bootloader_version">Bootloader版本: </string>
+    <string name="firmware_version">固件版本: </string>
+    <string name="usb">USB: </string>
+    <string name="charge">收费: </string>
+    <string name="battery_level">电池电量: </string>
+    <string name="set_amount">设置金额</string>
+    <string name="enter_pin">请输入PIN</string>
+    <string name="online_process_requested">在线申请流程</string>
+    <string name="request_data_to_server">请求数据到服务器</string>
+    <string name="replied_connected">响应连接</string>
+    <string name="replied_success">响应成功</string>
+    <string name="replied_failed">响应失败</string>
+    <string name="batch_data">分支数据:\n</string>
+    <string name="transaction_log">交易日志:\n</string>
+    <string name="reversal_data">数据逆转:\n</string>
+    <string name="please_select_app">请选择应用程序</string>
+    <string name="transaction_result">交易结果</string>
+    <string name="transaction_approved">批准</string>
+    <string name="transaction_terminated">终止</string>
+    <string name="transaction_cancel">关闭</string>
+    <string name="transaction_capk_fail">失败 (CAPK失败)</string>
+    <string name="transaction_not_icc">失败 (没有ICC卡)</string>
+    <string name="transaction_app_fail">失败 (应用程序失败)</string>
+    <string name="transaction_device_error">设备错误</string>
+    <string name="tlv_list">TLV列表:\n</string>
+    <string name="advice_process">咨询过程</string>
+    <string name="call_your_bank">请致电您的银行</string>
+    <string name="request_terminal_time">请求终端的时间，已回复</string>
+    <string name="confirm_amount">确认数量</string>
+    <string name="amount">数量</string>
+    <string name="trans_type_com">类别:</string>
+    <string name="amount_ok">数量无误?</string>
+    <string name="approved">批准</string>
+    <string name="cancel_or_enter">取消或进入</string>
+    <string name="card_error">磁卡错误</string>
+    <string name="enter_amount">请输入数量</string>
+    <string name="incorrect_pin">不正确的PIN</string>
+    <string name="insert_card">请插入磁卡</string>
+    <string name="not_accepted">未接收到</string>
+    <string name="pin_ok">PIN无误</string>
+    <string name="wait">正在处理，请稍等&#8230;</string>
+    <string name="processing_error">处理错误</string>
+    <string name="finish_transaction">交易成功</string>
+    <string name="remove_card">请拔卡</string>
+    <string name="use_chip_reader">请使用芯片读取器</string>
+    <string name="use_mag_stripe">请使用磁条</string>
+    <string name="try_again">请重试</string>
+    <string name="refer_payment_device">请参阅您的支付设备使用手册</string>
+    <string name="try_another_interface">请尝试其他接口</string>
+    <string name="online_required">功能需要在线使用</string>
+    <string name="welcome">欢迎光临</string>
+    <string name="present_one_card">请出示磁卡</string>
+    <string name="capk_failed">CAPK加载失败</string>
+    <string name="last_pin_try">请用最新PIN再试一次</string>
+    <string name="battery_low">设备电池电量不足，请充电</string>
+    <string name="battery_critically_low">设备电池严重不足即将关机</string>
+    <string name="no_device_detected">未检测到设备</string>
+    <string name="device_ready">点击启动</string>
+    <string name="device_plugged">设备已就绪</string>
+    <string name="device_unplugged">设备未插电</string>
+    <string name="command_not_available">没有可用的命令</string>
+    <string name="device_no_response">设备无反应</string>
+    <string name="device_reset">设备复位</string>
+    <string name="unknown_error">未知错误</string>
+    <string name="device_busy">设备繁忙</string>
+    <string name="out_of_range">输入超出范围</string>
+    <string name="invalid_format">输入格式无效</string>
+    <string name="zero_values">输入为零</string>
+    <string name="input_invalid">输入无效</string>
+    <string name="crc_error">CRC错误</string>
+    <string name="comm_error">通信错误</string>
+    <string name="cashback_not_supported">不支持现金</string>
+    <string name="transaction_declined">拒绝交易</string>
+    <string name="price_is_zero">价格不能为零</string>
+    <string name="processing">处理中...</string>
+    
+    <string name="device_off">设备已关闭</string>
+    <string name="get_info">获取设备信息</string>
+    <string name="clear_log">清除日志</string>
+    <string name="check_card">启动</string>
+    <string name="start_emv">启动EMV</string>
+    <string name="pin">PIN</string>
+    <string name="bypass">分支</string>
+    <string name="decline">下降</string>
+    <string name="getting_info">获取设备信息&#8230;</string>
+    <string name="starting">正在启动&#8230;</string>
+    <string name="email_subject">收据刷卡</string>
+    <string name="email_success">Email发送成功</string>
+    <string name="email_failure">Email未发送</string>
+    <string name="email_exception">发送Emai出错</string>
+    <string name="more">更多</string>
+    <string name="bluetooth">蓝牙</string>
+    <string name="audio">音频</string>
+    <string name="mac_error">MAC错误</string>
+    <string name="cmd_timeout">CMD超时</string>
+    <string name="pinKsn">pinKsn:</string>
+    <string name="trackksn">trackksn:</string>
+    <string name="pinBlock">pinBlock:</string>
+    <string name="posId">posId:</string>
+    <string name="get_pos_id">获得PosID</string>
+    <string name="getting_pos_id">正在获得POS的ID&#8230;</string>
+    <string name="success_swipe">已刷卡，正在加密数据，请等待&#8230;</string>
+    <string name="nfc_track2">Card Tapped (Track 2 Emulation):\n</string>
+    <string name="cardholder_name">持卡人姓名: </string>
+    <string name="pin_ksn">PIN KSN:</string>
+    <string name="track_ksn">Track KSN:</string>
+    <string name="emv_ksn">EMV KSN:</string>
+    <string name="uid">UID:</string>
+    <string name="track_1_length">Track 1 Length: </string>
+    <string name="track_2_length">Track 2 Length: </string>
+    <string name="track_3_length">Track 3 Length: </string>
+    <string name="encrypted_tracks">Encrypted Tracks: </string>
+    <string name="partial_track">Partial Track: </string>
+    <string name="do_emv_trade_fail">启动EMV失败</string>
+    <string name="do_emv_trade_success">启动EMV成功</string>
+    <string name="hardware_version">硬件版本: </string>
+    <string name="supported_track">支持的轨道: </string>
+    <string name="track_1_supported">支持的轨道1: </string>
+    <string name="track_2_supported">支持的轨道2: </string>
+    <string name="track_3_supported">支持的轨道3: </string>
+    <string name="unknown">未知</string>
+    <string name="cashback_amount">返现</string>
+    <string name="power_on_icc">启动ICC</string>
+    <string name="power_off_icc">关闭ICC</string>
+    <string name="send_apdu">发送APDU</string>
+    <string name="power_on_icc_success">启动ICC成功</string>
+    <string name="power_on_icc_failed">启动ICC失败</string>
+    <string name="power_off_icc_success">启动ICC成功</string>
+    <string name="power_off_icc_failed">关闭ICC失败</string>
+    <string name="apdu_result">APDU结果:</string>
+    <string name="atr">ATR:</string>
+    <string name="apdu_failed">APDU失败</string>
+    <string name="atr_length">ATR长度:</string>
+    <string name="get_ksn">获得KSN</string>
+    <string name="getting_ksn">正在获得KSN&#8230;</string>
+    <string name="powering_on_icc">正在启动ICC&#8230;</string>
+    <string name="powering_off_icc">正在关闭ICC&#8230;</string>
+    <string name="card_not_supported">不支持该磁卡</string>
+    <string name="missing_mandatory_data">缺少强制性数据</string>
+    <string name="card_blocked_or_no_evm_apps">磁卡堵塞或没有应用EMV</string>
+    <string name="invalid_icc_data">无效的ICC数据</string>
+    <string name="power_on_nfc">启动NFC</string>
+    <string name="power_off_nfc">关闭NFC</string>
+    <string name="data_exchange">数据交换</string>
+    <string name="power_on_nfc_success">启动NFC成功</string>
+    <string name="power_on_nfc_failed">启动NFC失败</string>
+    <string name="power_off_nfc_success">关闭NFC成功</string>
+    <string name="power_off_nfc_failed">关闭NFC失败</string>
+    <string name="data_received">收到数据:</string>
+    <string name="data_length">数据长度:</string>
+    <string name="data_exchange_failed">数据交换失败</string>
+    <string name="response">响应:</string>
+    <string name="send_mail">发送EMail</string>
+    <string name="finish">完成</string>
+    <string name="start">开始</string>
+    <string name="sign">标记</string>  
+    
+    <string name="get_pin">获得PIN</string>
+    <string name="update">更新</string>
+    <string name="input_pin">请输入PIN</string>
+    <string name="swipe_card">现在请刷卡</string> 
+    <string name="serialport">串行端口</string>
+	
+	<string name="scan_bt_device">扫描设备</string>
+	<string name="please_select_bt_name">选择蓝牙</string>
+	<string name="scan_bt_pos_error">没有配对的蓝牙设备 \n 请首先配对蓝牙设备</string>
+	<string name="connecting_bt_pos">正在连接 \n 请稍等&#8230;</string>
+	
+	   <string name="disconnect">断开连接</string>
+	   <string name="pls_choice_device">请选择配对的设备</string>
+	   <string name="not_bluetooth_adapter">没有蓝牙适配器的设备！</string>
+	   
+	   <string name="connecting">正在连接...</string>
+	   <string name="connected">已连接</string>
+	   <string name="input_sign_password">请输入手势密码</string>
+       <string name="input_account">输入帐号</string>
+		<string name="input_password">输入密码</string>
+      <string name="login">登陆</string>
+	<string name="logout_manager">注销管理员</string>   
+<string name="change_manager">切换管理员</string>  
+<string name="entry">进入</string> 
+<string name="search">搜索</string>
+<string name="order">订单</string>
+<string name="signature">签名</string>
+<string name="total">总计</string>
+<string name="signature_subtotal">￥0.00</string>
+<string name="please_sign">请在以上白板处签字</string>
+<string name="clear">清除</string>
+<string name="signature_confirm">提交</string>
+ <string name="sign_x">x</string>
+<string name="pay_infomation">支付信息</string> 
+<string name="zero">$0.00</string> 
+<string name="zero1">￥0.0</string> 
+<string name="sign1"> ￥</string> 
+<string name="no_data">抱歉!暂无数据!</string> 
+<string name="ok">OK</string> 
+<string name="new_new">New</string> 
+<string name="admin">管理员</string> 
+<string name="shopkeeper">店长</string> 
+<string name="sale">店员</string>  
+<string name="change_password">修改密码</string> 
+<string name="change_sign">修改手势</string> 
+<string name="exit_login">退出登录</string>
+<string name="add">添加</string>
+<string name="text_num">1245</string>
+<string name="text_num1"> 1 </string>
+<string name="sign_no"> NO. </string>
+<string name="code">编码</string>
+<string name="total1">Total:</string>
+<string name="refresh">refresh</string>
+<string name="shop_string">商品碎片碎片碎片碎片碎片碎片碎片碎片碎片</string>
+
+
+	<string name="pref_disable_account">Disable</string>
+	<string name="pref_tunnel">Tunnel</string>
+	<string name="pref_tunnel_host">Host name</string>
+	<string name="pref_tunnel_port">Port</string>
+	<string name="pref_tunnel_mode">Mode</string>
+    <string name="pref_audio_hacks_title">Audio hacks</string>
+	<string name="pref_audio_use_specific_mode_title">Use specific mode hack</string>
+	<string name="pref_audio_use_specific_mode_summary">0=MODE_NORMAL (default), 2=MODE_IN_CALL</string>
+	<string name="pref_audio_hacks_use_routing_api_title">Use routing API hack</string>
+	<string name="pref_audio_hacks_use_galaxys_hack_title">Use Galaxy S audio hack</string>
+	<string name="pref_audio_soft_volume_title">Use software volume</string>
+	<string name="pref_ipv6_title">Use ipv6 instead of ipv4</string>
+    <string name="pref_network_title">Network</string>
+	<string name="pref_transport_udp">UDP</string>
+	<string name="pref_transport_tcp">TCP</string>
+	<string name="pref_transport_tls">TLS</string>
+	<string name="pref_transport_use_standard_ports">Use standard ports</string>
+    <string name="pref_delete_account">Delete this account</string>
+	<string name="pref_default_account_title">Use as default</string>
+	<string name="pref_echo_canceller_calibration">Echo canceller calibration</string>
+	<string name="pref_echo_limiter">Echo limiter</string>
+	<string name="pref_video_use_front_camera_title">Use front camera</string>
+	<string name="pref_video">Video</string>
+	<string name="pref_preferences">Preferences</string>
+	<string name="pref_video_codec_h263_title">H263</string>
+	<string name="pref_video_codec_mpeg4_title">MPEG4</string>
+	<string name="pref_video_codec_h264_title">H264</string>
+	<string name="pref_video_codecs_title">Codecs</string>
+	<string name="pref_video_codecs_key">pref_video_codecs_key</string>
+    <string name="pref_video_settings_title">Video settings</string>
+	<string name="pref_video_automatically_share_my_video_title">Share my camera</string>
+	<string name="pref_video_automatically_accept_video_title">Accept incoming camera</string>
+	<string name="pref_video_automatically_share_my_video">Automatically send my camera</string>
+	<string name="pref_video_automatically_accept_video">Automatically accept correspondent\'s camera</string>
+	<string name="pref_video_initiate_call_with_video_title">Initiate video calls</string>
+	<string name="pref_video_initiate_call_with_video"></string>
+	<string name="pref_video_enable_title">Enable Video</string>
+	<string name="pref_escape_plus">Replace + by 00</string>
+	<string name="pref_ilbc_summary">iLBC might be unavailable depending on ARM processor and Android OS version.</string>
+	<string name="pref_echo_cancellation">Echo cancellation</string>
+	<string name="pref_autostart">Start at boot time</string>
+	<string name="pref_enable_outbound_proxy">Outbound proxy</string>
+	<string name="pref_codec_pcma">pcma</string>
+	<string name="pref_codec_pcmu">pcmu</string>
+	<string name="pref_codec_gsm">gsm</string>
+	<string name="pref_codec_g722">g722</string>
+	<string name="pref_codec_amr">amr</string>
+	<string name="pref_codec_amrwb">amr-wb</string>
+	<string name="pref_codec_ilbc">ilbc</string>
+	<string name="pref_codec_speex8">speex 8 Khz</string>
+	<string name="pref_codec_speex16">speex 16 Khz</string>
+	<string name="pref_codec_silk8">silk 8 Khz</string>
+	<string name="pref_codec_silk12">silk 12 Khz</string>
+	<string name="pref_codec_silk16">silk 16 Khz</string>
+	<string name="pref_codec_silk24">silk 24 Khz</string>
+	<string name="pref_codec_g729">g729</string>
+	<string name="pref_codecs">Codecs</string>
+
+   <string name="pref_proxy">Proxy</string>
+	<string name="pref_domain">Domain*</string>
+	<string name="pref_passwd">Password*</string>
+	<string name="pref_username">Username*</string>
+	<string name="pref_sipaccount">SIP Account</string>
+    <string name="pref_echo_cancellation_summary">Removes the echo heard by other end (not recommended)</string>
+	<string name="pref_echo_limiter_summary">Removes the echo heard by other end (brute force method)</string>
+	<string name="pref_stun_server">Stun server</string>
+    <string name="pref_amr_summary">AMR codec might not be present on your phone</string>
+	<string name="pref_video_codec_vp8_title">VP8</string>
+	<string name="pref_media_encryption">Media encryption</string>
+    <string name="pref_help_proxy">SIP proxy hostname or ip address (optional)</string>
+	<string name="pref_help_outbound_proxy">Route all calls through SIP proxy</string>
+	<string name="pref_help_username">Example: john if your account is john@sip.linphone.org</string>
+	<string name="pref_help_domain">sip.linphone.org if your account is john@sip.linphone.org</string>
+   <string name="pref_extra_accounts">pref_nb_accounts_extra</string>
+	<string name="pref_default_account">pref_default_account</string>
+	<string name="pref_sipaccounts">SIP Accounts</string>
+    <string name="pref_prefix">Prefix</string>
+	<string name="pref_advanced">Advanced</string>
+   <string name="pref_audio">Audio</string>
+
+	<string name="pref_wifi_only">Use wifi only</string>
+   <string name="pref_debug">Debug</string>
+   <!-- linphone resources  -->
+	<string-array name="tunnel_mode_entries">
+	<item>disabled</item>
+	<item>3G only</item>
+	<item>always</item>
+	<item>auto</item>
+	</string-array>
+
+<string name="notification_started">started</string>
+<string name="warning_wrong_destination_address">No IP found for [%s]</string>
+<string name="skipable_error_service_not_ready">Warning: service is not ready</string>
+<string name="failed">failed</string>
+<string name="media_encryption_none">None</string>
+<string name="media_encryption_srtp">SRTP</string>
+<string name="media_encryption_zrtp">ZRTP</string>
+<string name="ec_calibrating">Calibrating...</string>
+<string name="ec_calibrated">Calibrated [%s ms]</string>
+<string name="wizard_username_hint">Username</string>
+	<string name="wizard_password_hint">Password</string>
+	<string name="wizard_password_confirm_hint">Confirmation</string>
+	<string name="wizard_email_hint">Email</string>
+	<string name="wizard_title">Account Wizard</string>
+	<string name="wizard_create_account">Create Account</string>
+	<string name="wizard_cancel">Cancel</string>
+	<string name="wizard_failed">An error occurred, try again later.</string>
+	<string name="wizard_server_unavailable">Server unreachable, verify your internet connection.</string>
+	<string name="wizard_username_unavailable">This username is already in use.</string>
+	<string name="wizard_username_incorrect">Your username is not valid.</string>
+	<string name="wizard_email_incorrect">Your email is not valid.</string>
+	<string name="wizard_password_incorrect">Your password is not valid (6 characters min).</string>
+	<string name="wizard_passwords_unmatched">Passwords entered are different.</string>
+	<string name="wizard_need_activation">You need to activate your account with the link that was send to your email.</string>
+	<string name="wizard_confirmation">Confirmation</string>
+	<string name="wizard_verify_account">Check</string>
+<string name="incall_notif_active">Audio call ongoing</string>
+	<string name="incall_notif_paused">Paused call ongoing</string>
+	<string name="incall_notif_video">Video capturing call ongoing</string>
+<string name="unknown_incoming_call_name">Unknown</string>
+<string name="wrong_username">wrong user name</string>
+	<string name="wrong_passwd">wrong password</string>
+	<string name="wrong_domain">Wrong domain</string>
+	<string name="wrong_settings">Wrong settings</string>
+
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="whilte">#ffffff</color>
+    
+    
+    <!-- login -->
+    <color name="default_bk">#fafafa</color>
+    <color name="half_transparent_dark">#e0000000</color>
+    <color name="half_transparent_light">#AA000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="login_hint_color">#d4d4d4</color>
+    
+    <color name="thtfitpos">#fff8981d</color>
+    <color name="phoneswipe">#ffd5e04d</color>
+    
+    
+</resources>
