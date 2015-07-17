@@ -51,6 +51,7 @@ LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := activate:libs/activation.jar \
 LOCAL_PREBUILT_LIBS :=liba01jni:libs/armeabi/liba01jni.so \
                       libbdpush_V2_2:libs/armeabi/libbdpush_V2_2.so \
                       lib_serial_port:libs/armeabi/lib_serial_port.so 
-					   
+LOCAL_MODULE_TAGS := optional
+			   
 include $(BUILD_MULTI_PREBUILT)
 include $(call all-makefiles-under,$(LOCAL_PATH))
