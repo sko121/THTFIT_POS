@@ -147,4 +147,27 @@
 	<color name="navy">#000080</color><!--海军色 -->  
 	<color name="black">#000000</color><!--黑色 -->
 	<color name="mainBackgroundColor">#cddef5</color>  
+	<color name="android_thick_orange">#FFA500</color>
+	<color name="whilte">#ffffff</color>
+    
+    
+    <!-- login -->
+    <color name="default_bk">#fafafa</color>
+    <color name="half_transparent_dark">#e0000000</color>
+    <color name="half_transparent_light">#AA000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="login_hint_color">#d4d4d4</color>
+    
+    <color name="thtfitpos">#fff8981d</color>
+    <color name="phoneswipe">#ffd5e04d</color>
+    
+    <color name="default_circle_indicator_fill_color">#FFFFFFFF</color>
+    <color name="default_circle_indicator_page_color">#00000000</color>
+    <color name="default_circle_indicator_stroke_color">#FFDDDDDD</color>
+    <color name="default_line_indicator_selected_color">#FF33B5E5</color>
+    <color name="default_line_indicator_unselected_color">#FFBBBBBB</color>
+    <color name="default_title_indicator_footer_color">#FF33B5E5</color>
+    <color name="default_title_indicator_selected_color">#FFFFFFFF</color>
+    <color name="default_title_indicator_text_color">#BBFFFFFF</color>
+    <color name="default_underline_indicator_selected_color">#FF33B5E5</color>
 </resources>  

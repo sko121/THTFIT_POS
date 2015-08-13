@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,6 +25,8 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.thtfit.pos.R;
+import com.thtfit.pos.api.CartApi;
+import com.thtfit.pos.fragment.FirstFragment;
 import com.thtfit.pos.fragment.TotalFragment;
 import com.thtfit.pos.model.Product;
 import com.thtfit.pos.service.PosApplication;
@@ -33,12 +36,12 @@ public class TotalListAdapter extends BaseAdapter {
 	List<Product> products;
 	Context context;
 	private PosApplication application;
+		
 
 	public TotalListAdapter(List<Product> products, Context context) {
 		super();
 		this.products = products;
-		this.context = context;
-		
+		this.context = context;		
 		application = (PosApplication) context.getApplicationContext();
 	}
 
@@ -113,11 +116,11 @@ public class TotalListAdapter extends BaseAdapter {
 	    .resetViewBeforeLoading(true)//设置图片在下载前是否重置，复位  
 	    .displayer(new FadeInBitmapDisplayer(100))//是否图片加载好后渐入的动画时间  
 	    .build();//构建完成  
-		
 		application.imageLoader.displayImage("http://"+products.get(position).getImagePath(), viewHolder.itemImage,options);
 		
-//		viewHolder.itemImage.setImageBitmap(imageProcessing(myUri));
+		final Intent intent = new Intent(MainGridAdapter.REFLASHACTION);
 		
+//		viewHolder.itemImage.setImageBitmap(imageProcessing(myUri));
 		viewHolder.itemButtonAdd.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -129,11 +132,15 @@ public class TotalListAdapter extends BaseAdapter {
 				String serial = products.get(position).getSerial() + "";
 				TotalFragment.numberList.put(serial, number);
 				viewHolder.itemNumber.setText(number);
-				
+				products.get(position).setNumber(number);
+				context.sendBroadcast(intent);
 				TotalFragment.subBill = TotalFragment.subBill + (Float.parseFloat(price));
 				setBill(TotalFragment.subBill);
 			}
 		});
+		
+		
+		
 		viewHolder.itemButtonMinus.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -141,7 +148,7 @@ public class TotalListAdapter extends BaseAdapter {
 				int tmpNumber = Integer.parseInt(viewHolder.itemNumber
 						.getText().toString()) - 1;
 				if (tmpNumber <= 0) {
-					
+					products.get(position).setNumber("0");
 					String price = products.get(position).getPrice();
 					TotalFragment.subBill = TotalFragment.subBill - (Float.parseFloat(price));
 					setBill(TotalFragment.subBill);
@@ -151,8 +158,8 @@ public class TotalListAdapter extends BaseAdapter {
 					TotalFragment.numberList.remove(products.get(position)
 							.getSerial() + "");
 					TotalFragment.listItems.remove(position);
-					notifyDataSetChanged();
-					
+					notifyDataSetChanged();					
+					context.sendBroadcast(intent);
 					return;
 				}
 				String number = Integer.toString(tmpNumber);
@@ -160,7 +167,8 @@ public class TotalListAdapter extends BaseAdapter {
 				String serial = products.get(position).getSerial() + "";
 				TotalFragment.numberList.put(serial, number);
 				viewHolder.itemNumber.setText(number);
-				
+				products.get(position).setNumber(number);
+				context.sendBroadcast(intent);
 				TotalFragment.subBill = TotalFragment.subBill - (Float.parseFloat(price));
 				setBill(TotalFragment.subBill);
 			}
@@ -200,5 +208,7 @@ public class TotalListAdapter extends BaseAdapter {
 		return bitmap;
 
 	}
+	
+	
 
 }

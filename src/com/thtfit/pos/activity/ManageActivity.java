@@ -1,10 +1,12 @@
 package com.thtfit.pos.activity;
 
 import android.os.Bundle;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 import android.view.Window;
 
 import com.thtfit.pos.R;
@@ -44,7 +46,7 @@ public class ManageActivity extends FragmentActivity {
 	}
 
 	public void exit_settings(View v){
-		Intent intent = new Intent(getActivity(),MainActivity.class);
+		Intent intent = new Intent(this,MainActivity.class);
 		startActivity(intent);
 	}
 	

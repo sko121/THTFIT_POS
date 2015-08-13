@@ -53,6 +53,9 @@
             android:name="com.thtfit.pos.activity.ShopingActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name="com.thtfit.pos.activity.BaseActivity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name="com.thtfit.pos.activity.ManageActivity"
             android:screenOrientation="landscape" />
         <activity

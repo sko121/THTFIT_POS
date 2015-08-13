@@ -51,6 +51,9 @@ public class ManageAddFragment extends Fragment implements OnClickListener {
 	private DBHelper dBHelper = null;
 	private SQLiteDatabase sqlitedb = null;
 	private DBContror dbcon = null;
+	
+	private List<Product> serialList;
+	private List<ItemType> typeList;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -137,7 +140,26 @@ public class ManageAddFragment extends Fragment implements OnClickListener {
 	}
 
 	private void submitProductData() {
-
+		
+		typeList = getData();
+		for(int i = 0; i < typeList.size(); i++){
+			if(typeList.get(i).getName().equals(((ItemType) spinner_type.getSelectedItem()).getName())){
+				System.out.println("----typeList.get(i).getName()-------->"+typeList.get(i).getName());
+				serialList = dbcon.queryAllItemByType(((ItemType) spinner_type.getSelectedItem()).getId()+ "");
+				System.out.println("------serialList.size()-----"+serialList.size());
+				for(int j = 0; j < serialList.size(); j++){
+					System.out.println("----serialList.get(j).getSerial()---------"+serialList.get(j).getSerial());
+					System.out.println("-------editText_serial.getText().toString()--------------"+editText_serial.getText().toString());
+					if(serialList.get(j).getSerial() == Integer.parseInt(editText_serial.getText().toString().trim())){
+						ShowMSG("已经有该编号，编号是唯一的");
+						return;
+					}
+				}
+			}
+		}
+		
+		
+		
 		// 判断数据是否为空
 		productName = editText_name.getText().toString().trim();
 		productPrice = editText_price.getText().toString().trim();

@@ -80,6 +80,7 @@ OnClickListener {
 
 	private void init() {
 
+		System.out.println("----SecondFragment---init()---");
 		mainGridAdapter = new MainGridAdapter(mylist, getActivity());// 自定义适配器
 		myGridView.setAdapter(mainGridAdapter);
 
@@ -109,6 +110,7 @@ OnClickListener {
 					int position, long id) {
 				TotalFragment.getInstance(getActivity()).updateList(
 						mylist.get(position));
+				mainGridAdapter.refresh();
 			}
 		});
 	

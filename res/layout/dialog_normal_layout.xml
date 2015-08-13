@@ -74,10 +74,10 @@
                 android:id="@+id/positiveButton"
                 style="@style/text_15_ffffff_sdw"
                 android:layout_width="100.0dip"
-                android:layout_height="40.0dip"
-                android:background="@drawable/btn_ok_selector"
+                android:layout_height="40.0dip"               
                 android:gravity="center"
                 android:text="@string/ok" />
+            <!-- android:background="@drawable/btn_ok_selector" -->
 
             <Button
                 android:id="@+id/neutralButton"

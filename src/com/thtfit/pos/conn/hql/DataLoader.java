@@ -4,16 +4,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 
 import com.thtfit.pos.model.Product;
+import com.thtfit.pos.service.PosApplication;
 
 public class DataLoader {
 	private Context mContext;
 	private OnCompletedListener l;
 
 	private DBContror dbcon;
+	private PosApplication application;
 
 	public DataLoader(Context mContext) {
 		this.mContext = mContext;
@@ -31,6 +34,7 @@ public class DataLoader {
 		}
 	}
 
+	@SuppressLint("NewApi")
 	private class LoadTask extends
 			AsyncTask<HashMap<String, String>, Void, List<Product>> {
 
@@ -59,6 +63,7 @@ public class DataLoader {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			System.out.println("--DataLoader-----mylist--------"+mylist.size());
 
 			return mylist;
 		}

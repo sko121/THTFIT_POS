@@ -8,16 +8,33 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="80dp"
-        android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        android:layout_weight="0.3"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="10dp" >
+
+        <ImageView
+            android:id="@+id/right_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/logo" />
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="23dp"
+        android:layout_weight="0.8"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="10dp" >
 
         <ImageView
             android:id="@+id/mutil_video_preview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="230dp"
+            android:layout_height="100dp"
             android:background="@drawable/picture"
             android:baselineAlignBottom="true"
             android:focusable="false" />
@@ -36,6 +53,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
+        android:paddingLeft="5dp"
         android:layout_weight="2"
         android:orientation="vertical" >
 
@@ -43,6 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:paddingTop="12dp"
             android:gravity="center"
             android:orientation="horizontal" >
 
@@ -50,27 +69,28 @@
                 android:id="@+id/image_num_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="35dp"
                 android:background="@drawable/selector_num1" />
 
             <ImageButton
                 android:id="@+id/image_num_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:background="@drawable/selector_num2" />
 
             <ImageButton
                 android:id="@+id/image_num_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="35dp"
                 android:background="@drawable/selector_num3" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
+            android:paddingTop="3dp"
             android:gravity="center"
             android:orientation="horizontal" >
 
@@ -78,27 +98,27 @@
                 android:id="@+id/image_num_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="35dp"
                 android:background="@drawable/selector_num4" />
 
             <ImageButton
                 android:id="@+id/image_num_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:background="@drawable/selector_num5" />
 
             <ImageButton
                 android:id="@+id/image_num_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="35dp"
                 android:background="@drawable/selector_num6" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal" >
 
@@ -106,20 +126,20 @@
                 android:id="@+id/image_num_7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="35dp"
                 android:background="@drawable/selector_num7" />
 
             <ImageButton
                 android:id="@+id/image_num_8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:background="@drawable/selector_num8" />
 
             <ImageButton
                 android:id="@+id/image_num_9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="35dp"
                 android:background="@drawable/selector_num9" />
         </LinearLayout>
 
@@ -127,6 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:paddingTop="5dp"
             android:gravity="center"
             android:orientation="horizontal" >
 
@@ -134,20 +155,20 @@
                 android:id="@+id/image_num_asterisk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="35dp"
                 android:background="@drawable/selector_asterisk" />
 
             <ImageButton
                 android:id="@+id/image_num_0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:background="@drawable/selector_num0" />
 
             <ImageButton
                 android:id="@+id/image_num_octothorpe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="35dp"
                 android:background="@drawable/selector_octothorpe" />
         </LinearLayout>
 
@@ -155,6 +176,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:paddingTop="3dp"
             android:gravity="center"
             android:orientation="horizontal" >
 
@@ -162,20 +184,20 @@
                 android:id="@+id/image_num_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="35dp"
                 android:background="@drawable/selector_calloff" />
 
             <ImageButton
                 android:id="@+id/image_num_volume"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:background="@drawable/selector_volume" />
 
             <ImageButton
                 android:id="@+id/image_num_13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="35dp"
                 android:background="@drawable/selector_calling" />
         </LinearLayout>
     </LinearLayout>

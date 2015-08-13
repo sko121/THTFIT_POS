@@ -465,13 +465,14 @@
 	<string name="wizard_need_activation">You need to activate your account with the link that was send to your email.</string>
 	<string name="wizard_confirmation">Confirmation</string>
 	<string name="wizard_verify_account">Check</string>
-<string name="incall_notif_active">Audio call ongoing</string>
+	<string name="incall_notif_active">Audio call ongoing</string>
 	<string name="incall_notif_paused">Paused call ongoing</string>
 	<string name="incall_notif_video">Video capturing call ongoing</string>
-<string name="unknown_incoming_call_name">Unknown</string>
-<string name="wrong_username">wrong user name</string>
+    <string name="unknown_incoming_call_name">Unknown</string>
+	<string name="wrong_username">wrong user name</string>
 	<string name="wrong_passwd">wrong password</string>
 	<string name="wrong_domain">Wrong domain</string>
 	<string name="wrong_settings">Wrong settings</string>
+	<string name="clean">清除</string>
 
 </resources>

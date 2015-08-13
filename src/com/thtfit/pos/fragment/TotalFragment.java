@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.thtfit.pos.R;
 import com.thtfit.pos.activity.SwipeCardActivity;
+import com.thtfit.pos.adapter.MainGridAdapter;
 import com.thtfit.pos.adapter.TotalListAdapter;
 import com.thtfit.pos.model.Product;
 import com.thtfit.pos.util.Utils;
@@ -144,11 +145,22 @@ public class TotalFragment extends Fragment implements OnClickListener {
 	}
 
 	public void clearData() {
+		if(listItems != null){
+			if(listItems.size() > 0){
+				for(int i = 0;i < listItems.size();i++){
+					listItems.get(i).setNumber("0");
+				}
+			}
+		}
+		Intent intent = new Intent(MainGridAdapter.REFLASHACTION);
+		if(getActivity() != null){
+			getActivity().sendBroadcast(intent);
+		}		
 		subBill = 0;
 		setBill(subBill);
 		serialList.clear();
 		numberList.clear();
-		listItems.removeAll(listItems);
+		listItems.removeAll(listItems);		
 	}
 
 	@Override
@@ -207,6 +219,7 @@ public class TotalFragment extends Fragment implements OnClickListener {
 				numberList.put(serial, number);
 
 				product.setNumber(number);
+				pro.setNumber(number);
 				// lstItems.remove(product.getSerial());
 				totalListAdapter = new TotalListAdapter(listItems, mContext);
 				listView.setAdapter(totalListAdapter);
@@ -215,6 +228,7 @@ public class TotalFragment extends Fragment implements OnClickListener {
 				numberList.put(serial, "1");
 				serialList.add(serial);
 				product.setNumber("1");
+				pro.setNumber("1");
 				listItems.add(product);
 				totalListAdapter = new TotalListAdapter(listItems, mContext);
 				listView.setAdapter(totalListAdapter);

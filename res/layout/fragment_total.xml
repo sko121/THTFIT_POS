@@ -5,30 +5,45 @@
 
     <LinearLayout
         android:id="@+id/linearLayout_total"
-        android:paddingTop="15dp"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_orange_selector"
+        android:orientation="horizontal" >
 
         <Button
+            android:textAppearance="?android:textAppearanceMedium"
             android:id="@+id/total_clear"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:background="@drawable/total_clear" />
+            android:layout_width="0dp"
+            android:layout_height="28dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/white"
+            android:text="@string/clean"
+            android:textStyle="bold" 
+            android:layout_weight="1.8"
+            android:shadowDy="2.0" 
+            android:shadowRadius="1.0"  />
 
         <Button
+            android:textAppearance="?android:textAppearanceMedium"
             android:id="@+id/total_checkout"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_width="0dp"
+            android:layout_height="28dp"
             android:text="@string/zero1"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:background="@drawable/total_total" />
+            android:background="@android:color/transparent"
+            android:layout_weight="3" />
         <Button
             android:id="@+id/total_checkout_right"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:background="@drawable/total_checkout" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/arrow_right_white"
+            android:layout_weight="0.3" />
     </LinearLayout>
 
     <ListView

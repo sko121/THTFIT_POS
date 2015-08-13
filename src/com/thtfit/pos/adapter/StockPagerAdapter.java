@@ -149,6 +149,7 @@ public class StockPagerAdapter extends BaseAdapter {
 				CustomDialog.Builder builder = new CustomDialog.Builder(context);
 				builder.setTitle("输入产品入库数量");
 				editText = (EditText) builder.getEditText();
+				
 				builder.setPositiveButton("确定",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
@@ -160,6 +161,7 @@ public class StockPagerAdapter extends BaseAdapter {
 										+ Integer.parseInt(stockNumber));
 
 								viewHolder.itemStock.setText(proStock);
+								products.get(position).setStock(proStock);
 								new Thread() {
 									@Override
 									public void run() {
@@ -189,18 +191,21 @@ public class StockPagerAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				CustomDialog.Builder builder = new CustomDialog.Builder(context);
 				builder.setTitle("输入产品出库数量");
-				editText = (EditText) builder.getEditText();
+				editText = (EditText) builder.getEditText();				
 				builder.setPositiveButton("确定",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int which) {
-								int tmpStock = Integer
-										.parseInt(viewHolder.itemStock
-												.getText().toString())
-										- Integer.parseInt(stockNumber);
+								
+								if(viewHolder.itemStock.getText().toString() == null){
+									return;
+								}
+								stockNumber = editText.getText().toString();
+								int tmpStock = Integer.parseInt(viewHolder.itemStock.getText().toString())- Integer.parseInt(stockNumber);
 								proStock = tmpStock < 0 ? "0" : String
 										.valueOf(tmpStock);
 								viewHolder.itemStock.setText(proStock);
+								products.get(position).setStock(proStock);
 								new Thread() {
 									@Override
 									public void run() {
@@ -258,6 +263,7 @@ public class StockPagerAdapter extends BaseAdapter {
 		stock.setProId(serial);
 		stock.setTime(stockTime);
 		stock.setStock(proStock);
+		System.out.println("--setStock----proStock-----"+proStock);
 		if (MESSAGE_IN_STOCK == messageStockType) {
 			stock.setIn(stockNumber);
 			stock.setOut("0");

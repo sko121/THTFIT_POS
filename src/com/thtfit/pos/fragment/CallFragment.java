@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 
 import com.thtfit.pos.R;
 
-/*
+
 public class CallFragment extends Fragment implements OnClickListener{
 
     private ImageButton btnNum0 = null;
@@ -81,12 +81,9 @@ public class CallFragment extends Fragment implements OnClickListener{
 	}
     
 
-    public void onTranFragment(){
    
-    }
 	@Override
 	public void onClick(View v) {
-      String TopStackEntryName = FragmentMgrHelper.getTopStackEntryName(getFragmentManager());
 		switch (v.getId()) {
 		case R.id.image_num_volume:
 			AudioManager mAudioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
@@ -127,4 +124,4 @@ public class CallFragment extends Fragment implements OnClickListener{
 		
 	}
 	
-} */
+} 

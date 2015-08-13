@@ -1,5 +1,6 @@
 package com.thtfit.pos.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 //#import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 //import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -17,14 +19,16 @@ import com.thtfit.pos.adapter.MainPagerAdapter;
 import com.thtfit.pos.fragment.LeftCategoryFragment;
 import com.thtfit.pos.fragment.RightPerMsgCenterFragment;
 import com.thtfit.pos.fragment.TotalFragment;
+import com.viewpagerindicator.TitlePageIndicator;
 
 public class ShopingActivity extends SlidingFragmentActivity {
 
-	private ImageButton main_left_imgbtn;
+	private ImageView main_left_imgbtn;
 	private ImageButton main_right_imgbtn;
 	private ViewPager myViewPager;
 	private PagerTitleStrip pagertitle;
 	private MainPagerAdapter mAdapter;
+	private TitlePageIndicator mTitlePageIndicator;
 
 	public static int currentItem = 1;
 	public static int tagItem = 1;
@@ -67,22 +71,32 @@ public class ShopingActivity extends SlidingFragmentActivity {
 				.commit();
 	}
 
+	@SuppressLint("ResourceAsColor")
 	private void initView() {
-		main_left_imgbtn = (ImageButton) this
+		main_left_imgbtn = (ImageView) this
 				.findViewById(R.id.main_left_imgbtn);
 		main_right_imgbtn = (ImageButton) this
 				.findViewById(R.id.main_right_imgbtn);
 		myViewPager = (ViewPager) this.findViewById(R.id.myviewpager);
-		pagertitle = (PagerTitleStrip) this.findViewById(R.id.pagertitle);
+		mTitlePageIndicator = ((TitlePageIndicator)findViewById(R.id.inventory_indicator));
+		mAdapter = new MainPagerAdapter(ShopingActivity.this,
+				getSupportFragmentManager(),myViewPager);
+		myViewPager.setAdapter(mAdapter);
+		mTitlePageIndicator.setViewPager(myViewPager);
+		mTitlePageIndicator.setFooterIndicatorStyle(TitlePageIndicator.IndicatorStyle.Triangle);
+		mTitlePageIndicator.setFooterLineHeight(1);
+		mTitlePageIndicator.setFooterIndicatorHeight(3);
+		mTitlePageIndicator.setSelectedBold(true);
+		//pagertitle = (PagerTitleStrip) this.findViewById(R.id.pagertitle);
+		//pagertitle.setTextSize(0, 25);
 	}
 
 	/**
 	 * 初始化变量
 	 */
 	private void initValidata() {
-		pagertitle.setTextSize(0, 25);
-		mAdapter = new MainPagerAdapter(ShopingActivity.this,
-				getSupportFragmentManager(),myViewPager);
+		//pagertitle.setTextSize(0, 25);
+		
 		mAdapter.setOnExtraPageChangeListener(new MainPagerAdapter.OnExtraPageChangeListener(){
 			@Override
 			public void onExtraPageSelected(int i) {
@@ -96,11 +110,15 @@ public class ShopingActivity extends SlidingFragmentActivity {
 	/**
 	 * 绑定数据
 	 */
+	@SuppressLint("NewApi")
 	private void bindData() {
-		myViewPager.setAdapter(mAdapter);
+		
 		myViewPager.setOffscreenPageLimit(1);
 		myViewPager.setOverScrollMode(2);
 		myViewPager.setCurrentItem(0);
+		
+		
+	    
 	}
 
 	private void initListener() {

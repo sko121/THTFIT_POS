@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,9 +25,10 @@ import com.thtfit.pos.conn.hql.DataLoader.OnCompletedListener;
 import com.thtfit.pos.model.Product;
 import com.thtfit.pos.util.widget.FooterView;
 import com.thtfit.pos.util.widget.MainGridView;
+import com.thtfit.pos.api.CartApi;
 
 public class FirstFragment extends Fragment implements OnCompletedListener,
-OnClickListener {
+				OnClickListener{
 	private String LOG_TAG = "FirstFragment";
 	private View mView;
 	private MainPagerAdapter mPagerAdapter;
@@ -42,7 +44,8 @@ OnClickListener {
 	public final static int PAGE_SIZE = 12; // 每次加载10个item
 	private boolean isLoadFinished;
 	private HashMap<String, String> loaderMap = new HashMap<String, String>();
-
+	
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -108,8 +111,12 @@ OnClickListener {
 					int position, long id) {
 				TotalFragment.getInstance(getActivity()).updateList(
 						mylist.get(position));
+				System.out.println("-----myGridView.setOnItemClickListener---position--"+position);
+				System.out.println("----myGridView.setOnItemClickListener---number----->"+mylist.get(position).getNumber());
+				mainGridAdapter.refresh();
 			}
 		});
+		
 	
 
 	}
@@ -201,6 +208,11 @@ OnClickListener {
 	public void onDestroy() {
 		super.onDestroy();
 		mylist.clear();
+		if (mainGridAdapter != null){
+			mainGridAdapter.unRegisterReceiver();
+		}
+		
 	}
+
 
 }

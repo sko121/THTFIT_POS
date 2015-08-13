@@ -9,7 +9,10 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,6 +23,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.CursorLoader;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -33,6 +37,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.thtfit.pos.R;
+import com.thtfit.pos.fragment.TotalFragment;
 import com.thtfit.pos.model.Product;
 import com.thtfit.pos.service.PosApplication;
 import com.thtfit.pos.util.widget.FooterView;
@@ -41,7 +46,7 @@ import com.thtfit.pos.util.widget.FooterView;
  * 适配器类ProductAdapter
  * 
  */
-public class MainGridAdapter extends BaseAdapter {
+public class MainGridAdapter extends BaseAdapter{
 
 	private List<Product> products = new ArrayList<Product>();
 	private Context context;
@@ -51,6 +56,8 @@ public class MainGridAdapter extends BaseAdapter {
 	private FooterView footerView;
 	
 	private PosApplication application;
+	public static String REFLASHACTION= "com.thtfit.pos.adapter.refresh";
+	
 
     protected ImageLoader imageLoader = ImageLoader.getInstance();
 	
@@ -61,10 +68,19 @@ public class MainGridAdapter extends BaseAdapter {
 			this.products = pro_list;
 		}
 		this.context = context;
-		application = (PosApplication) context.getApplicationContext();
+		application = (PosApplication) context.getApplicationContext();			
 //		notifyDataSetChanged();
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(REFLASHACTION);
+		context.registerReceiver(onRefashReceiver, filter);
 		
 	}
+	
+	public void unRegisterReceiver(){
+		context.unregisterReceiver(onRefashReceiver);
+	}
+	
+	
 
 	public boolean isFooterViewEnable() {
 		return footerViewEnable;
@@ -117,7 +133,7 @@ public class MainGridAdapter extends BaseAdapter {
 		return position;
 	}
 
-	@SuppressLint("InflateParams")
+	@SuppressLint({ "InflateParams", "ViewHolder" })
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LayoutInflater inflater = LayoutInflater.from(context);
@@ -143,7 +159,7 @@ public class MainGridAdapter extends BaseAdapter {
 			return footerView;
 		}
 
-		ViewHolder viewHolder;
+		/*ViewHolder viewHolder;
 		if (convertView == null
 				|| (convertView != null && convertView == footerView)) {
 			convertView = inflater.inflate(R.layout.griditeminfo, null);
@@ -157,12 +173,17 @@ public class MainGridAdapter extends BaseAdapter {
 			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
-		}
-
-		viewHolder.title.setText((CharSequence) products.get(position)
+		}*/
+		convertView = inflater.inflate(R.layout.griditeminfo, null);
+		TextView tv_title = (TextView) convertView.findViewById(R.id.grid_itemName);
+		TextView tv_price = (TextView) convertView.findViewById(R.id.grid_itemPrice);
+		ImageView image = (ImageView) convertView.findViewById(R.id.grid_itemImage);
+		tv_title.setText((CharSequence) products.get(position).getName());
+		tv_price.setText((CharSequence) products.get(position).getPrice());
+		/*viewHolder.title.setText((CharSequence) products.get(position)
 				.getName());
 		viewHolder.price.setText((CharSequence) products.get(position)
-						.getPrice());
+						.getPrice());*/
 
 	    DisplayImageOptions options;  
 	    options = new DisplayImageOptions.Builder()  
@@ -176,12 +197,48 @@ public class MainGridAdapter extends BaseAdapter {
 	    .displayer(new FadeInBitmapDisplayer(100))//是否图片加载好后渐入的动画时间  
 	    .build();//构建完成  
 		
+	    System.out.println("--imageloader--path-->"+products.get(position).getImagePath());
+	    try {
+	    	if(products.get(position).getImagePath().contains("content:")){
+		    	application.imageLoader.displayImage(products.get(position).getImagePath(), image, options);
+		    }else{	
+		    	application.imageLoader.displayImage("http://"+products.get(position).getImagePath(), image, options);	
+		    	
+		    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	    ImageView imageViewQuantityNumberBubble = (ImageView)convertView.findViewById(R.id.imageViewQuantityNumberBubble);
+    	TextView tv_quantity = (TextView)convertView.findViewById(R.id.quantity);
+    	int tmpNumber = 0;
+    	if(products.get(position) != null){
+    		if(products.get(position).getNumber() == null){
+    			System.out.println("---Mainadapter--position-------"+position);
+    			System.out.println("--products.get(position).getNumber()---------"+products.get(position).getNumber());
+    			imageViewQuantityNumberBubble.setVisibility(View.INVISIBLE);
+    			tv_quantity.setVisibility(View.INVISIBLE);
+    		}else{
+    			System.out.println("--products.get(position).getNumber()---------"+products.get(position).getNumber());
+    			try {
+        			tmpNumber = Integer.parseInt(products.get(position).getNumber());
+    			} catch (Exception e) {
+    				e.printStackTrace();				
+    				
+    			}
+        		
+        		if(tmpNumber > 0){
+        			imageViewQuantityNumberBubble.setVisibility(View.VISIBLE);
+        			tv_quantity.setVisibility(View.VISIBLE);
+        			tv_quantity.setText(String.valueOf(tmpNumber));
+        		}else{
+        			imageViewQuantityNumberBubble.setVisibility(View.INVISIBLE);
+        			tv_quantity.setVisibility(View.INVISIBLE);
+        		}
+    		}
+    		
+    		
+    	}
 	    
-	    if(products.get(position).getImagePath().contains("content:")){
-	    	imageLoader.displayImage(products.get(position).getImagePath(), viewHolder.image, options);
-	    }else{
-	    	imageLoader.displayImage("http://"+products.get(position).getImagePath(), viewHolder.image, options);
-	    }
 		
 //		ImageLoader.getInstance().displayImage("http://192.168.130.85:8080/SmartPos/images/products/21.jpg", viewHolder.image);
 		
@@ -280,6 +337,7 @@ public class MainGridAdapter extends BaseAdapter {
 	}
 
 	// Bitmap转换成Drawable
+	@SuppressLint("NewApi")
 	public Drawable bitmapToDrawable(Bitmap bitmap) {
 		BitmapDrawable bitmapDrawable = new BitmapDrawable(
 				context.getResources(), bitmap);
@@ -287,10 +345,33 @@ public class MainGridAdapter extends BaseAdapter {
 		return drawable;
 	}
 
-	public class ViewHolder {
+	/*public class ViewHolder {
 		public TextView title;
 		public TextView price;
 		public ImageView image;
+	}*/
+	
+	public void refresh(){
+		if(products != null){
+			//products.clear();
+			//products.addAll(pro_list);
+			notifyDataSetChanged();
+		}
+		
 	}
+		
+	private BroadcastReceiver onRefashReceiver = new BroadcastReceiver(){
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if(intent.getAction().equals(REFLASHACTION)){
+				refresh();
+			}
+			
+		}
+		
+	};
+	
+	
 
 }
