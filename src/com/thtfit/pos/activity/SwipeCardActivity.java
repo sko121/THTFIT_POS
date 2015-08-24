@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.apache.http.util.ByteArrayBuffer;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
@@ -135,6 +136,7 @@ public class SwipeCardActivity extends FragmentActivity {
 		m_ListView.setVisibility(View.VISIBLE);
 	}
 
+	@SuppressLint("NewApi")
 	private void StopScanBTPos() {
 		if (mAdapter != null) {
 			mAdapter.cancelDiscovery();
@@ -143,7 +145,7 @@ public class SwipeCardActivity extends FragmentActivity {
 
 	}
 
-	private void onBTPosSelected(Activity activity, View itemView, int index) {
+	private void onBTPosSelected( View itemView, int index) {
 		StopScanBTPos();
 		//
 		start_time = new Date().getTime();
@@ -258,6 +260,7 @@ public class SwipeCardActivity extends FragmentActivity {
 
 	}
 
+	@SuppressLint("NewApi")
 	@SuppressWarnings("unchecked")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -271,7 +274,7 @@ public class SwipeCardActivity extends FragmentActivity {
 		mContext = this;
 		mIsWorking = true;
 
-		setContentView(R.layout.activity_swipe);
+		setContentView(R.layout.activity_swipe_zc);
 		mReceiveAmount = getIntent().getStringExtra("amount");
 		listItems = (List<Product>) getIntent().getSerializableExtra("listItems");
 		totalList = (ListView) findViewById(R.id.swpie_total_list);
@@ -284,7 +287,7 @@ public class SwipeCardActivity extends FragmentActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				onBTPosSelected(SwipeCardActivity.this, view, position);
+				onBTPosSelected(view, position);
 				m_ListView.setVisibility(View.GONE);
 				animScan.stop();
 				imvAnimScan.setVisibility(View.GONE);
@@ -411,6 +414,7 @@ public class SwipeCardActivity extends FragmentActivity {
 		Log.d(LOG_TAG, "onResume");
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
@@ -1357,6 +1361,7 @@ public class SwipeCardActivity extends FragmentActivity {
 
 	class MyOnClickListener implements OnClickListener {
 
+		@SuppressLint("NewApi")
 		@Override
 		public void onClick(View v) {
 			String content = getString(R.string.card_swiped);

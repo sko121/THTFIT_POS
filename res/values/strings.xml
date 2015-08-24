@@ -99,6 +99,11 @@
     <string name="swipe_check_card">刷卡</string>
     <string name="swipe_disconnect">中止刷卡</string>
     
+    <string name="swipe_zc_connect">连接设备</string>
+    <string name="swipe_zc_ic">IC卡</string>
+    <string name="swipe_zc_mag">磁条卡</string>
+    <string name="swipe_zc_nfc">NFC</string>
+    
     <string name="image"></string>
     
     <string name="product_type_title">请选择类别</string>

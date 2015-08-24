@@ -6,6 +6,8 @@ import android.graphics.Bitmap.CompressFormat;
 import android.os.Environment;
 
 import com.baidu.frontia.FrontiaApplication;
+import com.imagpay.Settings;
+import com.imagpay.ttl.TTLHandler;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
@@ -23,6 +25,9 @@ public class PosApplication extends FrontiaApplication{
     private static Boolean isVerification = false;
     
     public String patternString;
+    
+    private TTLHandler _handler;
+	private Settings _setting;
 	
 	public ImageLoader imageLoader = ImageLoader.getInstance();
 	
@@ -77,6 +82,27 @@ public class PosApplication extends FrontiaApplication{
 			
 			imageLoader.init(config);
 		 }
+	}
+	
+	@Override
+	public void onTerminate() {
+		super.onTerminate();
+	}
+
+	public TTLHandler get_handler() {
+		return _handler;
+	}
+
+	public void set_handler(TTLHandler _handler) {
+		this._handler = _handler;
+	}
+
+	public Settings get_setting() {
+		return _setting;
+	}
+
+	public void set_setting(Settings _setting) {
+		this._setting = _setting;
 	}
 	
 	

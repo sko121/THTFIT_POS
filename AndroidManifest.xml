@@ -71,6 +71,9 @@
             android:name="com.thtfit.pos.activity.SwipeCardActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name="com.thtfit.pos.activity.ZCSwipeCardActivity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name="com.thtfit.pos.activity.ReceiptActivity"
             android:screenOrientation="landscape" />
         <activity

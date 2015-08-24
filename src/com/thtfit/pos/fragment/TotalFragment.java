@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.thtfit.pos.R;
 import com.thtfit.pos.activity.SwipeCardActivity;
+import com.thtfit.pos.activity.ZCSwipeCardActivity;
 import com.thtfit.pos.adapter.MainGridAdapter;
 import com.thtfit.pos.adapter.TotalListAdapter;
 import com.thtfit.pos.model.Product;
@@ -189,7 +190,8 @@ public class TotalFragment extends Fragment implements OnClickListener {
 		Toast.makeText(getActivity(), "您要支付金额为：" + checkout.getText(), 3000)
 				.show();
 		// 跳转到支付
-		Intent intent1 = new Intent(getActivity(), SwipeCardActivity.class);
+		//Intent intent1 = new Intent(getActivity(), SwipeCardActivity.class);
+		Intent intent1 = new Intent(getActivity(), ZCSwipeCardActivity.class);
 		String amount = checkout.getText().toString();
 		amount = Utils.removeAmountDollar(amount);
 		intent1.putExtra("amount", amount);
