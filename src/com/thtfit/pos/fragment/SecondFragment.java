@@ -208,6 +208,9 @@ OnClickListener {
 	public void onDestroy() {
 		super.onDestroy();
 		mylist.clear();
+		if (mainGridAdapter != null){
+			mainGridAdapter.unRegisterReceiver();
+		}
 	}
 
 }

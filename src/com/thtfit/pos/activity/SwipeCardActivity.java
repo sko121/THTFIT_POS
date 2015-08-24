@@ -274,7 +274,7 @@ public class SwipeCardActivity extends FragmentActivity {
 		mContext = this;
 		mIsWorking = true;
 
-		setContentView(R.layout.activity_swipe_zc);
+		setContentView(R.layout.activity_swipe);
 		mReceiveAmount = getIntent().getStringExtra("amount");
 		listItems = (List<Product>) getIntent().getSerializableExtra("listItems");
 		totalList = (ListView) findViewById(R.id.swpie_total_list);

@@ -1,6 +1,7 @@
 package com.thtfit.pos.activity;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +69,7 @@ private String TAG = "SwipeCardActivity";
 	private TextView statusEditText;
 	private ListView totalList;
 
-	private Button btn_id;
+	private Button btn_ic;
 	private Button btn_mag;
 	public static final String POS_BLUETOOTH_ADDRESS = "POS_BLUETOOTH_ADDRESS";
 	private AnimationDrawable animScan;
@@ -77,6 +78,7 @@ private String TAG = "SwipeCardActivity";
 	private Handler hdStopScan;
 	private Button btn_dev_conn;
 	private String mReceiveAmount;
+	private String mSuccessAmount;
 
 	private boolean isTest = false;
 
@@ -84,6 +86,8 @@ private String TAG = "SwipeCardActivity";
 	private BluetoothAdapter mAdapter;
 
 	private ImageButton mBtnAction;
+	
+	private String version;
 	
 	TTLHandler handler;
 	Settings settings;
@@ -149,7 +153,7 @@ private String TAG = "SwipeCardActivity";
 			}
 		};
 
-		btn_id = (Button) findViewById(R.id.btn_ic);
+		btn_ic = (Button) findViewById(R.id.btn_ic);
 		amountEditText = (EditText) findViewById(R.id.amountEditText);
 		statusEditText = (TextView) findViewById(R.id.statusEditText);
 		btn_mag = (Button) findViewById(R.id.btn_mag);
@@ -195,6 +199,7 @@ private String TAG = "SwipeCardActivity";
 
 			@Override
 			public void onParseData(SwipeEvent event) {
+				String info = null;
 				if (magFlag) {
 					sendMessage("Final(16)=> " + event.getValue());
 					String[] tmps = event.getValue().trim()
@@ -204,7 +209,14 @@ private String TAG = "SwipeCardActivity";
 						sbf.append((char) Integer.parseInt(str, 16));
 					}
 					sendMessage("Final(10)=> " + sbf.toString());
+					info = sbf.toString();
 				}
+				if(info != null){
+					if(!info.equals("")){
+						toSignature(info);	
+					}					
+				}
+								
 			}
 
 			@Override
@@ -222,9 +234,24 @@ private String TAG = "SwipeCardActivity";
 
 			}
 		});
+		
 
 
 	}
+	
+	private void toSignature(String content){
+		mSuccessAmount = amountEditText.getText()
+				.toString();
+		//跳转到签名
+		Intent intent = new Intent();
+		intent.setClass(mContext, SignatureActivity.class);
+		intent.putExtra("amount", mSuccessAmount);
+		intent.putExtra("listItems", (Serializable) listItems);
+		intent.putExtra("cardInfo", content);
+		startActivity(intent);
+		finish();
+	}
+	
 	
 	public void showTotalList(){
 		PayListAdapter listAdapter = new PayListAdapter(listItems, mContext);
@@ -251,7 +278,12 @@ private String TAG = "SwipeCardActivity";
 					// sendMessage("TLL has connected!");
 				}
 				if(handler.isConnected()){
-					sendMessage("Ver:" + settings.readVersion());
+					String ver = settings.readVersion();
+					sendMessage("Ver:" + ver);
+					version = ver;
+				}
+				if(version == null){
+					Toast.makeText(getApplicationContext(), "请确保设备连上刷卡器！", Toast.LENGTH_SHORT).show();
 				}
 			} catch (Exception e) {
 				sendMessage(e.getMessage());
@@ -267,10 +299,11 @@ private String TAG = "SwipeCardActivity";
 			startActivity(intent);
 			break;*/
 		case R.id.btn_ic:
-			if(handler.isConnected()){
+			if(handler.isConnected() && version != null){
 				iCCardTest();
 			}else{
 				sendMessage("Connect Res:" + handler.connect());
+				Toast.makeText(getApplicationContext(), "请确保设备连上刷卡器！", Toast.LENGTH_SHORT).show();
 			}
 			
 			break;
@@ -278,10 +311,11 @@ private String TAG = "SwipeCardActivity";
 			sendMessage("Ver:" + settings.readVersion());
 			break;*/
 		case R.id.btn_mag:
-			if(handler.isConnected()){
+			if(handler.isConnected() && version != null){
 				magTest();
 			}else{
 				sendMessage("Connect Res:" + handler.connect());
+				Toast.makeText(getApplicationContext(), "请确保设备连上刷卡器！", Toast.LENGTH_SHORT).show();
 			}
 			
 			break;
@@ -293,10 +327,11 @@ private String TAG = "SwipeCardActivity";
 					+ settings.getDataWithAPDU(Settings.SLOT_NFC, send));
 			// 80500102000b01000000000000000000
 			test();*/
-			if(handler.isConnected()){
+			if(handler.isConnected() && version != null){
 				m1Test(); //m1	
 			}else{
 				sendMessage("Connect Res:" + handler.connect());
+				Toast.makeText(getApplicationContext(), "请确保设备连上刷卡器！", Toast.LENGTH_SHORT).show();
 			}
 			
 			break;
@@ -388,19 +423,25 @@ private String TAG = "SwipeCardActivity";
 			public void handleMessage(Message msg) {
 				switch(msg.what){
 				case MSG_ICCARD:
-					ZCSwipeCardActivity.this.sendMessage("IC CardNo:" + settings.icCardNo());
+					String cardNo = settings.icCardNo();
+					ZCSwipeCardActivity.this.sendMessage("IC CardNo:" + cardNo);
 					flag = false;
+					if(cardNo != null){
+						Toast.makeText(getApplicationContext(), "刷卡成功！", Toast.LENGTH_SHORT).show();
+						toSignature(cardNo);
+					}
 					break;
 				case MSG_MAGCARD:
 					ZCSwipeCardActivity.this.sendMessage("Pls swipe your magnetic stripe card......");
 					String stateCode = settings.magSwipe(); 
 					if (stateCode != null && stateCode.equals("00")) {
+						Toast.makeText(getApplicationContext(), "刷卡成功！", Toast.LENGTH_SHORT).show();
 						// data format:1byte track statu code+track data(1byte
 						// len+data)
 						magFlag = true;
 						Log.e(TAG, "mag:" + settings.magRead());
 						magFlag = false;
-						settings.magReset();
+						settings.magReset();						
 						break;
 					}
 					cardHandler.removeCallbacks(magCardThread);
@@ -408,12 +449,18 @@ private String TAG = "SwipeCardActivity";
 					break;
 				case MSG_NFCCARD:
 					handler.setShowLog(true);
-					ZCSwipeCardActivity.this.sendMessage(settings.m1Request());
+					String request = settings.m1Request();
+					ZCSwipeCardActivity.this.sendMessage(request);
 					ZCSwipeCardActivity.this.sendMessage(settings.m1Auth(Settings.M1_KEY_B, "0A",
 							"EEEEEEEEEEEE") + "");
 					ZCSwipeCardActivity.this.sendMessage(settings.m1ReadBlock("00"));;
 					ZCSwipeCardActivity.this.sendMessage(settings.m1WriteBlock("00",
 							"aaaaaaaabbbbbbbbccccccccdddddddd"));
+					if(request != null){
+						Toast.makeText(getApplicationContext(), "刷卡成功！", Toast.LENGTH_SHORT).show();
+						toSignature(request);
+					}
+					
 					break;
 				}
 			};
