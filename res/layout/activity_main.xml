@@ -11,32 +11,30 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:baselineAligned="true">
+        android:baselineAligned="true" >
 
         <fragment
             android:id="@+id/function_fragment_title_bar"
             android:name="com.thtfit.pos.fragment.TitleBarFragment"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3" />
-       
+            android:layout_height="wrap_content" />
+
         <fragment
             android:id="@+id/function_fragment2"
             android:name="com.thtfit.pos.fragment.MainFragment"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@+id/function_fragment_title_bar"
             android:layout_above="@+id/function_fragment_bottom_bar"
-            android:layout_centerVertical="true"
-            android:layout_weight="24" />
+            android:layout_below="@+id/function_fragment_title_bar"
+            android:layout_centerVertical="true" />
 
         <fragment
             android:id="@+id/function_fragment_bottom_bar"
             android:name="com.thtfit.pos.fragment.BottomBarFragment"
-            android:layout_alignParentBottom="true"
             android:layout_width="fill_parent"
-            android:layout_height="50dp" /> 
-    </RelativeLayout> 
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -51,4 +49,5 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" />
     </LinearLayout>
+
 </LinearLayout>

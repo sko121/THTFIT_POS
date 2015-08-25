@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 
 import com.thtfit.pos.R;
 
-public class TitleBarFragment extends Fragment {
+public class TitleBarFragment extends Fragment
+{
 	private static View mView;
-	
+
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		mView =  inflater.inflate(R.layout.fragment_title_bar, container, false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	{
+		mView = inflater.inflate(R.layout.fragment_title_bar, container, false);
 		return mView;
 	}
 }

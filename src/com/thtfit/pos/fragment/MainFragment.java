@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,142 +24,160 @@ import com.thtfit.pos.activity.SearchActivity;
 import com.thtfit.pos.activity.ShopingActivity;
 import com.thtfit.pos.service.PosApplication;
 
-public class MainFragment extends Fragment implements OnClickListener {
+public class MainFragment extends Fragment implements OnClickListener
+{
 
 	private View mView;
-	private ImageButton imageButton_login;
-	private ImageButton imageButton_shop;
-	private ImageButton imageButton_report;
-	private ImageButton imageButton_manage;
-	private ImageButton imageButton_search;
-	private ImageButton imageButton_setting;
-	
+	private ImageButton ibLogin;
+	private ImageButton ibShop;
+	private ImageButton ibReport;
+	private ImageButton ibManage;
+	private ImageButton ibSearch;
+	private ImageButton ibSetting;
+
 	PosApplication application = new PosApplication();
-	
+
+	private static String TAG = "MainFragment";
+	public static final boolean DEBUG = true;
+
+	// public static final boolean DEBUG = false;
+	private static void LOG(String msg)
+	{
+		if (DEBUG)
+		{
+			Log.d(TAG, msg);
+		}
+	}
+
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	{
 		mView = inflater.inflate(R.layout.fragment_main, container, false);
 		return mView;
 	}
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
+	public void onActivityCreated(Bundle savedInstanceState)
+	{
 		super.onActivityCreated(savedInstanceState);
 		setupView();
 	}
 
-	private void setupView() {
-		imageButton_login = (ImageButton) mView
-				.findViewById(R.id.chooseMenu_login_imageButton);
-		imageButton_shop = (ImageButton) mView
-				.findViewById(R.id.chooseMenu_shop_imageButto);
-		imageButton_report = (ImageButton) mView
-				.findViewById(R.id.chooseMenu_report_imageButton);
-		imageButton_manage = (ImageButton) mView
-				.findViewById(R.id.chooseMenu_manage_imageButton);
-		imageButton_search = (ImageButton) mView
-				.findViewById(R.id.chooseMenu_search_imageButton);
-		imageButton_setting = (ImageButton) mView
-				.findViewById(R.id.chooseMenu_setting_imageButton);
-		
-		
-		imageButton_login.setOnClickListener(this);
-		imageButton_shop.setOnClickListener(this);
-		imageButton_report.setOnClickListener(this);
-		imageButton_manage.setOnClickListener(this);
-		imageButton_search.setOnClickListener(this);
-		imageButton_setting.setOnClickListener(this);
-		
-		
+	private void setupView()
+	{
+		ibLogin = (ImageButton) mView.findViewById(R.id.chooseMenu_login_imageButton);
+		ibShop = (ImageButton) mView.findViewById(R.id.chooseMenu_shop_imageButto);
+		ibReport = (ImageButton) mView.findViewById(R.id.chooseMenu_report_imageButton);
+		ibManage = (ImageButton) mView.findViewById(R.id.chooseMenu_manage_imageButton);
+		ibSearch = (ImageButton) mView.findViewById(R.id.chooseMenu_search_imageButton);
+		ibSetting = (ImageButton) mView.findViewById(R.id.chooseMenu_setting_imageButton);
+
+		ibLogin.setOnClickListener(this);
+		ibShop.setOnClickListener(this);
+		ibReport.setOnClickListener(this);
+		ibManage.setOnClickListener(this);
+		ibSearch.setOnClickListener(this);
+		ibSetting.setOnClickListener(this);
 
 	}
 
-	public void onClick(View v) {
-		if (v.getId() == R.id.chooseMenu_login_imageButton) {
-			
-			Intent intent = new Intent();
-			intent.setClass(getActivity(), LoginActivity.class);
-			startActivityForResult(intent, 0);
-			getActivity().overridePendingTransition(R.anim.push_left_in,
-					R.anim.push_left_out);
-		}
-		if (v.getId() == R.id.chooseMenu_shop_imageButto && loginCheck()) {
-			
-			Intent intent = new Intent();
-			intent.setClass(getActivity(), ShopingActivity.class);
-			startActivityForResult(intent, 0);
-			
-	/*		getActivity().overridePendingTransition(R.anim.push_left_in,
-					R.anim.push_left_out);*/
-		}
-		if (v.getId() == R.id.chooseMenu_report_imageButton && loginCheck() && lockCheck()) {
-			application.setIsVerification(true);
-			Intent intent = new Intent();
-			intent.setClass(getActivity(), ReportActivity.class);
-			startActivityForResult(intent, 0);
-			getActivity().overridePendingTransition(R.anim.push_left_in,
-					R.anim.push_left_out);
-		}
-		if (v.getId() == R.id.chooseMenu_manage_imageButton && loginCheck() && lockCheck()) {
-			application.setIsVerification(true);
-			Intent intent = new Intent();
-			intent.setClass(getActivity(), ManageActivity.class);
-			startActivityForResult(intent, 0);
-			getActivity().overridePendingTransition(R.anim.push_left_in,
-					R.anim.push_left_out);
-		}
-		if (v.getId() == R.id.chooseMenu_search_imageButton && loginCheck() && lockCheck()) {
-			application.setIsVerification(true);
-			Intent intent = new Intent();
-			intent.setClass(getActivity(), SearchActivity.class);
-			startActivityForResult(intent, 0);
-			getActivity().overridePendingTransition(R.anim.push_left_in,
-					R.anim.push_left_out);
-		}
-		if (v.getId() == R.id.chooseMenu_setting_imageButton && loginCheck() && lockCheck()) {
-			application.setIsVerification(true);
-			startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+	public void onClick(View v)
+	{
+		Intent intent = new Intent();
+		switch (v.getId())
+		{
+			case R.id.chooseMenu_login_imageButton:
+				intent.setClass(getActivity(), LoginActivity.class);
+				startActivityForResult(intent, 0);
+				getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				break;
 
-			/*
-			 * Intent intent = new Intent(); intent.setClass(getActivity(),
-			 * SettingActivity.class); startActivityForResult(intent, 0);
-			 * getActivity().overridePendingTransition(R.anim.push_left_in,
-			 * R.anim.push_left_out);
-			 */
-		}
+			case R.id.chooseMenu_shop_imageButto:
+				if (loginCheck())
+				{
+					intent.setClass(getActivity(), ShopingActivity.class);
+					startActivityForResult(intent, 0);
+					// getActivity().overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
+				}
+				break;
 
+			case R.id.chooseMenu_report_imageButton:
+				if (loginCheck() && lockCheck())
+				{
+					application.setIsVerification(true);
+					intent.setClass(getActivity(), ReportActivity.class);
+					startActivityForResult(intent, 0);
+					getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				}
+				break;
+
+			case R.id.chooseMenu_manage_imageButton:
+				if (loginCheck() && lockCheck())
+				{
+					application.setIsVerification(true);
+					intent.setClass(getActivity(), ManageActivity.class);
+					startActivityForResult(intent, 0);
+					getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				}
+				break;
+
+			case R.id.chooseMenu_search_imageButton:
+				if (loginCheck() && lockCheck())
+				{
+					application.setIsVerification(true);
+					intent.setClass(getActivity(), SearchActivity.class);
+					startActivityForResult(intent, 0);
+					getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				}
+				break;
+
+			case R.id.chooseMenu_setting_imageButton:
+				if (loginCheck() && lockCheck())
+				{
+					application.setIsVerification(true);
+					startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+
+					// Intent intent = new Intent();
+					// intent.setClass(getActivity(), SettingActivity.class);
+					// startActivityForResult(intent, 0);
+					// getActivity().overridePendingTransition(R.anim.push_left_in,
+					// R.anim.push_left_out);
+				}
+				break;
+
+			default:
+				break;
+		}
 	}
 
-	
-
-	public boolean loginCheck() {
-		SharedPreferences preferences = getActivity().getSharedPreferences(
-				"login", Context.MODE_PRIVATE);
+	public boolean loginCheck()
+	{
+		SharedPreferences preferences = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
 		int loginStatus = preferences.getInt("loginStatus", 0);
-		if (loginStatus == 0) {
-			ShowMSG("您尚未登录，请登录后进入");
+		if (loginStatus == 0)
+		{
+			ShowMsg("您尚未登录，请登录后进入");
 			return false;
 		}
 		return true;
 	}
-	
-	
-	public boolean lockCheck() {
-		SharedPreferences preferences = getActivity().getSharedPreferences(
-				PosApplication.LOCK, Context.MODE_PRIVATE);
-		String patternString = preferences.getString(PosApplication.LOCK_KEY,
-				null);
-		if(patternString == null){
+
+	public boolean lockCheck()
+	{
+		SharedPreferences preferences = getActivity().getSharedPreferences(PosApplication.LOCK, Context.MODE_PRIVATE);
+		String patternString = preferences.getString(PosApplication.LOCK_KEY, null);
+		if (patternString == null)
+		{
 			Intent intent = new Intent(getActivity(), LockSetupActivity.class);
 			startActivity(intent);
 			return false;
 		}
 		return true;
-		
+
 	}
 
-	public void ShowMSG(CharSequence msg) {
+	public void ShowMsg(CharSequence msg)
+	{
 		Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 	}
 

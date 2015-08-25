@@ -28,10 +28,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@color/white"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/choose_menu_login" />
+                android:text="@string/choose_menu_login"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -50,10 +50,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@color/white"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/choose_menu_shoping" />
+                android:text="@string/choose_menu_shoping"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -72,10 +72,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@color/white"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/choose_menu_report" />
+                android:text="@string/choose_menu_report"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -101,10 +101,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@color/white"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/choose_menu_manage" />
+                android:text="@string/choose_menu_manage"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -123,10 +123,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@color/white"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/choose_menu_search" />
+                android:text="@string/choose_menu_search"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -145,10 +145,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@color/white"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/choose_menu_setting" />
+                android:text="@string/choose_menu_setting"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 
