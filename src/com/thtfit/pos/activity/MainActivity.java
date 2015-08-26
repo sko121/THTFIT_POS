@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.thtfit.pos.R;
+import com.thtfit.pos.debug.DebugPrint;
 import com.thtfit.pos.service.POSService;
 import com.thtfit.pos.service.PosApplication;
 import com.thtfit.pos.util.POSLog;
@@ -40,17 +41,11 @@ public class MainActivity extends FragmentActivity
 	private POSLog posLog = new POSLog();
 	private static final String KEY = "K9uYlOFfCkoG6I7dC13wqYlm";
 
+	/* debug */
 	private static String TAG = "MainActivity";
-	public static final boolean DEBUG = true;
-
-	// public static final boolean DEBUG = false;
-	private static void LOG(String msg)
-	{
-		if (DEBUG)
-		{
-			Log.d(TAG, msg);
-		}
-	}
+	public static final boolean isDebug = true;
+	// public static final boolean isDebug = false;
+	public DebugPrint LOG = new DebugPrint(isDebug, TAG);
 
 	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver()
 	{
@@ -61,7 +56,7 @@ public class MainActivity extends FragmentActivity
 			{
 				final String responseResult = intent.getStringExtra("responseResult");
 
-				LOG("response result : " + responseResult);
+				LOG.D("response result : " + responseResult);
 				if ("{'Result':'1'}".equals(responseResult))
 				{
 					Toast.makeText(getApplicationContext(), "The background data has been upload", Toast.LENGTH_SHORT)
@@ -108,8 +103,8 @@ public class MainActivity extends FragmentActivity
 
 		/* set system info for test. */
 		setSysInfo();
-		
-		LOG("start MainActivity");
+
+		LOG.D("start MainActivity");
 	}
 
 	private void initServices()
@@ -288,7 +283,7 @@ public class MainActivity extends FragmentActivity
 		}
 		catch (Exception e)
 		{
-			LOG("getLocation exception : " + e.toString());
+			LOG.D("getLocation exception : " + e.toString());
 		}
 		return location;
 	}
