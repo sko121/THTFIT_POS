@@ -42,14 +42,31 @@ import com.thtfit.pos.util.RootCmd;
 import com.thtfit.pos.util.Utils;
 import com.thtfit.pos.util.receiver.AlarmReceiver;
 
-public class POSService extends Service {
+public class POSService extends Service
+{
+
+	public static final String RECEIVE_DATA = "com.thtfit.pos.service.Receiver.action.Main.RECEIVE_DATA";
+	// 接收前台 请求
+	public static final String RECEIVE_REQUEST = "com.thtfit.pos.service.Receiver.action.Service.RECEIVE_REQUEST";
+	// 登录验证
+	public static final String LOGINA_CTIVITY = "LoginActivity.login";
+	// 提交设备信息
+	public static final String MAINACTIVITY_DEVICE = "MainActivity.device";
+	// 拉取商品数据
+	public static final String GET_MAIN_DATA = "POSService.getMainData";
+	// 上传订单数据
+	public static final String SIGNATRUE_ACTIVITY_ORDER = "SignatureActivity.Order";
 
 	public DBHelper dBHelper = null;
 
-	private int TAG_ROOTLIMIT = 0;
-	private int TAG_UPLOADALARM = 1;
-	private int TAG_GPSALARM = 2;
-	private int TAG_PUSH = 3;
+	// 请求root权限
+	private static final int TAG_ROOTLIMIT = 0;
+	// 启动定时上传任务
+	private static final int TAG_UPLOADALARM = 1;
+	// 启动定时获取位置任务
+	private static final int TAG_GPSALARM = 2;
+	// 启动推送接收服务
+	private static final int TAG_PUSH = 3;
 
 	private String LOG_TAG = "POSService";
 	private POSLog posLog = new POSLog();
@@ -71,17 +88,18 @@ public class POSService extends Service {
 	public int connRetryCount = 0;
 
 	private final static String serverAddress = "192.168.200.239:8080/SmartPos";
-//	private final static String serverAddress = "192.168.130.85:8080/SmartPos";
 
 	private DBContror dbcon = null;
 
 	@Override
-	public IBinder onBind(Intent intent) {
+	public IBinder onBind(Intent intent)
+	{
 		return null;
 	}
 
 	@Override
-	public void onCreate() {
+	public void onCreate()
+	{
 		super.onCreate();
 
 		Log.d(LOG_TAG, "====start POSService====");
@@ -94,10 +112,12 @@ public class POSService extends Service {
 		myHandler.sendEmptyMessage(TAG_PUSH);
 
 		// 接收广播
-		Receiver_Service = new BroadcastReceiver() {
+		Receiver_Service = new BroadcastReceiver()
+		{
 
 			@Override
-			public void onReceive(Context context, Intent intent) {
+			public void onReceive(Context context, Intent intent)
+			{
 
 				String receiveAction = intent.getAction();
 				// 如果action为空则receiveAction为"",否则为本身

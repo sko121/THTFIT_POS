@@ -28,7 +28,7 @@ public class LockActivity extends FragmentActivity implements
 	private List<Cell> lockPattern;
 	private LockPatternView lockPatternView;
 	private TextView lockPoint;
-	String intentTag;
+	private String intentTag;
 
 
 
@@ -42,8 +42,7 @@ public class LockActivity extends FragmentActivity implements
 		
 		Intent intent = getIntent();
 		intentTag = intent.getStringExtra("TAG");
-		SharedPreferences preferences = getSharedPreferences(PosApplication.LOCK,
-				MODE_PRIVATE);
+		SharedPreferences preferences = getSharedPreferences(PosApplication.LOCK,MODE_PRIVATE);
 		String patternString = preferences.getString(PosApplication.LOCK_KEY, null);
 		if (null == patternString || "".equals(patternString)
 				|| "null".equals(patternString)) {

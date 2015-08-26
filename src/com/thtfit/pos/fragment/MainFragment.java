@@ -166,7 +166,7 @@ public class MainFragment extends Fragment implements OnClickListener
 			return false;
 		}
 		return true;
-
+		
 	}
 
 	public void ShowMsg(CharSequence msg)
