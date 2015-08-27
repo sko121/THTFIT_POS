@@ -21,6 +21,7 @@ import com.thtfit.pos.activity.LoginActivity;
 import com.thtfit.pos.activity.ManageActivity;
 import com.thtfit.pos.activity.ReportActivity;
 import com.thtfit.pos.activity.SearchActivity;
+import com.thtfit.pos.activity.SettingActivity;
 import com.thtfit.pos.activity.ShopingActivity;
 import com.thtfit.pos.service.PosApplication;
 
@@ -135,8 +136,9 @@ public class MainFragment extends Fragment implements OnClickListener
 				if (loginCheck() && lockCheck())
 				{
 					application.setIsVerification(true);
-					startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-
+					intent.setClass(getActivity(), SettingActivity.class);
+					startActivityForResult(intent, 0);
+					getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 					// Intent intent = new Intent();
 					// intent.setClass(getActivity(), SettingActivity.class);
 					// startActivityForResult(intent, 0);

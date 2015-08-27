@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
@@ -15,6 +16,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.thtfit.pos.R;
+import com.thtfit.pos.activity.ManageActivity;
+import com.thtfit.pos.activity.SettingActivity;
 import com.thtfit.pos.util.OptionList;
 
 public class SidesSettingFragment extends ListFragment {
@@ -23,8 +26,6 @@ public class SidesSettingFragment extends ListFragment {
 
 	private ArrayAdapter<String> adapter;
 	private List<String> data;
-	private FragmentManager manager;
-	private FragmentTransaction transaction;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,6 @@ public class SidesSettingFragment extends ListFragment {
 
 		data = optionList.getList();
 
-		manager = getFragmentManager();
 		adapter = new ArrayAdapter<String>(getActivity(),
 				android.R.layout.simple_list_item_1, data);
 		setListAdapter(adapter);
@@ -47,27 +47,43 @@ public class SidesSettingFragment extends ListFragment {
 	public void onListItemClick(ListView parent, View v, int position, long id) {
 		Log.d(TAG, "onListItemClick");
 		super.onListItemClick(parent, v, position, id);
-		String str = adapter.getItem(position);
-		transaction = manager.beginTransaction();
 
+		Fragment newContent = null;
+		
 		switch (position) {
 		case 0:
-			
+			newContent = new SettingNormalFragment();
 			break;
 		case 1:
-			
+			newContent = new SettingNormalFragment();
+			//newContent = new SettingHardwareFragment();
 			break;
 		case 2:
-
+			newContent = new SettingNormalFragment();
+			//newContent = new InvoiceInfoFragment();
+			break;
+		case 3:
+			getActivity().finish();
 			break;
 		default:
 			break;
 		}
-/*		ReportTotalSalesFragment generalFragment = new ReportTotalSalesFragment();
-		Bundle bundle = new Bundle();
-		bundle.putString("id", str);
-		generalFragment.setArguments(bundle);
-		transaction.replace(R.id.setting_general, generalFragment, "detail");
-		transaction.commit();*/
+		if(newContent != null){
+			switchFragment(newContent);
+		}
 	}
+    /**
+     * 切换Fragment
+     * @param fragment
+     */
+        private void switchFragment(Fragment fragment) {
+                 if(getActivity() == null){
+                         return;
+                 }
+                 if(getActivity() instanceof ManageActivity){
+                	 ManageActivity activity = (ManageActivity)getActivity();
+                	 activity.switchContent(fragment);
+                 }
+        }
+	
 }

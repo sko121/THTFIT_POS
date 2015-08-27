@@ -1,22 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_setting"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:baselineAligned="false"
-    android:orientation="horizontal" >
+    android:layout_height="fill_parent" >
 
-    <fragment
-        android:id="@+id/titleList_fragment"
-        android:name="com.thtfit.pos.fragment.SidesSettingFragment"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_weight="0.3" />
+    <LinearLayout
+        android:id="@+id/linearLayout_top"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkorange" >
 
-    <fragment
-        android:id="@+id/content_fragment"
-        android:name="com.thtfit.pos.fragment.ReportTotalSalesFragment"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
-        android:layout_weight="0.7" />
+        <fragment
+            android:id="@+id/view"
+            android:name="com.thtfit.pos.fragment.TopBarFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp" />
+    </LinearLayout>
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/function"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/linearLayout_bottom"
+        android:layout_below="@+id/linearLayout_top"
+        android:baselineAligned="false"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/setting_menu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/setting_content"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="50dp"
+            android:layout_weight="0.8"
+            android:gravity="center"
+            android:orientation="vertical" />
+
+   
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/darkorange" >
+
+        <fragment
+            android:id="@+id/function_fragment_bottom_bar"
+            android:name="com.thtfit.pos.fragment.BottomBarFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp" />
+    </LinearLayout>
+
+</RelativeLayout>
