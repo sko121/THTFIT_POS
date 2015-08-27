@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,11 +22,11 @@ import com.thtfit.pos.activity.ReportActivity;
 import com.thtfit.pos.activity.SearchActivity;
 import com.thtfit.pos.activity.SettingActivity;
 import com.thtfit.pos.activity.ShopingActivity;
+import com.thtfit.pos.debug.DebugPrint;
 import com.thtfit.pos.service.PosApplication;
 
 public class MainFragment extends Fragment implements OnClickListener
 {
-
 	private View mView;
 	private ImageButton ibLogin;
 	private ImageButton ibShop;
@@ -38,17 +37,11 @@ public class MainFragment extends Fragment implements OnClickListener
 
 	PosApplication application = new PosApplication();
 
-	private static String TAG = "MainFragment";
-	public static final boolean DEBUG = true;
-
-	// public static final boolean DEBUG = false;
-	private static void LOG(String msg)
-	{
-		if (DEBUG)
-		{
-			Log.d(TAG, msg);
-		}
-	}
+	/* debug */
+	private static String TAG = MainFragment.class.getSimpleName();
+	public static final boolean isDebug = true;
+	// public static final boolean isDebug = false;
+	public DebugPrint LOG = new DebugPrint(isDebug, TAG);
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -175,7 +168,7 @@ public class MainFragment extends Fragment implements OnClickListener
 			return false;
 		}
 		return true;
-
+		
 	}
 
 	public void ShowMsg(CharSequence msg)

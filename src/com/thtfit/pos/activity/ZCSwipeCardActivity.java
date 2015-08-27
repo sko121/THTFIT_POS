@@ -17,6 +17,7 @@ import com.imagpay.utils.StringUtils;
 import com.thtfit.pos.R;
 import com.thtfit.pos.adapter.PayListAdapter;
 import com.thtfit.pos.api.Money;
+import com.thtfit.pos.debug.DebugPrint;
 import com.thtfit.pos.model.Product;
 import com.thtfit.pos.service.PosApplication;
 import com.thtfit.pos.util.Utils;
@@ -38,7 +39,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -162,7 +163,7 @@ private String TAG = "SwipeCardActivity";
 		
 		Money money = new Money(mReceiveAmount);
 		if (!money.isGreaterThanZero()) {
-			Log.d(TAG, getString(R.string.price_is_zero));
+			DebugPrint.d(TAG, getString(R.string.price_is_zero));
 			Toast.makeText(mContext, getString(R.string.price_is_zero), Toast.LENGTH_SHORT).show();
 			//hasNoError = false;
 		}else{
@@ -439,7 +440,7 @@ private String TAG = "SwipeCardActivity";
 						// data format:1byte track statu code+track data(1byte
 						// len+data)
 						magFlag = true;
-						Log.e(TAG, "mag:" + settings.magRead());
+						DebugPrint.e(TAG, "mag:" + settings.magRead());
 						magFlag = false;
 						settings.magReset();						
 						break;
