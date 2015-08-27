@@ -42,10 +42,11 @@ public class MainActivity extends FragmentActivity
 	private static final String KEY = "K9uYlOFfCkoG6I7dC13wqYlm";
 
 	/* debug */
-	private static String TAG = "MainActivity";
-	public static final boolean isDebug = true;
-	// public static final boolean isDebug = false;
-	public DebugPrint LOG = new DebugPrint(isDebug, TAG);
+	private static String TAG = MainActivity.class.getSimpleName();
+	
+	//public static final boolean isDebug = false;
+	//public static final boolean isDebug = false;
+	//public DebugPrint LOG = new DebugPrint(isDebug, TAG);
 
 	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver()
 	{
@@ -56,7 +57,7 @@ public class MainActivity extends FragmentActivity
 			{
 				final String responseResult = intent.getStringExtra("responseResult");
 
-				LOG.D("response result : " + responseResult);
+				DebugPrint.d(TAG,"response result : " + responseResult);
 				if ("{'Result':'1'}".equals(responseResult))
 				{
 					Toast.makeText(getApplicationContext(), "The background data has been upload", Toast.LENGTH_SHORT)
@@ -104,7 +105,7 @@ public class MainActivity extends FragmentActivity
 		/* set system info for test. */
 		setSysInfo();
 
-		LOG.D("start MainActivity");
+		DebugPrint.d(TAG,"start MainActivity");
 	}
 
 	private void initServices()
@@ -283,7 +284,7 @@ public class MainActivity extends FragmentActivity
 		}
 		catch (Exception e)
 		{
-			LOG.D("getLocation exception : " + e.toString());
+			DebugPrint.d(TAG,"getLocation exception : " + e.toString());
 		}
 		return location;
 	}

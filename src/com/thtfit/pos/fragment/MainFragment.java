@@ -37,7 +37,7 @@ public class MainFragment extends Fragment implements OnClickListener
 	PosApplication application = new PosApplication();
 
 	/* debug */
-	private static String TAG = "MainFragment";
+	private static String TAG = MainFragment.class.getSimpleName();
 	public static final boolean isDebug = true;
 	// public static final boolean isDebug = false;
 	public DebugPrint LOG = new DebugPrint(isDebug, TAG);

@@ -34,6 +34,7 @@ import com.baidu.android.pushservice.PushManager;
 import com.thtfit.pos.conn.HttpConn;
 import com.thtfit.pos.conn.hql.DBContror;
 import com.thtfit.pos.conn.hql.DBHelper;
+import com.thtfit.pos.debug.DebugPrint;
 import com.thtfit.pos.model.Product;
 import com.thtfit.pos.model.Transaction;
 import com.thtfit.pos.util.Config;
@@ -68,7 +69,8 @@ public class POSService extends Service
 	// 启动推送接收服务
 	private static final int TAG_PUSH = 3;
 
-	private String LOG_TAG = "POSService";
+	private String TAG = POSService.class.getSimpleName();
+	
 	private POSLog posLog = new POSLog();
 
 	private int loginStatus = 0;
@@ -102,7 +104,7 @@ public class POSService extends Service
 	{
 		super.onCreate();
 
-		Log.d(LOG_TAG, "====start POSService====");
+		DebugPrint.d(TAG, "====start POSService====");
 
 		initDirFile();
 
@@ -123,26 +125,26 @@ public class POSService extends Service
 				// 如果action为空则receiveAction为"",否则为本身
 				receiveAction = receiveAction == null ? "" : receiveAction;
 
-				Log.d(LOG_TAG, "====at Receiver_Service====");
+				DebugPrint.d(TAG, "====at Receiver_Service====");
 				// 接收前台 请求
 				if (receiveAction
 						.equals("com.thtfit.pos.service.Receiver.action.Service.RECEIVE_REQUEST")) {
 					String requestAction = intent
 							.getStringExtra("requestAction");
 					requestAction = requestAction == null ? "" : requestAction;
-					Log.d(LOG_TAG, "POSService接收到广播动作:requestAction:"
+					DebugPrint.d(TAG, "POSService接收到广播动作:requestAction:"
 							+ requestAction);
 
 					String responseFilter = intent
 							.getStringExtra("responseFilter");
 					responseFilter = responseFilter == null ? ""
 							: responseFilter;
-					Log.d(LOG_TAG, "POSService接收到返回路径:" + responseFilter);
+					DebugPrint.d(TAG, "POSService接收到返回路径:" + responseFilter);
 
 					// 登录验证
 					if (requestAction.equals("LoginActivity.login")) {
 
-						Log.d(LOG_TAG, "====start LoginActivity.login====");
+						DebugPrint.d(TAG, "====start LoginActivity.login====");
 
 						String tmpLogin_UserName = intent
 								.getStringExtra("loginName");
@@ -171,7 +173,7 @@ public class POSService extends Service
 					// 提交设备信息
 					else if (requestAction.equals("MainActivity.device")) {
 
-						Log.d(LOG_TAG, "====at MainActivity.device====");
+						DebugPrint.d(TAG, "====at MainActivity.device====");
 						// 处理提交的参数
 
 						JSONObject jsonObject = new JSONObject();
@@ -253,7 +255,7 @@ public class POSService extends Service
 					return;
 				}
 
-				System.out.println("posservice=========HttpContent[4]="
+				DebugPrint.d(TAG, "posservice=========HttpContent[4]="
 						+ HttpContent[4]);
 
 				// 会话断开
@@ -568,7 +570,7 @@ public class POSService extends Service
 					new SimpleDateFormat("yyyy-MM-dd 00:00:00", Locale.CHINA)
 							.format(new java.util.Date())).getTime();
 		} catch (Exception e) {
-			System.out.println("====autoRunAndCloseProgram===" + e);
+			DebugPrint.d(TAG, "====autoRunAndCloseProgram===" + e);
 		}
 
 		if (NowTime - Today00Hour <= 0) {
@@ -625,16 +627,16 @@ public class POSService extends Service
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			case 0:
+			case POSService.TAG_ROOTLIMIT:
 				initRootLimit();
 				break;
-			case 1:
+			case POSService.TAG_UPLOADALARM:
 				startUploadAlarm();
 				break;
-			case 2:
+			case POSService.TAG_GPSALARM:
 				startGPSAlarm();
 				break;
-			case 3:
+			case POSService.TAG_PUSH:
 				startPushServer();
 				break;
 			}

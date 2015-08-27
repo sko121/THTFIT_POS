@@ -26,12 +26,13 @@ import com.thtfit.pos.activity.SwipeCardActivity;
 import com.thtfit.pos.activity.ZCSwipeCardActivity;
 import com.thtfit.pos.adapter.MainGridAdapter;
 import com.thtfit.pos.adapter.TotalListAdapter;
+import com.thtfit.pos.debug.DebugPrint;
 import com.thtfit.pos.model.Product;
 import com.thtfit.pos.util.Utils;
 
 public class TotalFragment extends Fragment implements OnClickListener
 {
-	private String LOG_TAG = "TotalFragment";
+	private String TAG = TotalFragment.class.getSimpleName();
 	private Context mContext;
 	private View mView;
 	private static TotalFragment totalFragment = null;
@@ -76,7 +77,7 @@ public class TotalFragment extends Fragment implements OnClickListener
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		Log.d(LOG_TAG, "=====on onCreateView =====");
+		DebugPrint.d(TAG, "=====on onCreateView =====");
 		if (null == mView)
 		{
 			mView = inflater.inflate(R.layout.fragment_total, container, false);
@@ -237,7 +238,7 @@ public class TotalFragment extends Fragment implements OnClickListener
 	public synchronized void updateList(Product pro)
 	{
 
-		System.out.println("product=" + pro.getName().toString());
+		DebugPrint.d(TAG,"product=" + pro.getName().toString());
 		try
 		{
 			product = pro;
@@ -287,7 +288,7 @@ public class TotalFragment extends Fragment implements OnClickListener
 				totalListAdapter.addProducts(product);
 			}
 
-			System.out.println("listItems.size()=" + listItems.size());
+			DebugPrint.d(TAG,"listItems.size()=" + listItems.size());
 		}
 		catch (Exception e)
 		{

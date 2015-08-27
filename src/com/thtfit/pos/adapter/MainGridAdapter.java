@@ -42,6 +42,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.thtfit.pos.R;
 import com.thtfit.pos.activity.ShopingActivity;
+import com.thtfit.pos.debug.DebugPrint;
 import com.thtfit.pos.fragment.FirstFragment;
 import com.thtfit.pos.fragment.PageFragment;
 import com.thtfit.pos.fragment.SecondFragment;
@@ -57,6 +58,8 @@ import com.thtfit.pos.util.widget.FooterView;
 public class MainGridAdapter extends BaseAdapter
 {
 
+	private static final String TAG = MainGridAdapter.class.getSimpleName();
+	
 	private List<Product> products = new ArrayList<Product>();
 	private Context context;
 
@@ -215,7 +218,7 @@ public class MainGridAdapter extends BaseAdapter
 		/**
 		 * 根据position去获取图片
 		 */
-		System.out.println("--imageloader--path-->" + products.get(position).getImagePath());
+		DebugPrint.d(TAG,"--imageloader--path-->" + products.get(position).getImagePath());
 		try
 		{
 			if (products.get(position).getImagePath().contains("content:"))
@@ -244,16 +247,14 @@ public class MainGridAdapter extends BaseAdapter
 		{
 			if (products.get(position).getNumber() == null)
 			{
-				System.out.println("---Mainadapter--position-------" + position);
-				System.out
-						.println("--products.get(position).getNumber()---------" + products.get(position).getNumber());
+				DebugPrint.d(TAG,"---Mainadapter--position-------" + position);
+				DebugPrint.d(TAG,"--products.get(position).getNumber()---------" + products.get(position).getNumber());
 				imageViewQuantityNumberBubble.setVisibility(View.INVISIBLE);
 				tv_quantity.setVisibility(View.INVISIBLE);
 			}
 			else
 			{
-				System.out
-						.println("--products.get(position).getNumber()---------" + products.get(position).getNumber());
+				DebugPrint.d(TAG,"--products.get(position).getNumber()---------" + products.get(position).getNumber());
 				try
 				{
 					tmpNumber = Integer.parseInt(products.get(position).getNumber());
@@ -393,9 +394,7 @@ public class MainGridAdapter extends BaseAdapter
 	{
 		if (products != null && v != null && parent != null)
 		{
-			/*try
-			{*/
-			
+
 			ImageView imageViewQuantityNumberBubble = (ImageView) v.findViewById(R.id.imageViewQuantityNumberBubble);
 			TextView tv_quantity = (TextView) v.findViewById(R.id.quantity);
 			int tmpNumber = 0;
@@ -438,12 +437,7 @@ public class MainGridAdapter extends BaseAdapter
 				}
 
 			}
-			
-/*			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}*/
+
 
 		}
 

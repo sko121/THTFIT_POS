@@ -25,6 +25,7 @@ import com.thtfit.pos.adapter.MainGridAdapter;
 import com.thtfit.pos.adapter.MainPagerAdapter;
 import com.thtfit.pos.conn.hql.DataLoader;
 import com.thtfit.pos.conn.hql.DataLoader.OnCompletedListener;
+import com.thtfit.pos.debug.DebugPrint;
 import com.thtfit.pos.model.Product;
 import com.thtfit.pos.util.widget.FooterView;
 import com.thtfit.pos.util.widget.MainGridView;
@@ -119,8 +120,8 @@ public abstract class PageFragment extends Fragment implements OnCompletedListen
 			public void onItemClick(AdapterView<?> parent, View v, int position, long id)
 			{
 				TotalFragment.getInstance(getActivity()).updateList(mylist.get(position));
-				Log.d(TAG, "-----myGridView.setOnItemClickListener---position--" + position);
-				Log.d(TAG, "----myGridView.setOnItemClickListener---number----->"
+				DebugPrint.d(TAG, "-----myGridView.setOnItemClickListener---position--" + position);
+				DebugPrint.d(TAG, "----myGridView.setOnItemClickListener---number----->"
 						+ mylist.get(position).getNumber());
 
 				/**
@@ -149,7 +150,7 @@ public abstract class PageFragment extends Fragment implements OnCompletedListen
 						{
 							position=index;
 							mainGridAdapter.refreshItem(myGridView, (View) myGridView.getChildAt(position-myGridView.getFirstVisiblePosition()), position);
-							Log.d(TAG, "-----updata item---position--" + position);
+							DebugPrint.d(TAG, "-----updata item---position--" + position);
 						}
 					}
 				}

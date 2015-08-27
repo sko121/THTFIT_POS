@@ -83,7 +83,7 @@ public class PosApplication extends FrontiaApplication{
 			imageLoader.init(config);
 		 }
 	}
-	
+
 	@Override
 	public void onTerminate() {
 		super.onTerminate();
