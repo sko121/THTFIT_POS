@@ -352,6 +352,19 @@
 <string name="total1">Total:</string>
 <string name="refresh">refresh</string>
 <string name="shop_string">商品碎片碎片碎片碎片碎片碎片碎片碎片碎片</string>
+<string name="changgui1">常规1</string>
+<string name="changgui1_1">常规1.1</string>
+<string name="changgui1_2">常规1.2</string>
+<string name="changgui1_3">常规1.3</string>
+<string name="changgui2">常规2</string>
+<string name="changgui2_1">常规2.1</string>
+<string name="changgui2_2">常规2.2</string>
+<string name="changgui2_3">常规2.3</string>
+<string name="changgui3">常规3</string>
+<string name="changgui3_1">常规3.1</string>
+<string name="changgui3_2">常规3.2</string>
+<string name="changgui3_3">常规3.3</string>
+
 
 
 	<string name="pref_disable_account">Disable</string>

@@ -1,30 +1,53 @@
 package com.thtfit.pos.fragment;
 
 
-import com.thtfit.pos.R;
-import com.thtfit.pos.activity.LockSetupActivity;
-import com.thtfit.pos.activity.ManageActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.thtfit.pos.R;
+import com.thtfit.pos.activity.LockSetupActivity;
+import com.thtfit.pos.activity.ManageActivity;
 
 public class SettingNormalFragment extends Fragment implements OnClickListener
 {
 	private View mView;
-	private LinearLayout accountsGesture;
-	private LinearLayout accountsChangePassword;
+	private LinearLayout settingNormal1_1;
+	private LinearLayout settingNormal1_2;
+	private LinearLayout settingNormal1_3;
+	private LinearLayout settingNormal2_1;
+	private LinearLayout settingNormal2_2;
+	private LinearLayout settingNormal2_3;
+	private ImageView imgSettingNormal1_1;
+	private ImageView imgSettingNormal1_2;
+	private ImageView imgSettingNormal1_3;
+	private ImageView imgSettingNormal2_1;
+	private ImageView imgSettingNormal2_2;
+	private ImageView imgSettingNormal2_3;
+	private Boolean settingConfig1;
+	private Boolean settingConfig2;
+	private Boolean settingConfig3;
+	private Boolean settingConfig4;
+	private Boolean settingConfig5;
+	private Boolean settingConfig6;
 
+	Context ctx;
+	SharedPreferences spSettingConfig ;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		mView = inflater.inflate(R.layout.fragment_manage_accounts, container,
+		mView = inflater.inflate(R.layout.fragment_setting_normal, container,
 				false);
 		return mView;
 	}
@@ -33,43 +56,115 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		accountsGesture = (LinearLayout) mView.findViewById(R.id.accounts_gesture);		
-		accountsGesture.setOnClickListener(this);
+		settingNormal1_1 = (LinearLayout) mView.findViewById(R.id.setting_changgui1_1);		
+		settingNormal1_1.setOnClickListener(this);
+		settingNormal1_2 = (LinearLayout) mView.findViewById(R.id.setting_changgui1_2);		
+		settingNormal1_2.setOnClickListener(this);
+		settingNormal1_3 = (LinearLayout) mView.findViewById(R.id.setting_changgui1_3);		
+		settingNormal1_3.setOnClickListener(this);
+		settingNormal2_1 = (LinearLayout) mView.findViewById(R.id.setting_changgui2_1);		
+		settingNormal2_1.setOnClickListener(this);
+		settingNormal2_2 = (LinearLayout) mView.findViewById(R.id.setting_changgui2_2);		
+		settingNormal2_2.setOnClickListener(this);
+		settingNormal2_3 = (LinearLayout) mView.findViewById(R.id.setting_changgui2_3);		
+		settingNormal2_3.setOnClickListener(this);
 		
-		accountsChangePassword = (LinearLayout) mView.findViewById(R.id.accounts_change_password);
-		accountsChangePassword.setOnClickListener(this);
+		imgSettingNormal1_1 = (ImageView) mView.findViewById(R.id.setting_changgui1_1_imageview);
+		imgSettingNormal1_1.setOnClickListener(this);
+		imgSettingNormal1_2 = (ImageView) mView.findViewById(R.id.setting_changgui1_2_imageview);
+		imgSettingNormal1_2.setOnClickListener(this);
+		imgSettingNormal1_3 = (ImageView) mView.findViewById(R.id.setting_changgui1_3_imageview);
+		imgSettingNormal1_3.setOnClickListener(this);
+		imgSettingNormal2_1 = (ImageView) mView.findViewById(R.id.setting_changgui2_1_imageview);
+		imgSettingNormal2_1.setOnClickListener(this);
+		imgSettingNormal2_2 = (ImageView) mView.findViewById(R.id.setting_changgui2_2_imageview);
+		imgSettingNormal2_2.setOnClickListener(this);
+		imgSettingNormal2_3 = (ImageView) mView.findViewById(R.id.setting_changgui2_3_imageview);
+		imgSettingNormal2_3.setOnClickListener(this);
+		
+		getSettingConfig();
+		if(settingConfig1 == false)
+			updateImageView(imgSettingNormal1_1, settingConfig1);
+		if(settingConfig2 == false)
+			updateImageView(imgSettingNormal1_2, settingConfig2);
+		if(settingConfig3 == false)
+			updateImageView(imgSettingNormal1_3, settingConfig3);
+		if(settingConfig4 == false)
+			updateImageView(imgSettingNormal2_1, settingConfig4);
+		if(settingConfig5 == false)
+			updateImageView(imgSettingNormal2_2, settingConfig5);
+		if(settingConfig6 == false)
+			updateImageView(imgSettingNormal2_3, settingConfig6);
+		
 				
 	}
-
 	@Override
 	public void onClick(View v)
 	{
 		switch (v.getId())
 		{
-			case R.id.accounts_gesture:
-				Log.d("niotong", "account_gesture going to do!");
-				Intent intent = new Intent(getActivity(), LockSetupActivity.class);
-				startActivity(intent);
-
+			case R.id.setting_changgui1_1:
+				settingConfig1 = !settingConfig1;
+				updateImageView(imgSettingNormal1_1, settingConfig1);
 				break;
-			case R.id.accounts_change_password:
-				Log.d("niotong", "change_password going to do!");
-				Fragment fragment = new ChangePasswordFragment();
-				if (getActivity() == null)
-				{
-					return;
-				}
-				if (getActivity() instanceof ManageActivity)
-				{
-					ManageActivity activity = (ManageActivity) getActivity();
-					activity.switchContent(fragment);
-				}
+			case R.id.setting_changgui1_2:
+				settingConfig2 = !settingConfig2;
+				updateImageView(imgSettingNormal1_2, settingConfig2);
+				break;
+			case R.id.setting_changgui1_3:
+				settingConfig3 = !settingConfig3;
+				updateImageView(imgSettingNormal1_3, settingConfig3);
+				break;
+			case R.id.setting_changgui2_1:
+				settingConfig4 = !settingConfig4;
+				updateImageView(imgSettingNormal2_1, settingConfig4);
+				break;
+			case R.id.setting_changgui2_2:
+				settingConfig5 = !settingConfig5;
+				updateImageView(imgSettingNormal2_2, settingConfig5);
+				break;
+			case R.id.setting_changgui2_3:
+				settingConfig6 = !settingConfig6;
+				updateImageView(imgSettingNormal2_3, settingConfig6);
 				break;
 
 			default:
 				break;
 		}
 
+	}
+	private void getSettingConfig(){
+		ctx = getActivity();
+		spSettingConfig = ctx.getSharedPreferences("SETTINGCONFIG", Context.MODE_PRIVATE);
+		settingConfig1 = spSettingConfig.getBoolean("settingconfig1", true);
+		settingConfig2 = spSettingConfig.getBoolean("settingconfig2", true);
+		settingConfig3 = spSettingConfig.getBoolean("settingconfig3", true);
+		settingConfig4 = spSettingConfig.getBoolean("settingconfig4", true);
+		settingConfig5 = spSettingConfig.getBoolean("settingconfig5", true);
+		settingConfig6 = spSettingConfig.getBoolean("settingconfig6", true);
+	}
+	private void saveSettingConfig(){
+		ctx = getActivity();
+		spSettingConfig = ctx.getSharedPreferences("SETTINGCONFIG", Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = spSettingConfig.edit();
+		editor.putBoolean("settingconfig1", settingConfig1);
+		editor.putBoolean("settingconfig2", settingConfig2);
+		editor.putBoolean("settingconfig3", settingConfig3);
+		editor.putBoolean("settingconfig4", settingConfig4);
+		editor.putBoolean("settingconfig5", settingConfig5);
+		editor.putBoolean("settingconfig6", settingConfig6);
+		editor.commit();
+	}
+	private void updateImageView(ImageView imgView,Boolean boollean){
+		saveSettingConfig();
+		if(boollean){
+			imgView.setImageResource(R.drawable.check_mark);
+			imgView.invalidate();
+		}else{
+			imgView.setImageResource(R.drawable.biz_pc_main_money_icon);
+			imgView.invalidate();
+		}
+		
 	}
 
 }
