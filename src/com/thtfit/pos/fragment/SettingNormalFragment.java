@@ -3,6 +3,7 @@ package com.thtfit.pos.fragment;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,12 +14,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebView.FindListener;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.thtfit.pos.R;
 import com.thtfit.pos.activity.LockSetupActivity;
 import com.thtfit.pos.activity.ManageActivity;
+import com.thtfit.pos.model.CustomDialog;
 
 public class SettingNormalFragment extends Fragment implements OnClickListener
 {
@@ -29,18 +33,29 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 	private LinearLayout settingNormal2_1;
 	private LinearLayout settingNormal2_2;
 	private LinearLayout settingNormal2_3;
+	private LinearLayout settingNormal3_1;
+	private LinearLayout settingNormal3_2;
+	private LinearLayout settingNormal3_3;
+	
 	private ImageView imgSettingNormal1_1;
 	private ImageView imgSettingNormal1_2;
 	private ImageView imgSettingNormal1_3;
 	private ImageView imgSettingNormal2_1;
 	private ImageView imgSettingNormal2_2;
 	private ImageView imgSettingNormal2_3;
+	private ImageView imgSettingNormal3_1;
+	private TextView textSettingNormal3_2;
+	private TextView textSettingNormal3_3;
+	
 	private Boolean settingConfig1;
 	private Boolean settingConfig2;
 	private Boolean settingConfig3;
 	private Boolean settingConfig4;
 	private Boolean settingConfig5;
 	private Boolean settingConfig6;
+	private Boolean settingConfig7;
+	private int settingConfig8;
+	private int settingConfig9;
 
 	Context ctx;
 	SharedPreferences spSettingConfig ;
@@ -68,20 +83,24 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 		settingNormal2_2.setOnClickListener(this);
 		settingNormal2_3 = (LinearLayout) mView.findViewById(R.id.setting_changgui2_3);		
 		settingNormal2_3.setOnClickListener(this);
+		settingNormal3_1 = (LinearLayout) mView.findViewById(R.id.setting_changgui3_1);		
+		settingNormal3_1.setOnClickListener(this);
+		settingNormal3_2 = (LinearLayout) mView.findViewById(R.id.setting_changgui3_2);		
+		settingNormal3_2.setOnClickListener(this);
+		settingNormal3_3 = (LinearLayout) mView.findViewById(R.id.setting_changgui3_3);		
+		settingNormal3_3.setOnClickListener(this);
 		
 		imgSettingNormal1_1 = (ImageView) mView.findViewById(R.id.setting_changgui1_1_imageview);
-		imgSettingNormal1_1.setOnClickListener(this);
 		imgSettingNormal1_2 = (ImageView) mView.findViewById(R.id.setting_changgui1_2_imageview);
-		imgSettingNormal1_2.setOnClickListener(this);
 		imgSettingNormal1_3 = (ImageView) mView.findViewById(R.id.setting_changgui1_3_imageview);
-		imgSettingNormal1_3.setOnClickListener(this);
 		imgSettingNormal2_1 = (ImageView) mView.findViewById(R.id.setting_changgui2_1_imageview);
-		imgSettingNormal2_1.setOnClickListener(this);
 		imgSettingNormal2_2 = (ImageView) mView.findViewById(R.id.setting_changgui2_2_imageview);
-		imgSettingNormal2_2.setOnClickListener(this);
 		imgSettingNormal2_3 = (ImageView) mView.findViewById(R.id.setting_changgui2_3_imageview);
-		imgSettingNormal2_3.setOnClickListener(this);
+		imgSettingNormal3_1 = (ImageView) mView.findViewById(R.id.setting_changgui3_1_imageview);
+		textSettingNormal3_2 = (TextView) mView.findViewById(R.id.setting_changgui3_2_textview);
+		textSettingNormal3_3 = (TextView) mView.findViewById(R.id.setting_changgui3_3_textview);
 		
+		//update the imageview's source
 		getSettingConfig();
 		if(settingConfig1 == false)
 			updateImageView(imgSettingNormal1_1, settingConfig1);
@@ -95,7 +114,10 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 			updateImageView(imgSettingNormal2_2, settingConfig5);
 		if(settingConfig6 == false)
 			updateImageView(imgSettingNormal2_3, settingConfig6);
-		
+		if(settingConfig7 == false)
+			updateImageView(imgSettingNormal2_1, settingConfig4);
+		updateTextView(textSettingNormal3_2, settingConfig8);
+		updateTextView(textSettingNormal3_3, settingConfig9);
 				
 	}
 	@Override
@@ -127,6 +149,64 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 				settingConfig6 = !settingConfig6;
 				updateImageView(imgSettingNormal2_3, settingConfig6);
 				break;
+			case R.id.setting_changgui3_1:
+				settingConfig7 = !settingConfig7;
+				updateImageView(imgSettingNormal3_1, settingConfig7);
+				break;
+			case R.id.setting_changgui3_2:
+				CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());
+				final EditText textEnterInput = (EditText)builder.getEditText();
+				builder.setTitle("输入你的值");
+				builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
+				{
+					public void onClick(DialogInterface dialog, int which)
+					{
+						if(!(textEnterInput.getText().toString().equals(""))){
+							Log.d("niotong", "mark1");
+							settingConfig8 = Integer.parseInt(textEnterInput.getText().toString());
+							updateTextView(textSettingNormal3_2,settingConfig8);
+						}
+						
+						dialog.dismiss();
+					}
+				});
+
+				builder.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener()
+				{
+					public void onClick(DialogInterface dialog, int which)
+					{
+						dialog.dismiss();
+					}
+				});
+				builder.create().show();
+				break;
+			case R.id.setting_changgui3_3:
+				CustomDialog.Builder builder2 = new CustomDialog.Builder(getActivity());
+				final EditText textEnterInput2 = (EditText)builder2.getEditText();
+				builder2.setTitle("输入你的值");
+				builder2.setPositiveButton("确定", new DialogInterface.OnClickListener()
+				{
+					public void onClick(DialogInterface dialog, int which)
+					{
+						if(!textEnterInput2.getText().toString().equals("")){
+							Log.d("niotong", "mark2");
+							settingConfig9 = Integer.parseInt(textEnterInput2.getText().toString());
+							updateTextView(textSettingNormal3_3,settingConfig9);
+						}
+						
+						dialog.dismiss();
+					}
+				});
+
+				builder2.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener()
+				{
+					public void onClick(DialogInterface dialog, int which)
+					{
+						dialog.dismiss();
+					}
+				});
+				builder2.create().show();
+				break;
 
 			default:
 				break;
@@ -142,6 +222,9 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 		settingConfig4 = spSettingConfig.getBoolean("settingconfig4", true);
 		settingConfig5 = spSettingConfig.getBoolean("settingconfig5", true);
 		settingConfig6 = spSettingConfig.getBoolean("settingconfig6", true);
+		settingConfig7 = spSettingConfig.getBoolean("settingconfig7", true);
+		settingConfig8 = spSettingConfig.getInt("settingconfig8", 0);
+		settingConfig9 = spSettingConfig.getInt("settingconfig9", 0);
 	}
 	private void saveSettingConfig(){
 		ctx = getActivity();
@@ -153,6 +236,9 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 		editor.putBoolean("settingconfig4", settingConfig4);
 		editor.putBoolean("settingconfig5", settingConfig5);
 		editor.putBoolean("settingconfig6", settingConfig6);
+		editor.putBoolean("settingconfig7", settingConfig7);
+		editor.putInt("settingconfig8", settingConfig8);
+		editor.putInt("settingconfig9", settingConfig9);
 		editor.commit();
 	}
 	private void updateImageView(ImageView imgView,Boolean boollean){
@@ -165,6 +251,12 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 			imgView.invalidate();
 		}
 		
+	}
+	
+	private void updateTextView(TextView textView,int thetext){
+		saveSettingConfig();
+		textView.setText(thetext+ "");
+		textView.invalidate();
 	}
 
 }
