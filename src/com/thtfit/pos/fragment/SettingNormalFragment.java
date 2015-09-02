@@ -23,6 +23,7 @@ import com.thtfit.pos.R;
 import com.thtfit.pos.activity.LockSetupActivity;
 import com.thtfit.pos.activity.ManageActivity;
 import com.thtfit.pos.model.CustomDialog;
+import com.thtfit.pos.model.tipInputListener;
 
 public class SettingNormalFragment extends Fragment implements OnClickListener
 {
@@ -54,8 +55,8 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 	private Boolean settingConfig5;
 	private Boolean settingConfig6;
 	private Boolean settingConfig7;
-	private int settingConfig8;
-	private int settingConfig9;
+	private String settingConfig8;
+	private String settingConfig9;
 
 	Context ctx;
 	SharedPreferences spSettingConfig ;
@@ -156,6 +157,9 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 			case R.id.setting_changgui3_2:
 				CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());
 				final EditText textEnterInput = (EditText)builder.getEditText();
+				textEnterInput.setText("$0");
+				textEnterInput.setSelection(2);
+				textEnterInput.addTextChangedListener(new tipInputListener(textEnterInput, true));
 				builder.setTitle("输入你的值");
 				builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
 				{
@@ -163,7 +167,8 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 					{
 						if(!(textEnterInput.getText().toString().equals(""))){
 							Log.d("niotong", "mark1");
-							settingConfig8 = Integer.parseInt(textEnterInput.getText().toString());
+							
+							settingConfig8 = textEnterInput.getText().toString();
 							updateTextView(textSettingNormal3_2,settingConfig8);
 						}
 						
@@ -178,19 +183,50 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 						dialog.dismiss();
 					}
 				});
+				builder.setTipInMoneyButton(new DialogInterface.OnClickListener()
+				{
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						// TODO Auto-generated method stub
+						Log.d("niotong","tipinmoney!");
+						textEnterInput.setText("$0");
+						textEnterInput.setSelection(2);
+						//textEnterInput.addTextChangedListener(new tipInputListener(textEnterInput, true));
+						
+					}
+				});
+				builder.setTipInPercentButton(new DialogInterface.OnClickListener()
+				{
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						// TODO Auto-generated method stub
+						Log.d("niotong","tipinpercent");
+						textEnterInput.setText("0%");
+						textEnterInput.setSelection(1);
+						//textEnterInput.addTextChangedListener(new tipInputListener(textEnterInput, false));
+					}
+				});
 				builder.create().show();
 				break;
 			case R.id.setting_changgui3_3:
 				CustomDialog.Builder builder2 = new CustomDialog.Builder(getActivity());
 				final EditText textEnterInput2 = (EditText)builder2.getEditText();
+				textEnterInput2.setText("$0");
+				textEnterInput2.setSelection(2);
+				textEnterInput2.addTextChangedListener(new tipInputListener(textEnterInput2, true));
 				builder2.setTitle("输入你的值");
 				builder2.setPositiveButton("确定", new DialogInterface.OnClickListener()
 				{
 					public void onClick(DialogInterface dialog, int which)
 					{
-						if(!textEnterInput2.getText().toString().equals("")){
-							Log.d("niotong", "mark2");
-							settingConfig9 = Integer.parseInt(textEnterInput2.getText().toString());
+						if(!(textEnterInput2.getText().toString().equals(""))){
+							Log.d("niotong", "mark1");
+							
+							settingConfig9 = textEnterInput2.getText().toString();
 							updateTextView(textSettingNormal3_3,settingConfig9);
 						}
 						
@@ -203,6 +239,30 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 					public void onClick(DialogInterface dialog, int which)
 					{
 						dialog.dismiss();
+					}
+				});
+				builder2.setTipInMoneyButton(new DialogInterface.OnClickListener()
+				{
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						// TODO Auto-generated method stub
+						Log.d("niotong","tipinmoney!");
+						textEnterInput2.setText("$0");
+						textEnterInput2.setSelection(2);
+					}
+				});
+				builder2.setTipInPercentButton(new DialogInterface.OnClickListener()
+				{
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						// TODO Auto-generated method stub
+						Log.d("niotong","tipinpercent");
+						textEnterInput2.setText("0%");
+						textEnterInput2.setSelection(1);
 					}
 				});
 				builder2.create().show();
@@ -223,8 +283,8 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 		settingConfig5 = spSettingConfig.getBoolean("settingconfig5", true);
 		settingConfig6 = spSettingConfig.getBoolean("settingconfig6", true);
 		settingConfig7 = spSettingConfig.getBoolean("settingconfig7", true);
-		settingConfig8 = spSettingConfig.getInt("settingconfig8", 0);
-		settingConfig9 = spSettingConfig.getInt("settingconfig9", 0);
+		settingConfig8 = spSettingConfig.getString("settingconfig8", "0%");
+		settingConfig9 = spSettingConfig.getString("settingconfig9", "0%");
 	}
 	private void saveSettingConfig(){
 		ctx = getActivity();
@@ -237,8 +297,8 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 		editor.putBoolean("settingconfig5", settingConfig5);
 		editor.putBoolean("settingconfig6", settingConfig6);
 		editor.putBoolean("settingconfig7", settingConfig7);
-		editor.putInt("settingconfig8", settingConfig8);
-		editor.putInt("settingconfig9", settingConfig9);
+		editor.putString("settingconfig8", settingConfig8);
+		editor.putString("settingconfig9", settingConfig9);
 		editor.commit();
 	}
 	private void updateImageView(ImageView imgView,Boolean boollean){
@@ -253,9 +313,9 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 		
 	}
 	
-	private void updateTextView(TextView textView,int thetext){
+	private void updateTextView(TextView textView,String thetext){
 		saveSettingConfig();
-		textView.setText(thetext+ "");
+		textView.setText(thetext);
 		textView.invalidate();
 	}
 

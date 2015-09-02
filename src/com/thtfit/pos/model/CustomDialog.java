@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -45,9 +46,13 @@ public class CustomDialog extends Dialog
 		private String neutralButtonText;
 		private String negativeButtonText;
 		private View contentView;
+		private ImageButton tipInMoneyImageButton;
+		private ImageButton tipInPercentImageButton;
 		private DialogInterface.OnClickListener positiveButtonClickListener;
 		private DialogInterface.OnClickListener neutralButtonClickListener;
 		private DialogInterface.OnClickListener negativeButtonClickListener;
+		private DialogInterface.OnClickListener tipInPercentButtonClickListener;
+		private DialogInterface.OnClickListener tipInMoneyButtonClickListener;
 
 		public Builder(Context context)
 		{
@@ -111,6 +116,25 @@ public class CustomDialog extends Dialog
 			return this;
 		}
 
+		
+		public Builder setTipInPercentButton(DialogInterface.OnClickListener listener)
+		{
+			this.tipInPercentImageButton = (ImageButton) layout.findViewById(R.id.tipInPercent);
+			this.tipInPercentButtonClickListener = listener;
+			return this;
+		}
+		public View getTipInPercentButton(){
+			return this.tipInPercentImageButton;
+		}
+		public Builder setTipInMoneyButton(DialogInterface.OnClickListener listener)
+		{
+			this.tipInMoneyImageButton = (ImageButton) layout.findViewById(R.id.tipInMoney);
+			this.tipInMoneyButtonClickListener = listener;
+			return this;
+		}
+		public View getTipInMoneyButton(){
+			return this.tipInMoneyImageButton;
+		}
 		/**
 		 * Set the positive button resource and it's listener
 		 * 
@@ -169,6 +193,46 @@ public class CustomDialog extends Dialog
 			dialog.addContentView(layout, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			// set the dialog title
 			((TextView) layout.findViewById(R.id.title)).setText(title);
+			// set the tipInPercent button
+			if (tipInPercentImageButton != null)
+			{
+				if (tipInPercentButtonClickListener != null)
+				{
+					((ImageButton) layout.findViewById(R.id.tipInPercent)).setOnClickListener(new View.OnClickListener()
+					{
+						public void onClick(View v)
+						{
+							tipInPercentButtonClickListener.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
+						}
+					});
+				}
+			}
+			else
+			{
+				// if no confirm button just set the visibility to GONE
+				layout.findViewById(R.id.tipInPercent).setVisibility(View.GONE);
+			}
+			
+			// set the tipInMoney button
+			if (tipInMoneyImageButton != null)
+			{
+				if (tipInMoneyButtonClickListener != null)
+				{
+					((ImageButton) layout.findViewById(R.id.tipInMoney)).setOnClickListener(new View.OnClickListener()
+					{
+						public void onClick(View v)
+						{
+							tipInMoneyButtonClickListener.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
+						}
+					});
+				}
+			}
+			else
+			{
+				// if no confirm button just set the visibility to GONE
+				layout.findViewById(R.id.tipInMoney).setVisibility(View.GONE);
+			}
+
 			// set the confirm button
 			if (positiveButtonText != null)
 			{

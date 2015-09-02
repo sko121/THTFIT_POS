@@ -70,11 +70,27 @@
             android:gravity="center"
             android:orientation="horizontal" >
 
+            <ImageButton
+                android:id="@+id/tipInPercent"
+                android:layout_width="100.0dip"
+                android:layout_height="40.0dip" 
+                android:background="@color/gray"              
+                android:gravity="center"
+                android:src="@drawable/check_mark" />
+            <ImageButton
+                android:id="@+id/tipInMoney"
+                android:layout_width="100.0dip"
+                android:layout_height="40.0dip"
+                android:background="@color/yellow"
+                android:layout_marginLeft="20.0dip"             
+                android:gravity="center"
+                android:src="@drawable/check_mark" />
             <Button
                 android:id="@+id/positiveButton"
                 style="@style/text_15_ffffff_sdw"
                 android:layout_width="100.0dip"
-                android:layout_height="40.0dip"               
+                android:layout_height="40.0dip"  
+                android:layout_marginLeft="20.0dip"             
                 android:gravity="center"
                 android:text="@string/ok" />
             <!-- android:background="@drawable/btn_ok_selector" -->
