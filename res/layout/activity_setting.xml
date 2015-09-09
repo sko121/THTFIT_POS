@@ -38,7 +38,6 @@
             android:id="@+id/setting_content"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_marginRight="50dp"
             android:layout_weight="0.8"
             android:gravity="center"
             android:orientation="vertical" />

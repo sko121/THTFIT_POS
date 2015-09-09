@@ -65,11 +65,11 @@ public class IChartFragment extends Fragment {
         dataTwo = PackageChartData.PackageData(chartDataTwo);
         dataThree = PackageChartData.PackageData(chartDataThree);
 
-        column2DOne = new Column2D(800,200,"标题一", dataOne);
+        column2DOne = new Column2D(820,200,"标题一", dataOne);
         
-        column2DTwo = new Column2D(400,200,"标题二", dataTwo);
+        column2DTwo = new Column2D(410,150,"标题二", dataTwo);
         
-        donut2DOne = new Donut2D(400, 200, "袁满大爷一天的生活", dataThree);
+        donut2DOne = new Donut2D(410, 150, "袁满大爷一天的生活", dataThree);
         donut2DOne.setRadius(1000);
 
         web.addJavascriptInterface(column2DOne, "column2DOne");
@@ -182,7 +182,7 @@ public class IChartFragment extends Fragment {
     }
     @JavascriptInterface
     public void updateDonut2DOne(){
-    	donut2DOne.setTitle("改变之后的标题");
+    	donut2DOne.setTitle("");
     	donut2DOne.setData(dataTwo);
     }
 }

@@ -7,36 +7,55 @@
 div{  
 	width:300px;  
 	height:300px;  
-}  
+} 
+.set1{  
+	position:absolute;  
+	left:0px;  
+	top:0px;
+	width:820px;
+	height:120px;  
+} 
 .div1{   
 	position:absolute;  
 	left:0px;  
-	top:0px;
-	width:800px;
+	top:120px;
+	width:820px;
 	height:200px;    
-}  
-.div2{  
-	background:red;
+} 
+.set2{  
 	position:absolute;  
 	left:0px;  
-	top:200px;
-	width:400px;
-	height:200px;  
+	top:320px;
+	width:820px;
+	height:70px;  
+}
+.set3{  
+	position:absolute;  
+	left:0px;  
+	top:390px;
+	width:410px;
+	height:50px;  
+}
+.set4{  
+	position:absolute;  
+	left:410px;  
+	top:390px;
+	width:410px;
+	height:50px;  
+}    
+.div2{  
+	position:absolute;  
+	left:0px;  
+	top:440px;
+	width:410px;
+	height:150px;  
 }
 .div3{  
-	background:blue;
 	position:absolute;  
-	left:400px;  
-	top:200px;
-	width:400px;
-	height:200px;  
-}
-.btn{
-	position:absolute;  
-	left:800px;  
-	top:0px;
-	width:100px;
-	height:100px;
+	left:410px;  
+	top:440px;
+	width:410px;
+	height:150px;  
 }
 </style> 
 <script type="text/javascript" src="ichart.1.2.min.js"></script>
@@ -46,10 +65,6 @@ $(function(){
 	initSecDiv();
 	initThrDiv();
 });
-
-
-
-
 
 function initFirDiv(){
 	var data = new Array();
@@ -194,15 +209,11 @@ function updateThrDiv(){
 </script>
 </head>  
 <body>  
-
+<div id='settingDiv1' class="set1"><input type="button" value="设置图表一" onClick="updateFirDiv()" ></div>
 <div id='canvasDiv1' class="div1"></div>
-
-<div id='button1' class="btn">
-	<input type="button" value="Button1" onClick="updateFirDiv()" >
-	<input type="button" value="Button2" onClick="updateSecDiv()" >
-	<input type="button" value="Button3" onClick="updateThrDiv()" >
-</div>
-  
+<div id='settingDiv2' class="set2">显示的一些东西，具体看情况</div>
+<div id='settingDiv3' class="set3"><input type="button" value="设置图表二" onClick="updateSecDiv()" ></div>
+<div id='settingDiv4' class="set4"><input type="button" value="设置图表三" onClick="updateThrDiv()" ></div>  
 <div id='canvasDiv2' class="div2"></div>
 <div id='canvasDiv3' class="div3"></div>  
 </body>  
