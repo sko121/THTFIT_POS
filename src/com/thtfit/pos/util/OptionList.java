@@ -26,6 +26,7 @@ public class OptionList {
 			settingList.add("硬件设置");
 			settingList.add("发票信息");
 			settingList.add("返回首页");
+			settingList.add("趋势图表");
 			setList(settingList);
 			break;
 		case TYPE_SEARCH:

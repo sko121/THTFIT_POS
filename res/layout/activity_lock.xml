@@ -23,7 +23,7 @@
         android:layout_above="@+id/linearLayout_bottom"
         android:layout_below="@+id/linearLayout_top"
         android:background="#48423D"
-        tools:context=".MainActivity" >
+        tools:context=".IChartFragment" >
 
         <TextView
             android:id="@+id/lock_point"

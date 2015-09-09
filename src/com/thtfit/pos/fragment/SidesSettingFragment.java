@@ -18,6 +18,7 @@ import android.widget.ListView;
 import com.thtfit.pos.R;
 import com.thtfit.pos.activity.ManageActivity;
 import com.thtfit.pos.activity.SettingActivity;
+import com.thtfit.pos.iChart.IChartFragment;
 import com.thtfit.pos.util.OptionList;
 
 public class SidesSettingFragment extends ListFragment {
@@ -65,6 +66,8 @@ public class SidesSettingFragment extends ListFragment {
 		case 3:
 			getActivity().finish();
 			break;
+		case 4:
+			newContent = new IChartFragment();
 		default:
 			break;
 		}
@@ -80,8 +83,8 @@ public class SidesSettingFragment extends ListFragment {
                  if(getActivity() == null){
                          return;
                  }
-                 if(getActivity() instanceof ManageActivity){
-                	 ManageActivity activity = (ManageActivity)getActivity();
+                 if(getActivity() instanceof SettingActivity){
+                	 SettingActivity activity = (SettingActivity)getActivity();
                 	 activity.switchContent(fragment);
                  }
         }

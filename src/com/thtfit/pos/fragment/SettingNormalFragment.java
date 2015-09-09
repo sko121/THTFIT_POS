@@ -2,9 +2,9 @@ package com.thtfit.pos.fragment;
 
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,15 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.thtfit.pos.R;
-import com.thtfit.pos.activity.LockSetupActivity;
-import com.thtfit.pos.activity.ManageActivity;
 import com.thtfit.pos.model.CustomDialog;
 import com.thtfit.pos.model.tipInputListener;
 
@@ -101,7 +98,7 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 		textSettingNormal3_2 = (TextView) mView.findViewById(R.id.setting_changgui3_2_textview);
 		textSettingNormal3_3 = (TextView) mView.findViewById(R.id.setting_changgui3_3_textview);
 		
-		//update the imageview's source
+		//update the imageview's source and the testview's source
 		getSettingConfig();
 		if(settingConfig1 == false)
 			updateImageView(imgSettingNormal1_1, settingConfig1);
@@ -155,7 +152,7 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 				updateImageView(imgSettingNormal3_1, settingConfig7);
 				break;
 			case R.id.setting_changgui3_2:
-				CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());
+				final CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());
 				final EditText textEnterInput = (EditText)builder.getEditText();
 				textEnterInput.setText("$0");
 				textEnterInput.setSelection(2);
@@ -166,16 +163,12 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 					public void onClick(DialogInterface dialog, int which)
 					{
 						if(!(textEnterInput.getText().toString().equals(""))){
-							Log.d("niotong", "mark1");
-							
 							settingConfig8 = textEnterInput.getText().toString();
 							updateTextView(textSettingNormal3_2,settingConfig8);
 						}
-						
 						dialog.dismiss();
 					}
 				});
-
 				builder.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener()
 				{
 					public void onClick(DialogInterface dialog, int which)
@@ -185,35 +178,32 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 				});
 				builder.setTipInMoneyButton(new DialogInterface.OnClickListener()
 				{
-					
-					@Override
+					@SuppressLint("ResourceAsColor") @Override
 					public void onClick(DialogInterface dialog, int which)
 					{
 						// TODO Auto-generated method stub
-						Log.d("niotong","tipinmoney!");
 						textEnterInput.setText("$0");
 						textEnterInput.setSelection(2);
-						//textEnterInput.addTextChangedListener(new tipInputListener(textEnterInput, true));
-						
+						((ImageButton) builder.getTipInMoneyButton()).setBackgroundResource(R.color.yellow);
+						((ImageButton) builder.getTipInPercentButton()).setBackgroundResource(R.color.gray);
 					}
 				});
 				builder.setTipInPercentButton(new DialogInterface.OnClickListener()
 				{
-					
-					@Override
+					@SuppressLint("ResourceAsColor") @Override
 					public void onClick(DialogInterface dialog, int which)
 					{
-						// TODO Auto-generated method stub
-						Log.d("niotong","tipinpercent");
+						// TODO Auto-generated method stub;
 						textEnterInput.setText("0%");
 						textEnterInput.setSelection(1);
-						//textEnterInput.addTextChangedListener(new tipInputListener(textEnterInput, false));
+						((ImageButton) builder.getTipInMoneyButton()).setBackgroundResource(R.color.gray);
+						((ImageButton) builder.getTipInPercentButton()).setBackgroundResource(R.color.yellow);
 					}
 				});
 				builder.create().show();
 				break;
 			case R.id.setting_changgui3_3:
-				CustomDialog.Builder builder2 = new CustomDialog.Builder(getActivity());
+				final CustomDialog.Builder builder2 = new CustomDialog.Builder(getActivity());
 				final EditText textEnterInput2 = (EditText)builder2.getEditText();
 				textEnterInput2.setText("$0");
 				textEnterInput2.setSelection(2);
@@ -224,8 +214,6 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 					public void onClick(DialogInterface dialog, int which)
 					{
 						if(!(textEnterInput2.getText().toString().equals(""))){
-							Log.d("niotong", "mark1");
-							
 							settingConfig9 = textEnterInput2.getText().toString();
 							updateTextView(textSettingNormal3_3,settingConfig9);
 						}
@@ -243,26 +231,26 @@ public class SettingNormalFragment extends Fragment implements OnClickListener
 				});
 				builder2.setTipInMoneyButton(new DialogInterface.OnClickListener()
 				{
-					
-					@Override
+					@SuppressLint("ResourceAsColor") @Override
 					public void onClick(DialogInterface dialog, int which)
 					{
 						// TODO Auto-generated method stub
-						Log.d("niotong","tipinmoney!");
 						textEnterInput2.setText("$0");
 						textEnterInput2.setSelection(2);
+						((ImageButton) builder2.getTipInMoneyButton()).setBackgroundResource(R.color.yellow);
+						((ImageButton) builder2.getTipInPercentButton()).setBackgroundResource(R.color.gray);
 					}
 				});
 				builder2.setTipInPercentButton(new DialogInterface.OnClickListener()
 				{
-					
-					@Override
+					@SuppressLint("ResourceAsColor") @Override
 					public void onClick(DialogInterface dialog, int which)
 					{
 						// TODO Auto-generated method stub
-						Log.d("niotong","tipinpercent");
 						textEnterInput2.setText("0%");
 						textEnterInput2.setSelection(1);
+						((ImageButton) builder2.getTipInMoneyButton()).setBackgroundResource(R.color.gray);
+						((ImageButton) builder2.getTipInPercentButton()).setBackgroundResource(R.color.yellow);
 					}
 				});
 				builder2.create().show();
