@@ -46,13 +46,11 @@ public class ManageAccountsFragment extends Fragment implements OnClickListener 
 		switch (v.getId())
 		{
 			case R.id.accounts_gesture:
-				Log.d("niotong", "account_gesture going to do!");
 				Intent intent = new Intent(getActivity(), LockSetupActivity.class);
 				startActivity(intent);
 
 				break;
 			case R.id.accounts_change_password:
-				Log.d("niotong", "change_password going to do!");
 				Fragment fragment = new ChangePasswordFragment();
 				if (getActivity() == null)
 				{

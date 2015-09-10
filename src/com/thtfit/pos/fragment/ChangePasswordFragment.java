@@ -47,12 +47,8 @@ public class ChangePasswordFragment extends Fragment implements OnClickListener
 		switch(v.getId())
 		{
 			case R.id.changepwd_button:
-				Log.d("niotong",edit_password.getText().toString());
-				Log.d("niotong",edit_newPassword.getText().toString());
-				Log.d("niotong",edit_reinputPassword.getText().toString());
 				if(edit_newPassword.getText().toString().equals(edit_reinputPassword.getText().toString()))
 				{
-					Log.d("niotong","changepwd the input pwd is ok!");
 				}
 				else{
 					CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());

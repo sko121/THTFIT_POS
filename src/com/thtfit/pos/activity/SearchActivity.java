@@ -5,6 +5,9 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -72,6 +75,58 @@ public class SearchActivity extends FragmentActivity{
 					e.printStackTrace();
 				}
 				
+			}
+		});
+		
+		searchEditText.addTextChangedListener(new TextWatcher()
+		{
+			private String textget = null;
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count)
+			{
+				// TODO Auto-generated method stub
+				textget = searchEditText.getText().toString().trim();
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after)
+			{
+				// TODO Auto-generated method stub
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s)
+			{
+				// TODO Auto-generated method stub
+				if("".equals(textget)){
+					searchListView.setAdapter(null);
+					textget = null;
+					return;
+				}
+				
+				dbcon = new DBContror(SearchActivity.this);
+				mylist = new ArrayList<Product>();
+				mylist.addAll(dbcon.queryAllItemByName(textget));
+				
+				try {
+					if (mylist.size() != 0) {
+						adapter = new SearchListAdapter(mylist, SearchActivity.this);// 自定义适配器
+						searchListView.setAdapter(adapter);
+
+						searchListView.setOnItemClickListener(new OnItemClickListener() {
+							public void onItemClick(AdapterView<?> parent, View v,
+									int position, long id) {
+								showMSG("点击了"+mylist.get(position).getName());
+							}
+						});
+					}else{
+						searchListView.setAdapter(null);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				textget = null;
 			}
 		});
 		

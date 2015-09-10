@@ -20,11 +20,10 @@ public class tipInputListener implements TextWatcher
 	@Override
 	public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
 		// TODO Auto-generated method stub
-		Log.d("niotong","onTextChanged !");
 		if(isChanged){
 			return;
 		}
-		textget = edittext.getText().toString();
+		textget = edittext.getText().toString().trim();
 		if(textget.indexOf("$")!= -1){
 			isMoneyType = true;
 		}else{
@@ -33,7 +32,6 @@ public class tipInputListener implements TextWatcher
 		if(textget.equals("")){
 			textget = "0";
 		}
-		Log.d("niotong","textget:"+textget);
 		if(isMoneyType){
 			textget = textget.substring(textget.indexOf("$")+1,textget.length());
 			if(textget.equals("")){
@@ -46,7 +44,6 @@ public class tipInputListener implements TextWatcher
 			}else if(Integer.parseInt(textget)>= 0 && Integer.parseInt(textget)<= 99){
 				textShow = "$"+Integer.parseInt(textget);
 			}
-			Log.d("niotong","substring1:"+textget);
 		}else{
 			if(textget.indexOf("%") == -1){
 				textget = textget.substring(0,textget.length());
@@ -63,7 +60,6 @@ public class tipInputListener implements TextWatcher
 			}else{
 				textShow = Integer.parseInt(textget)+"%";
 			}
-			Log.d("niotong","substring2:"+textget);
 		}
 	}
 	
@@ -71,7 +67,6 @@ public class tipInputListener implements TextWatcher
 	public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
 			int arg3) {
 		// TODO Auto-generated method stub
-		Log.d("niotong","beforeTextChanged !");
 		//edittext.setSelection(1);
 		if(isChanged){
 			return;
@@ -81,7 +76,6 @@ public class tipInputListener implements TextWatcher
 	@Override
 	public void afterTextChanged(Editable arg0) {
 		// TODO Auto-generated method stub
-		Log.d("niotong","afterTextChanged !");
 		if(isChanged){
 			return;
 		}

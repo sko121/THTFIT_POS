@@ -45,12 +45,8 @@ public class ManageAddSaleFragment extends Fragment implements OnClickListener {
 		switch(arg0.getId())
 		{
 			case R.id.signin_button:
-				Log.d("niotong",edit_loginname.getText().toString());
-				Log.d("niotong",edit_password.getText().toString());
-				Log.d("niotong",edit_reinputPassword.getText().toString());
 				if(edit_password.getText().toString().equals(edit_reinputPassword.getText().toString()))
 				{
-					Log.d("niotong","password input ok!");
 				}
 				else{
 					CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());
