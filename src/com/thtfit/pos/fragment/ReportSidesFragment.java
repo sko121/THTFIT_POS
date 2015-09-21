@@ -41,7 +41,7 @@ public class ReportSidesFragment extends ListFragment {
 
 	private void initData() {
 		data = new ArrayList<String>();
-		OptionList optionList = new OptionList();
+		OptionList optionList = new OptionList(getActivity());
 		optionList.parse(TYPE_REPORT);
 		manager = getFragmentManager();
 		transaction = manager.beginTransaction();

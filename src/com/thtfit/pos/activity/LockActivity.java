@@ -49,7 +49,7 @@ public class LockActivity extends FragmentActivity implements
 			this.finish();
 			return;
 		}else if("LockSetupActivity".equals(intentTag)){
-			lockPoint.setText("警告：密码输入正确手势将重置");
+			lockPoint.setText((String) this.getResources().getText(R.string.warning_reset_gesture_code));
 			lockPoint.setTextColor(getResources().getColor(R.color.red) );
 		}
 		lockPattern = LockPatternView.stringToPattern(patternString);

@@ -27,7 +27,7 @@ public class ManageSidesFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 
 		data = new ArrayList<String>();
-		OptionList optionList = new OptionList();
+		OptionList optionList = new OptionList(getActivity());
 		optionList.parse(TYPE_TAG);
 
 		data = optionList.getList();
