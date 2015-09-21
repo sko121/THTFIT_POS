@@ -494,4 +494,37 @@
 	<string name="wrong_settings">Wrong settings</string>
 	<string name="clean">清除</string>
 
+	<string name="login_prompt">登陆提示</string>
+	<string name="login_successfully">登陆成功</string>
+	<string name="please_login_first">初次使用，请先登录管理帐号</string>
+	<string name="prompt">提示</string>
+	<string name="switch_account">切换帐号</string>
+	<string name="logout_account">退出帐号</string>
+	<string name="confirm_to_logout">确定登出管理员帐号？</string>
+	<string name="you_have_login">您已登录！</string>
+	<string name="admin_account_will_logout">已登录管理员帐号将会注销</string>
+	<string name="please_input_account">请输入用户名称！</string>
+	<string name="please_input_password">请输入密码！</string>
+	<string name="this_is_custom_Dialog">这个就是自定义的提示框</string>
+	
+	<string name="general_settings">常规设置</string>
+	<string name="hardware_setup">硬件设置</string>
+	<string name="invoice_information">发票信息</string>
+	<string name="home">返回首页</string>
+	<string name="trend_chart">趋势图表</string>
+	
+	<string name="name_search">名称查找</string>
+	<string name="number_search">编号查找</string>
+	<string name="price_search">价格查找</string>
+	<string name="date_search">日期查找</string>
+	
+	<string name="account_manager">帐号管理</string>
+	<string name="add_saler">添加店员</string>
+	<string name="add_products">新增产品</string>
+	<string name="add_type">新增类别</string>
+	<string name="inventory_management">库存管理</string>
+	
+	<string name="sales_trends">销售趋势</string>
+	<string name="purchase_and_sale">进销</string>
+	<string name="profit">利润</string>
 </resources>

@@ -49,9 +49,9 @@ public class LoginActivity extends Activity implements OnClickListener
 				if (loginResult.equals("success"))
 				{
 					CustomDialog.Builder builder = new CustomDialog.Builder(LoginActivity.this);
-					builder.setTitle("登录提示");
-					builder.setMessage("登录成功");
-					builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
+					builder.setTitle((String) getApplication().getResources().getText(R.string.login_prompt));
+					builder.setMessage((String) getApplication().getResources().getText(R.string.login_successfully));
+					builder.setPositiveButton((String) getApplication().getResources().getText(R.string.confirm), new DialogInterface.OnClickListener()
 					{
 						public void onClick(DialogInterface dialog, int which)
 						{
@@ -64,9 +64,9 @@ public class LoginActivity extends Activity implements OnClickListener
 				else
 				{
 					CustomDialog.Builder builder = new CustomDialog.Builder(LoginActivity.this);
-					builder.setTitle("登录提示");
+					builder.setTitle((String) getApplication().getResources().getText(R.string.login_prompt));
 					builder.setMessage(loginResult);
-					builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
+					builder.setPositiveButton((String) getApplication().getResources().getText(R.string.confirm), new DialogInterface.OnClickListener()
 					{
 						public void onClick(DialogInterface dialog, int which)
 						{
@@ -127,9 +127,9 @@ public class LoginActivity extends Activity implements OnClickListener
 		{
 			// onStop();
 			CustomDialog.Builder builder = new CustomDialog.Builder(this);
-			builder.setMessage("初次使用，请先登录管理帐号");
-			builder.setTitle("提示");
-			builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
+			builder.setMessage((String) getApplication().getResources().getText(R.string.please_login_first));
+			builder.setTitle((String) getApplication().getResources().getText(R.string.prompt));
+			builder.setPositiveButton((String) getApplication().getResources().getText(R.string.confirm), new DialogInterface.OnClickListener()
 			{
 				public void onClick(DialogInterface dialog, int which)
 				{
@@ -143,9 +143,9 @@ public class LoginActivity extends Activity implements OnClickListener
 		{
 			// onStop();
 			CustomDialog.Builder builder = new CustomDialog.Builder(this);
-			builder.setMessage("您已登录！");
-			builder.setTitle("提示");
-			builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
+			builder.setMessage((String) getApplication().getResources().getText(R.string.you_have_login));
+			builder.setTitle((String) getApplication().getResources().getText(R.string.prompt));
+			builder.setPositiveButton((String) getApplication().getResources().getText(R.string.confirm), new DialogInterface.OnClickListener()
 			{
 				/* callback from dialog builder. */
 				public void onClick(DialogInterface dialog, int which)
@@ -154,7 +154,7 @@ public class LoginActivity extends Activity implements OnClickListener
 					LoginActivity.this.finish();
 				}
 			});
-			builder.setNeutralButton("切换帐号", new DialogInterface.OnClickListener()
+			builder.setNeutralButton((String) getApplication().getResources().getText(R.string.switch_account), new DialogInterface.OnClickListener()
 			{
 				public void onClick(DialogInterface dialog, int which)
 				{
@@ -164,7 +164,7 @@ public class LoginActivity extends Activity implements OnClickListener
 					dialog.dismiss();
 				}
 			});
-			builder.setNegativeButton("退出帐号", new android.content.DialogInterface.OnClickListener()
+			builder.setNegativeButton((String) getApplication().getResources().getText(R.string.logout_account), new android.content.DialogInterface.OnClickListener()
 			{
 				public void onClick(DialogInterface dialog, int which)
 				{
@@ -197,9 +197,9 @@ public class LoginActivity extends Activity implements OnClickListener
 
 			case R.id.logout_manager_button:
 				CustomDialog.Builder builder = new CustomDialog.Builder(this);
-				builder.setMessage("确定登出管理员帐号？");
-				builder.setTitle("提示");
-				builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
+				builder.setMessage((String) getApplication().getResources().getText(R.string.confirm_to_logout));
+				builder.setTitle((String) getApplication().getResources().getText(R.string.prompt));
+				builder.setPositiveButton((String) getApplication().getResources().getText(R.string.confirm), new DialogInterface.OnClickListener()
 				{
 					public void onClick(DialogInterface dialog, int which)
 					{
@@ -209,7 +209,7 @@ public class LoginActivity extends Activity implements OnClickListener
 					}
 				});
 
-				builder.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener()
+				builder.setNegativeButton((String) getApplication().getResources().getText(R.string.cancel), new android.content.DialogInterface.OnClickListener()
 				{
 					public void onClick(DialogInterface dialog, int which)
 					{
@@ -222,9 +222,9 @@ public class LoginActivity extends Activity implements OnClickListener
 
 			case R.id.switch_manager_button:
 				CustomDialog.Builder builder2 = new CustomDialog.Builder(this);
-				builder2.setMessage("已登录管理员帐号将会注销");
-				builder2.setTitle("提示");
-				builder2.setPositiveButton("确定", new DialogInterface.OnClickListener()
+				builder2.setMessage((String) getApplication().getResources().getText(R.string.admin_account_will_logout));
+				builder2.setTitle((String) getApplication().getResources().getText(R.string.prompt));
+				builder2.setPositiveButton((String) getApplication().getResources().getText(R.string.confirm), new DialogInterface.OnClickListener()
 				{
 					public void onClick(DialogInterface dialog, int which)
 					{
@@ -234,7 +234,7 @@ public class LoginActivity extends Activity implements OnClickListener
 					}
 				});
 
-				builder2.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener()
+				builder2.setNegativeButton((String) getApplication().getResources().getText(R.string.cancel), new android.content.DialogInterface.OnClickListener()
 				{
 					public void onClick(DialogInterface dialog, int which)
 					{
@@ -271,12 +271,12 @@ public class LoginActivity extends Activity implements OnClickListener
 		if (etLoginName.getText().toString().equals(""))
 		{
 			etLoginName.requestFocus();
-			ShowMsg("请输入用户名称！");
+			ShowMsg((String) getApplication().getResources().getText(R.string.please_input_account));
 		}
 		else if (etPassword.getText().toString().equals(""))
 		{
 			etPassword.requestFocus();
-			ShowMsg("请输入密码！");
+			ShowMsg((String) getApplication().getResources().getText(R.string.please_input_password));
 		}
 		else
 		{
@@ -297,9 +297,9 @@ public class LoginActivity extends Activity implements OnClickListener
 	public void showAlertDialog()
 	{
 		CustomDialog.Builder builder = new CustomDialog.Builder(this);
-		builder.setMessage("这个就是自定义的提示框");
-		builder.setTitle("提示");
-		builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
+		builder.setMessage((String) getApplication().getResources().getText(R.string.this_is_custom_Dialog));
+		builder.setTitle((String) getApplication().getResources().getText(R.string.prompt));
+		builder.setPositiveButton((String) getApplication().getResources().getText(R.string.confirm), new DialogInterface.OnClickListener()
 		{
 			public void onClick(DialogInterface dialog, int which)
 			{
@@ -308,7 +308,7 @@ public class LoginActivity extends Activity implements OnClickListener
 			}
 		});
 
-		builder.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener()
+		builder.setNegativeButton((String) getApplication().getResources().getText(R.string.cancel), new android.content.DialogInterface.OnClickListener()
 		{
 			public void onClick(DialogInterface dialog, int which)
 			{

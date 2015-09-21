@@ -1,10 +1,12 @@
 package com.thtfit.pos.fragment;
 
 import java.util.List;
-
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.ListFragment;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,15 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.thtfit.pos.R;
 import com.thtfit.pos.adapter.CategoryAdapter;
 import com.thtfit.pos.util.OptionList;
 
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB) @SuppressLint("NewApi") 
 public class CategoryListFragment extends ListFragment{
 	public final static String LOG_TAG = "CategoryListFragment";
-	private Context context;
+	private static Context context;
 	private CategoryAdapter adapter;
 	private View vLayout;
 	private int type;
@@ -35,7 +37,7 @@ public class CategoryListFragment extends ListFragment{
 		f.context = c;
 		f.type = type;
 
-		OptionList ol = new OptionList();
+		OptionList ol = new OptionList(context);
 		ol.parse(type);
 		f.listData = ol.getList();
 		return f;

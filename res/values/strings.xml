@@ -494,4 +494,37 @@
 	<string name="wrong_settings">Wrong settings</string>
 	<string name="clean">Clean</string>
 
+	<string name="login_prompt">Login prompt</string>
+	<string name="login_successfully">Login successfully</string>
+	<string name="please_login_first">Please login administrators account</string>
+	<string name="prompt">Prompt</string>
+	<string name="switch_account">Switch account</string>
+	<string name="logout_account">Logout account</string>
+	<string name="confirm_to_logout">Confirm to logout？</string>
+	<string name="you_have_login">You have login！</string>
+	<string name="admin_account_will_logout">The accout will logout</string>
+	<string name="please_input_account">Please input account！</string>
+	<string name="please_input_password">Please input password！</string>
+	<string name="this_is_custom_Dialog">This is custom Dialog</string>
+	
+	<string name="general_settings">General settings</string>
+	<string name="hardware_setup">Hardware setup</string>
+	<string name="invoice_information">Invoice information</string>
+	<string name="home">Home</string>
+	<string name="trend_chart">Trend chart</string>
+	
+	<string name="name_search">Name search</string>
+	<string name="number_search">Number search</string>
+	<string name="price_search">Price search</string>
+	<string name="date_search">Date search</string>
+	
+	<string name="account_manager">Account manager</string>
+	<string name="add_saler">Add saler</string>
+	<string name="add_products">Add products</string>
+	<string name="add_type">Add type</string>
+	<string name="inventory_management">Inventory management</string>
+	
+	<string name="sales_trends">Sales trends</string>
+	<string name="purchase_and_sale">Purchase and sale</string>
+	<string name="profit">Profit</string>
 </resources>
