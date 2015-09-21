@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">THTFITPOS</string>
+    <string name="app_name">THTFIT POS</string>
     <string name="action_settings">Setting</string>
     <string name="hello_world">Hello world!</string>
     <string name="confirm">Confirm</string>
@@ -23,22 +23,22 @@
     <string name="lockpattern_recording_incorrect_too_short" >"It must be 4 points at least，please try again"</string>
     <string name="lockpattern_error" >"Wrong gesture password"</string>
     <!-- Accessibility description sent when user starts drawing a lock pattern. [CHAR LIMIT=NONE] -->
-    <string name="lockscreen_access_pattern_start">Start lockscreen pattern</string>
+    <string name="lockscreen_access_pattern_start">Start the lockscreen pattern</string>
     <!-- Accessibility description sent when the pattern times out and is cleared. [CHAR LIMIT=NONE] -->
-    <string name="lockscreen_access_pattern_cleared">Clear lockscreen pattern</string>
+    <string name="lockscreen_access_pattern_cleared">Clear the lockscreen pattern</string>
     <!-- Accessibility description sent when user adds a cell to the pattern. [CHAR LIMIT=NONE] -->
-    <string name="lockscreen_access_pattern_cell_added">Add lockscreen</string>
+    <string name="lockscreen_access_pattern_cell_added">Add a lockscreen</string>
     <!-- Accessibility description sent when user completes drawing a pattern. [CHAR LIMIT=NONE] -->
     <string name="lockscreen_access_pattern_detected">Pattern drawed complete</string>
-    <string name="setup_gesture_code">Set gesture password</string>
-    <string name="setup_gesture_pattern">Setup unlock pattern</string>
-    <string name="setup_gesture_pattern_again">Setup unlock pattern again</string>
-    <string name="forget_gesture_code">Forget gesture password?</string>
+    <string name="setup_gesture_code">Set a gesture password</string>
+    <string name="setup_gesture_pattern">Setup a unlock pattern</string>
+    <string name="setup_gesture_pattern_again">Setup the unlock pattern again</string>
+    <string name="forget_gesture_code">Forget the gesture password?</string>
     <string name="use_other_account_login">Use other account to login</string>
-    <string name="set_gesture_pattern">Draw unlock pattern</string>
-    <string name="set_gesture_pattern_reason">Set gesture password to protect private information</string>
-    <string name="reset_gesture_code">Reset gesture password</string>
-    <string name="warning_reset_gesture_code">Warning:password will be reset</string>
+    <string name="set_gesture_pattern">Please draw a unlock pattern</string>
+    <string name="set_gesture_pattern_reason">Set a gesture password to protect private information</string>
+    <string name="reset_gesture_code">Reset the gesture password</string>
+    <string name="warning_reset_gesture_code">Warning: The gesture password will be reset</string>
     
     
     
@@ -124,7 +124,7 @@
     <string name="no_card_detected">No card detected,please remove it and try again</string>
     <string name="icc_card_inserted">ICC card inserted</string>
     <string name="card_inserted">Card inserted(not ICC card)</string>
-    <string name="bad_swipe">Read failed,please remove card and try again</string>
+    <string name="bad_swipe">Reading failed,please remove card and try again</string>
     <string name="card_swiped">Swiped card:</string>
     <string name="mag_head_fail">Magnetic head failure</string>
     <string name="card_no_response">No swipe card reply</string>
@@ -152,8 +152,8 @@
     <string name="online_process_requested">Request process online</string>
     <string name="request_data_to_server">Request data to server</string>
     <string name="replied_connected">Replied connected</string>
-    <string name="replied_success">replied success</string>
-    <string name="replied_failed">replied failed</string>
+    <string name="replied_success">replied successfully</string>
+    <string name="replied_failed">replied unsuccessfully</string>
     <string name="batch_data">Batch data:\n</string>
     <string name="transaction_log">Transaction log:\n</string>
     <string name="reversal_data">Reversal data:\n</string>
@@ -267,10 +267,10 @@
     <string name="power_on_icc">Power on ICC</string>
     <string name="power_off_icc">Power off ICC</string>
     <string name="send_apdu">Send APDU</string>
-    <string name="power_on_icc_success">Power on ICC successed</string>
-    <string name="power_on_icc_failed">Power on ICC failed</string>
-    <string name="power_off_icc_success">Power off ICC successed</string>
-    <string name="power_off_icc_failed">Power off ICC failed</string>
+    <string name="power_on_icc_success">Power on ICC successfully</string>
+    <string name="power_on_icc_failed">Power on ICC unsuccessfully</string>
+    <string name="power_off_icc_success">Power off ICC successfully</string>
+    <string name="power_off_icc_failed">Power off ICC unsuccessfully</string>
     <string name="apdu_result">APDU result:</string>
     <string name="atr">ATR:</string>
     <string name="apdu_failed">APDU failed</string>
@@ -286,13 +286,13 @@
     <string name="power_on_nfc">Power on NFC</string>
     <string name="power_off_nfc">Power off NFC</string>
     <string name="data_exchange">Data exchange</string>
-    <string name="power_on_nfc_success">Power on NFC successed</string>
-    <string name="power_on_nfc_failed">Power on NFC failed</string>
-    <string name="power_off_nfc_success">Power off NFC successed</string>
-    <string name="power_off_nfc_failed">Power off NFC failed</string>
+    <string name="power_on_nfc_success">Power on NFC successfully</string>
+    <string name="power_on_nfc_failed">Power on NFC unsuccessfully</string>
+    <string name="power_off_nfc_success">Power off NFC successfully</string>
+    <string name="power_off_nfc_failed">Power off NFC unsuccessfully</string>
     <string name="data_received">Data received:</string>
     <string name="data_length">Data length:</string>
-    <string name="data_exchange_failed">Data exchange failed</string>
+    <string name="data_exchange_failed">Data exchanging failed</string>
     <string name="response">Response:</string>
     <string name="send_mail">Send EMail</string>
     <string name="finish">Finish</string>
@@ -316,9 +316,9 @@
 	   
 	   <string name="connecting">Connecting...</string>
 	   <string name="connected">Connected</string>
-	   <string name="input_sign_password">Please draw gesture password</string>
+	   <string name="input_sign_password">Please draw the gesture password</string>
        <string name="input_account">Please input account</string>
-		<string name="input_password">Please input password</string>
+		<string name="input_password">Please input old password</string>
       <string name="login">Login</string>
 	<string name="logout_manager">Logout manager</string>   
 <string name="change_manager">Change manager</string>  
@@ -461,7 +461,7 @@
 
 <string name="notification_started">started</string>
 <string name="warning_wrong_destination_address">No IP found for [%s]</string>
-<string name="skipable_error_service_not_ready">Warning: service is not ready</string>
+<string name="skipable_error_service_not_ready">Warning: Service is not ready</string>
 <string name="failed">failed</string>
 <string name="media_encryption_none">None</string>
 <string name="media_encryption_srtp">SRTP</string>
@@ -495,23 +495,23 @@
 	<string name="wrong_settings">Wrong settings</string>
 	<string name="clean">Clean</string>
 
-	<string name="login_prompt">Login prompt</string>
+	<string name="login_prompt">Login promption</string>
 	<string name="login_successfully">Login successfully</string>
-	<string name="please_login_first">Please login administrators account</string>
+	<string name="please_login_first">Please use administrator account to login for first time</string>
 	<string name="prompt">Prompt</string>
 	<string name="switch_account">Switch account</string>
 	<string name="logout_account">Logout account</string>
 	<string name="confirm_to_logout">Confirm to logout？</string>
-	<string name="you_have_login">You have login！</string>
+	<string name="you_have_login">You have logined！</string>
 	<string name="admin_account_will_logout">The accout will logout</string>
-	<string name="please_input_account">Please input account！</string>
-	<string name="please_input_password">Please input password！</string>
+	<string name="please_input_account">Please input your account！</string>
+	<string name="please_input_password">Please input the password！</string>
 	<string name="this_is_custom_Dialog">This is custom Dialog</string>
 	
 	<string name="general_settings">General settings</string>
 	<string name="hardware_setup">Hardware setup</string>
 	<string name="invoice_information">Invoice information</string>
-	<string name="home">Home</string>
+	<string name="home">Back home</string>
 	<string name="trend_chart">Trend chart</string>
 	
 	<string name="name_search">Name search</string>
@@ -521,7 +521,7 @@
 	
 	<string name="account_manager">Account manager</string>
 	<string name="add_saler">Add saler</string>
-	<string name="add_products">Add products</string>
+	<string name="add_products">Add product</string>
 	<string name="add_type">Add type</string>
 	<string name="inventory_management">Inventory management</string>
 	
@@ -529,12 +529,12 @@
 	<string name="purchase_and_sale">Purchase and sale</string>
 	<string name="profit">Profit</string>
 	
-	<string name="input_you_want_to_search_product">Input you want to search product</string>
-	<string name="input_new_password">Input new password</string>
-	<string name="reinput_new_password">Reinput new password</string>
-	<string name="password_err_reinput">Your password error,please input again</string>
-	<string name="input_you_want_to_search_product_or_choose_type">Input you want to search product,or choose type</string>
-	<string name="search_content_is_not_empty">Search content is not empty</string>
+	<string name="input_you_want_to_search_product">Please input the product you want to search</string>
+	<string name="input_new_password">Please input a new password</string>
+	<string name="reinput_new_password">Please input the new password again</string>
+	<string name="password_err_reinput">Your password is wrong,please try again</string>
+	<string name="input_you_want_to_search_product_or_choose_type">Please input the product you want to search or choose a type</string>
+	<string name="search_content_is_not_empty">Search content is empty</string>
 	
-	<string name="confirm_password">Confirm password</string>
+	<string name="confirm_password">Confirm the password</string>
 </resources>
