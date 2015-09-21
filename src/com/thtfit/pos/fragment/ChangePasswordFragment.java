@@ -52,9 +52,9 @@ public class ChangePasswordFragment extends Fragment implements OnClickListener
 				}
 				else{
 					CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());
-					builder.setMessage("你的密码输入不一致，请重新输入");
-					builder.setTitle("提示");
-					builder.setPositiveButton("确定",
+					builder.setMessage((String) this.getResources().getText(R.string.password_err_reinput));
+					builder.setTitle((String) this.getResources().getText(R.string.prompt));
+					builder.setPositiveButton((String) this.getResources().getText(R.string.confirm),
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {
 									dialog.dismiss();

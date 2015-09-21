@@ -38,6 +38,7 @@
     <string name="set_gesture_pattern">Draw unlock pattern</string>
     <string name="set_gesture_pattern_reason">Set gesture password to protect private information</string>
     <string name="reset_gesture_code">Reset gesture password</string>
+    <string name="warning_reset_gesture_code">Warning:password will be reset</string>
     
     
     
@@ -527,4 +528,13 @@
 	<string name="sales_trends">Sales trends</string>
 	<string name="purchase_and_sale">Purchase and sale</string>
 	<string name="profit">Profit</string>
+	
+	<string name="input_you_want_to_search_product">Input you want to search product</string>
+	<string name="input_new_password">Input new password</string>
+	<string name="reinput_new_password">Reinput new password</string>
+	<string name="password_err_reinput">Your password error,please input again</string>
+	<string name="input_you_want_to_search_product_or_choose_type">Input you want to search product,or choose type</string>
+	<string name="search_content_is_not_empty">Search content is not empty</string>
+	
+	<string name="confirm_password">Confirm password</string>
 </resources>

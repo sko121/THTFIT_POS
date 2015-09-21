@@ -38,6 +38,7 @@
     <string name="set_gesture_pattern">绘制解锁图案</string>
     <string name="set_gesture_pattern_reason">设置手势密码，防止他人未经授权查看敏感信息</string>
     <string name="reset_gesture_code">重新设置手势密码</string>
+    <string name="warning_reset_gesture_code">警告：密码输入正确手势将重置</string>
     
     
     
@@ -527,4 +528,13 @@
 	<string name="sales_trends">销售趋势</string>
 	<string name="purchase_and_sale">进销</string>
 	<string name="profit">利润</string>
+	
+	<string name="input_you_want_to_search_product">输入你想查找的商品</string>
+	<string name="input_new_password">输入新密码</string>
+	<string name="reinput_new_password">重复新密码</string>
+	<string name="password_err_reinput">你的密码输入不一致，请重新输入</string>
+	<string name="input_you_want_to_search_product_or_choose_type">输入你想查找的商品 或选择类别</string>
+	<string name="search_content_is_not_empty">搜索内容不为空</string>
+	
+	<string name="confirm_password">确认密码</string>
 </resources>
