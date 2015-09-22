@@ -537,4 +537,6 @@
 	<string name="search_content_is_not_empty">搜索内容不为空</string>
 	
 	<string name="confirm_password">确认密码</string>
+	<string name="click">点击了</string>
+	<string name="have_not_login_please_login_first">您尚未登录，请登录后进入</string>
 </resources>

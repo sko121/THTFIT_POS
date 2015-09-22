@@ -166,7 +166,7 @@ public class POSService extends Service
 						parameter.add(new BasicNameValuePair("passWord",
 								login_Password));
 
-						//http://192.168.130.85:8080/SmartPos/clients/clientsLogin.action?loginName=admin@admin&passWord=123456 
+						//http://192.168.200.239:8080/SmartPos/clients/clientsLogin.action?loginName=admin@admin&passWord=123456 
 						login("http://" + serverAddress
 								+ "/clients/clientsLogin.action?", parameter);
 					}
@@ -194,7 +194,7 @@ public class POSService extends Service
 						String tmpJson = jsonObject.toString();
 						String json = tmpJson.replace("\"", "'");
 
-						// http://192.168.130.85:8080/SmartPos/clients/registration.isu?json={'dClient':'A001','dSysversion':'1.0','info':[{'dName':'Brett','dGPS':'SDF','dMac':'00-00-00-00-00-00'},{'dName':'Ee','dGPS':'SDF','dMac':'00-00-00-00-00-01'}]}
+						// http://192.168.200.239:8080/SmartPos/clients/registration.isu?json={'dClient':'A001','dSysversion':'1.0','info':[{'dName':'Brett','dGPS':'SDF','dMac':'00-00-00-00-00-00'},{'dName':'Ee','dGPS':'SDF','dMac':'00-00-00-00-00-01'}]}
 
 						connPostData("http://" + serverAddress + "/clients/registration.action?json=" + json, "",
 						 responseFilter, "postData");
@@ -202,7 +202,7 @@ public class POSService extends Service
 
 					// 拉取商品数据
 					else if (requestAction.equals("POSService.getMainData")) {
-//						 http://192.168.130.85:8080/SmartPos/clients/products.action
+//						 http://192.168.200.239:8080/SmartPos/clients/products.action
 						getMainData("http://" + serverAddress + "/clients/products.action",null,responseFilter,"");
 					}
 					//上传订单数据

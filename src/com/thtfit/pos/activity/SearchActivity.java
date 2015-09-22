@@ -51,7 +51,7 @@ public class SearchActivity extends FragmentActivity{
 			public void onClick(View v) {
 				searchName = searchEditText.getText().toString().trim();
 				if("".equals(searchName)){
-					showMSG("搜索内容不为空");
+					showMSG((String) getApplication().getResources().getText(R.string.search_content_is_not_empty));
 					return;
 				}
 				
@@ -67,7 +67,7 @@ public class SearchActivity extends FragmentActivity{
 						searchListView.setOnItemClickListener(new OnItemClickListener() {
 							public void onItemClick(AdapterView<?> parent, View v,
 									int position, long id) {
-								showMSG("点击了"+mylist.get(position).getName());
+								showMSG((String) getApplication().getResources().getText(R.string.click)+mylist.get(position).getName());
 							}
 						});
 					}

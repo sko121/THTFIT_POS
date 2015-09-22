@@ -537,4 +537,6 @@
 	<string name="search_content_is_not_empty">Search content is empty</string>
 	
 	<string name="confirm_password">Confirm the password</string>
+	<string name="click">Click </string>
+	<string name="have_not_login_please_login_first">You are not logged in,please login first</string>
 </resources>
