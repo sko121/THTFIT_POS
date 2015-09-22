@@ -65,11 +65,14 @@ public class IChartFragment extends Fragment {
         dataTwo = PackageChartData.PackageData(chartDataTwo);
         dataThree = PackageChartData.PackageData(chartDataThree);
 
-        column2DOne = new Column2D(820,200,"标题一", dataOne);
+        //column2DOne = new Column2D(820,200,"标题一", dataOne);
+        column2DOne = new Column2D(820,200,"", dataOne);
         
-        column2DTwo = new Column2D(410,150,"标题二", dataTwo);
+        //column2DTwo = new Column2D(410,150,"标题二", dataTwo);
+        column2DTwo = new Column2D(410,150,"", dataTwo);
         
-        donut2DOne = new Donut2D(410, 150, "袁满大爷一天的生活", dataThree);
+        //donut2DOne = new Donut2D(410, 150, "袁满大爷一天的生活", dataThree);
+        donut2DOne = new Donut2D(410, 150, "", dataThree);
         donut2DOne.setRadius(1000);
 
         web.addJavascriptInterface(column2DOne, "column2DOne");
@@ -83,26 +86,26 @@ public class IChartFragment extends Fragment {
 	
     private void initChartDataOne(){
     	Item item = new Item();
-    	item.setName("吃饭");
-    	item.setValue(2);
+    	item.setName("Car");
+    	item.setValue(17);
     	item.setColor("#4572a7");
     	chartDataOne.add(item);
     	
     	item = new Item();
-    	item.setName("睡觉");
-    	item.setValue(8);
+    	item.setName("Phone");
+    	item.setValue(32);
     	item.setColor("#aa4643");
     	chartDataOne.add(item);
     	
     	item = new Item();
-    	item.setName("工作");
-    	item.setValue(10);
+    	item.setName("Glasses");
+    	item.setValue(45);
     	item.setColor("#89a54e");
     	chartDataOne.add(item);
     	
     	item = new Item();
-    	item.setName("发呆");
-    	item.setValue(1);
+    	item.setName("Clothes");
+    	item.setValue(65);
     	item.setColor("#80699b");
     	chartDataOne.add(item);
     	
@@ -111,26 +114,26 @@ public class IChartFragment extends Fragment {
     
     private void initChartDataTwo(){
     	Item item = new Item();
-    	item.setName("吃饭");
-    	item.setValue(5);
+    	item.setName("Car");
+    	item.setValue(23);
     	item.setColor("#4572a7");
     	chartDataTwo.add(item);
     	
     	item = new Item();
-    	item.setName("睡觉");
-    	item.setValue(2);
+    	item.setName("Phone");
+    	item.setValue(28);
     	item.setColor("#aa4643");
     	chartDataTwo.add(item);
     	
     	item = new Item();
-    	item.setName("工作");
-    	item.setValue(3);
+    	item.setName("Glasses");
+    	item.setValue(78);
     	item.setColor("#89a54e");
     	chartDataTwo.add(item);
     	
     	item = new Item();
-    	item.setName("发呆");
-    	item.setValue(4);
+    	item.setName("Clothes");
+    	item.setValue(54);
     	item.setColor("#80699b");
     	chartDataTwo.add(item);
     	
@@ -138,26 +141,26 @@ public class IChartFragment extends Fragment {
     
     private void initChartDataThree(){
     	Item item = new Item();
-    	item.setName("吃饭");
-    	item.setValue(2);
+    	item.setName("Car");
+    	item.setValue(13);
     	item.setColor("#4572a7");
     	chartDataThree.add(item);
     	
     	item = new Item();
-    	item.setName("睡觉");
-    	item.setValue(8);
+    	item.setName("Phone");
+    	item.setValue(33);
     	item.setColor("#aa4643");
     	chartDataThree.add(item);
     	
     	item = new Item();
-    	item.setName("工作");
-    	item.setValue(10);
+    	item.setName("Glasses");
+    	item.setValue(43);
     	item.setColor("#89a54e");
     	chartDataThree.add(item);
     	
     	item = new Item();
-    	item.setName("发呆");
-    	item.setValue(1);
+    	item.setName("Clothes");
+    	item.setValue(53);
     	item.setColor("#80699b");
     	chartDataThree.add(item);
     	
@@ -174,15 +177,17 @@ public class IChartFragment extends Fragment {
 	}
     @JavascriptInterface
     public void updateColumn2DOne(){
-    	column2DOne.setTitle("");
+    	//column2DOne.setTitle("");
+    	column2DOne.setData(dataThree);
     }
     @JavascriptInterface
     public void updateColumn2DTwo(){
-    	column2DTwo.setTitle("");
+    	//column2DTwo.setTitle("");
+    	column2DTwo.setData(dataOne);
     }
     @JavascriptInterface
     public void updateDonut2DOne(){
-    	donut2DOne.setTitle("");
+    	//donut2DOne.setTitle("");
     	donut2DOne.setData(dataTwo);
     }
 }

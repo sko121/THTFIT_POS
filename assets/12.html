@@ -92,8 +92,8 @@ new iChart.Column2D({
 		scale:[{
 			position:'left',	
 			start_scale:0,
-			end_scale:40,
-			scale_space:8,
+			end_scale:80,
+			scale_space:10,
 			listeners:{
 				parseText:function(t,x,y){
 					return {text:t+"%"}
@@ -129,8 +129,8 @@ new iChart.Column2D({
 		scale:[{
 			position:'left',	
 			start_scale:0,
-			end_scale:40,
-			scale_space:8,
+			end_scale:80,
+			scale_space:10,
 			listeners:{
 				parseText:function(t,x,y){
 					return {text:t+"%"}
@@ -209,11 +209,11 @@ function updateThrDiv(){
 </script>
 </head>  
 <body>  
-<div id='settingDiv1' class="set1"><input type="button" value="设置图表一" onClick="updateFirDiv()" ></div>
+<div id='settingDiv1' class="set1"><input type="button" value="SettingOne" onClick="updateFirDiv()" ></div>
 <div id='canvasDiv1' class="div1"></div>
-<div id='settingDiv2' class="set2">显示的一些东西，具体看情况</div>
-<div id='settingDiv3' class="set3"><input type="button" value="设置图表二" onClick="updateSecDiv()" ></div>
-<div id='settingDiv4' class="set4"><input type="button" value="设置图表三" onClick="updateThrDiv()" ></div>  
+<div id='settingDiv2' class="set2">Show the things you want to</div>
+<div id='settingDiv3' class="set3"><input type="button" value="SettingTwo" onClick="updateSecDiv()" ></div>
+<div id='settingDiv4' class="set4"><input type="button" value="SettingThree" onClick="updateThrDiv()" ></div>  
 <div id='canvasDiv2' class="div2"></div>
 <div id='canvasDiv3' class="div3"></div>  
 </body>  
