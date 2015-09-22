@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">THTFIT POS</string>
+    <string name="app_name">ThtfitPOS</string>
     <string name="action_settings">Setting</string>
     <string name="hello_world">Hello world!</string>
     <string name="confirm">Confirm</string>
@@ -35,7 +35,7 @@
     <string name="setup_gesture_pattern_again">Setup the unlock pattern again</string>
     <string name="forget_gesture_code">Forget the gesture password?</string>
     <string name="use_other_account_login">Use other account to login</string>
-    <string name="set_gesture_pattern">Please draw a unlock pattern</string>
+    <string name="set_gesture_pattern">Please draw a lock pattern</string>
     <string name="set_gesture_pattern_reason">Set a gesture password to protect private information</string>
     <string name="reset_gesture_code">Reset the gesture password</string>
     <string name="warning_reset_gesture_code">Warning: The gesture password will be reset</string>
