@@ -285,13 +285,6 @@ public class POSService extends Service
 							JSONObject jsonItem = typeArray.getJSONObject(i);
 							Integer typeId = Integer.valueOf(jsonItem.getString("typeId"));
 							String typeName = jsonItem.getString("typeName");
-							/*String deleteFlag = jsonItem
-									.getString("deleteFlag");
-
-							if (deleteFlag.equals(true)) {
-								dbcon.clearProType(typeName);
-								continue;	
-							}*/
 							dbcon.insertTypeItem(typeId, typeName);
 						}
 					}
@@ -308,8 +301,11 @@ public class POSService extends Service
 						product.setType(typeName);
 						product.setName(jsonItem.getString("proName"));
 						product.setPrice(jsonItem.getString("proPrice"));
-						product.setSerial(Integer.parseInt(jsonItem
+						product.setStock(jsonItem.getString("proStore"));
+						product.setProId(Integer.parseInt(jsonItem
 								.getString("proId")));
+						product.setSerial(Integer.parseInt(jsonItem
+								.getString("proSerial")));
 						product.setNote(jsonItem.optString("proNote"));
 
 						dbcon = new DBContror(getApplicationContext());

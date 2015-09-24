@@ -191,6 +191,7 @@ public class DBContror {
 		try {
 			SQLiteDatabase db = dbHelper.getWritableDatabase();
 			ContentValues contentValues = new ContentValues();
+			contentValues.put(DBHelper.PRO_ID, proBean.getProId());
 			contentValues.put(DBHelper.PRO_SERIAL, proBean.getSerial());
 			contentValues.put(DBHelper.PRO_NAME, proBean.getName());
 			contentValues.put(DBHelper.PRO_PRICE, proBean.getPrice());
@@ -214,7 +215,7 @@ public class DBContror {
 	 * @param serial	
 	 * @return
 	 */
-	public int deleteById(int serial) {
+	public int deleteBySerial(int serial) {
 		int i = 0;
 		try {
 			String[] sb = new String[1];
@@ -269,7 +270,9 @@ public class DBContror {
 					null, null, null);
 			while (cursor.moveToNext()) {
 				Product product = new Product();
-
+				
+				product.setProId(cursor.getInt(cursor
+						.getColumnIndex(DBHelper.PRO_ID)));
 				product.setSerial(cursor.getInt(cursor
 						.getColumnIndex(DBHelper.PRO_SERIAL)));
 				product.setName(cursor.getString(cursor
@@ -321,6 +324,8 @@ public class DBContror {
 			while (cursor.moveToNext()) {
 				Product product = new Product();
 
+				product.setProId(cursor.getInt(cursor
+						.getColumnIndex(DBHelper.PRO_ID)));
 				product.setSerial(cursor.getInt(cursor
 						.getColumnIndex(DBHelper.PRO_SERIAL)));
 				product.setName(cursor.getString(cursor
@@ -371,6 +376,8 @@ public class DBContror {
 			while (cursor.moveToNext()) {
 				Product product = new Product();
 
+				product.setProId(cursor.getInt(cursor
+						.getColumnIndex(DBHelper.PRO_ID)));
 				product.setSerial(cursor.getInt(cursor
 						.getColumnIndex(DBHelper.PRO_SERIAL)));
 				product.setName(cursor.getString(cursor
@@ -409,6 +416,8 @@ public class DBContror {
 			while (cursor.moveToNext()) {
 				Product product = new Product();
 
+				product.setProId(cursor.getInt(cursor
+						.getColumnIndex(DBHelper.PRO_ID)));
 				product.setSerial(cursor.getInt(cursor
 						.getColumnIndex(DBHelper.PRO_SERIAL)));
 				product.setName(cursor.getString(cursor
