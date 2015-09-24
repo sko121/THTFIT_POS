@@ -513,6 +513,8 @@
 	<string name="invoice_information">Invoice information</string>
 	<string name="home">Back home</string>
 	<string name="trend_chart">Trend chart</string>
+	<string name="languages">Languages</string>
+	<string name="flow_system">Flow system</string>
 	
 	<string name="name_search">Name search</string>
 	<string name="number_search">Number search</string>

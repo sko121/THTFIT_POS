@@ -6,11 +6,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
@@ -22,6 +26,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.telephony.TelephonyManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -89,6 +94,7 @@ public class MainActivity extends FragmentActivity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		initLanguagesConfig();
 
 		/* shows the main UI surface. */
 		setContentView(R.layout.activity_main);
@@ -108,6 +114,26 @@ public class MainActivity extends FragmentActivity
 		DebugPrint.d(TAG,"start MainActivity");
 	}
 
+	private void initLanguagesConfig(){
+		Resources resources =getResources();
+		Configuration config = resources.getConfiguration();
+		DisplayMetrics dm = resources.getDisplayMetrics();
+		Context ctx = getApplication();
+		SharedPreferences spLanguageConfig = ctx.getSharedPreferences("LANGUAGECONFIG", Context.MODE_PRIVATE);
+		String languages = spLanguageConfig.getString("languages", "default");
+		if(languages.equals("default")){
+			config.locale = Locale.getDefault();
+		}else if(languages.equals("zh_CN")){
+			config.locale = Locale.SIMPLIFIED_CHINESE;
+		}else if(languages.equals("en")){
+			config.locale = Locale.ENGLISH;
+		}else{
+			config.locale = Locale.ENGLISH;
+		}
+		resources.updateConfiguration(config, dm);
+		resources.flushLayoutCache();
+	}
+	
 	private void initServices()
 	{
 		/* started the daemon of the service */

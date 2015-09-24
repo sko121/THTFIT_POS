@@ -68,6 +68,8 @@ public class SidesSettingFragment extends ListFragment {
 			break;
 		case 4:
 			newContent = new IChartFragment();
+		case 5:
+			newContent = new SettingLanguagesFragment();
 		default:
 			break;
 		}

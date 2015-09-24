@@ -13,6 +13,7 @@ public class OptionList {
 	private List<String> searchList;
 	private List<String> manageList;
 	private List<String> reportList;
+	private List<String> languageList;
 	private List<String> list;
 
 
@@ -21,6 +22,7 @@ public class OptionList {
 	public final static int TYPE_SEARCH = 2;
 	public final static int TYPE_MANAGE = 3;
 	public final static int TYPE_REPORT = 4;
+	public final static int TYPE_LANGUAGE = 5;
 	public OptionList(Context context){
 		this.mContext = context;
 	}
@@ -34,6 +36,7 @@ public class OptionList {
 			settingList.add((String) mContext.getResources().getText(R.string.invoice_information));
 			settingList.add((String) mContext.getResources().getText(R.string.home));
 			settingList.add((String) mContext.getResources().getText(R.string.trend_chart));
+			settingList.add((String) mContext.getResources().getText(R.string.languages));
 			setList(settingList);
 			break;
 		case TYPE_SEARCH:
@@ -60,6 +63,14 @@ public class OptionList {
 			reportList.add((String) mContext.getResources().getText(R.string.profit));
 			setList(reportList);
 			break;
+		case TYPE_LANGUAGE:
+			reportList = new ArrayList<String>();
+			reportList.add((String) mContext.getResources().getText(R.string.flow_system));
+			reportList.add("English");
+			reportList.add("中文");
+			setList(reportList);
+			break;
+			
 		default:
 			break;
 		}
