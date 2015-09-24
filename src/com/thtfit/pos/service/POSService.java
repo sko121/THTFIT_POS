@@ -279,18 +279,19 @@ public class POSService extends Service
 					if (typeArray.length() > 0) {
 						dbcon = new DBContror(getApplicationContext());
 						dbcon.clearTypeDate();
+						dbcon.clearProDate();
 
 						for (int i = 0; i < typeArray.length(); i++) {
 							JSONObject jsonItem = typeArray.getJSONObject(i);
 							Integer typeId = Integer.valueOf(jsonItem.getString("typeId"));
 							String typeName = jsonItem.getString("typeName");
-							String deleteFlag = jsonItem
+							/*String deleteFlag = jsonItem
 									.getString("deleteFlag");
 
 							if (deleteFlag.equals(true)) {
 								dbcon.clearProType(typeName);
 								continue;	
-							}
+							}*/
 							dbcon.insertTypeItem(typeId, typeName);
 						}
 					}
