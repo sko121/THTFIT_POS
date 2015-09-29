@@ -151,7 +151,7 @@ public class MainFragment extends Fragment implements OnClickListener
 		int loginStatus = preferences.getInt("loginStatus", 0);
 		if (loginStatus == 0)
 		{
-			ShowMsg("您尚未登录，请登录后进入");
+			ShowMsg(this.getActivity().getString(R.string.have_not_login_please_login_first));
 			return false;
 		}
 		return true;

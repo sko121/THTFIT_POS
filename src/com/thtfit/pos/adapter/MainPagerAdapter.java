@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,6 +32,13 @@ public class MainPagerAdapter extends PagerAdapter implements
 	private OnExtraPageChangeListener onExtraPageChangeListener; // ViewPager切换页面时的额外功能添加接口
 	public static List<ItemType> mViewpagerItem;
 	private DBContror dbcon;
+	private static String TAG = "MainPagerAdapter";
+	public static final boolean DEBUG = true;
+	private static void LOG(String msg) {
+		if (DEBUG) {
+			Log.d(TAG, msg);
+		}
+	}
 
 	public MainPagerAdapter(Context context, FragmentManager fm) {
 	}
@@ -47,8 +55,10 @@ public class MainPagerAdapter extends PagerAdapter implements
 
 		mViewpagerItem = dbcon.queryAllType();
 		mFragments = new ArrayList<Fragment>();
+		LOG("mViewpagerItem.size() = "+mViewpagerItem.size());
 		// 把所有要显示的Fragment选项卡加入到集合中
 		mFragments.add(new FirstFragment());
+		LOG("mFragments.size() = "+mFragments.size());
 		for (int i = 1; i < mViewpagerItem.size(); i++) {
 			mFragments.add(new SecondFragment());
 		}

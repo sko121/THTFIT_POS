@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.thtfit.pos.debug.DebugPrint;
 import com.thtfit.pos.model.ItemType;
 import com.thtfit.pos.model.Product;
 import com.thtfit.pos.model.PushInfo;
@@ -18,6 +19,14 @@ import com.thtfit.pos.model.Transaction;
 public class DBContror {
 	private DBHelper dbHelper;
 	private SQLiteDatabase db = null;
+	private static String TAG = "DBContror";
+	public static final boolean DEBUG = true;
+	private static void LOG(String msg) {
+		if (DEBUG) {
+			Log.d(TAG, msg);
+		}
+	}
+
 
 	private String[] mViewpager_title = new String[] { "Inventory",
 			"Daily Specials", "Extras", "Salads", "Sides" };
@@ -69,6 +78,7 @@ public class DBContror {
 		db.execSQL("update sqlite_sequence set seq=0 where name='"
 				+ DBHelper.TABLE_TYPE + "'");
 		db.close();
+		LOG("clearTypeData success!");
 	}
 
 	/**
@@ -162,8 +172,10 @@ public class DBContror {
 			String[] sb = new String[1];
 			sb[0] = typeName;
 			db.delete(DBHelper.TABLE_PRO, DBHelper.PRO_TYPE + "=?", sb);
+			LOG("clearProType success!");
 		} catch (Exception e) {
 			e.printStackTrace();
+			LOG("clearProType error!");
 		}
 	}
 
@@ -179,6 +191,7 @@ public class DBContror {
 		try {
 			SQLiteDatabase db = dbHelper.getWritableDatabase();
 			ContentValues contentValues = new ContentValues();
+			contentValues.put(DBHelper.PRO_ID, proBean.getProId());
 			contentValues.put(DBHelper.PRO_SERIAL, proBean.getSerial());
 			contentValues.put(DBHelper.PRO_NAME, proBean.getName());
 			contentValues.put(DBHelper.PRO_PRICE, proBean.getPrice());
@@ -186,7 +199,8 @@ public class DBContror {
 			contentValues.put(DBHelper.PRO_NOTE, proBean.getNote());
 			contentValues.put(DBHelper.PRO_IMAGE, proBean.getImagePath());
 			contentValues.put(DBHelper.PRO_TYPE, proBean.getType());
-			contentValues.put(DBHelper.PRO_STOCK, proBean.getStock() != null ? proBean.getStock() : "100");
+			LOG("PRO_STOCK = " + proBean.getStock());
+			contentValues.put(DBHelper.PRO_STOCK, ((proBean.getStock() != null) ? proBean.getStock() : "100"));
 			row = db.insert(DBHelper.TABLE_PRO, null, contentValues);
 			db.close();
 		} catch (Exception e) {
@@ -201,7 +215,7 @@ public class DBContror {
 	 * @param serial	
 	 * @return
 	 */
-	public int deleteById(int serial) {
+	public int deleteBySerial(int serial) {
 		int i = 0;
 		try {
 			String[] sb = new String[1];
@@ -256,7 +270,9 @@ public class DBContror {
 					null, null, null);
 			while (cursor.moveToNext()) {
 				Product product = new Product();
-
+				
+				product.setProId(cursor.getInt(cursor
+						.getColumnIndex(DBHelper.PRO_ID)));
 				product.setSerial(cursor.getInt(cursor
 						.getColumnIndex(DBHelper.PRO_SERIAL)));
 				product.setName(cursor.getString(cursor
@@ -279,7 +295,19 @@ public class DBContror {
 		}
 		return productsList;
 	}
-
+	
+	/**
+	 * TABLE_PRO表清空数据
+	 */
+	public void clearProDate() {
+		db = dbHelper.getWritableDatabase();
+		db.execSQL("delete from " + DBHelper.TABLE_PRO);
+		db.execSQL("update sqlite_sequence set seq=0 where name='"
+				+ DBHelper.TABLE_PRO + "'");
+		db.close();
+		LOG("clearProData success!");
+	}
+	
 	/**
 	 * TABLE_PRO表根据产品类别来查询数据
 	 * 
@@ -296,6 +324,8 @@ public class DBContror {
 			while (cursor.moveToNext()) {
 				Product product = new Product();
 
+				product.setProId(cursor.getInt(cursor
+						.getColumnIndex(DBHelper.PRO_ID)));
 				product.setSerial(cursor.getInt(cursor
 						.getColumnIndex(DBHelper.PRO_SERIAL)));
 				product.setName(cursor.getString(cursor
@@ -346,6 +376,8 @@ public class DBContror {
 			while (cursor.moveToNext()) {
 				Product product = new Product();
 
+				product.setProId(cursor.getInt(cursor
+						.getColumnIndex(DBHelper.PRO_ID)));
 				product.setSerial(cursor.getInt(cursor
 						.getColumnIndex(DBHelper.PRO_SERIAL)));
 				product.setName(cursor.getString(cursor
@@ -384,6 +416,8 @@ public class DBContror {
 			while (cursor.moveToNext()) {
 				Product product = new Product();
 
+				product.setProId(cursor.getInt(cursor
+						.getColumnIndex(DBHelper.PRO_ID)));
 				product.setSerial(cursor.getInt(cursor
 						.getColumnIndex(DBHelper.PRO_SERIAL)));
 				product.setName(cursor.getString(cursor

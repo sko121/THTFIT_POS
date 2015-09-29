@@ -3,12 +3,17 @@ package com.thtfit.pos.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
+
+import com.thtfit.pos.R;
+
 public class OptionList {
 
 	private List<String> settingList;
 	private List<String> searchList;
 	private List<String> manageList;
 	private List<String> reportList;
+	private List<String> languageList;
 	private List<String> list;
 
 
@@ -17,42 +22,55 @@ public class OptionList {
 	public final static int TYPE_SEARCH = 2;
 	public final static int TYPE_MANAGE = 3;
 	public final static int TYPE_REPORT = 4;
+	public final static int TYPE_LANGUAGE = 5;
+	public OptionList(Context context){
+		this.mContext = context;
+	}
 
 	public void parse(int type) {
 		switch (type) {
 		case TYPE_SETTING:
 			settingList = new ArrayList<String>();
-			settingList.add("常规设置");
-			settingList.add("硬件设置");
-			settingList.add("发票信息");
-			settingList.add("返回首页");
-			settingList.add("趋势图表");
+			settingList.add((String) mContext.getResources().getText(R.string.general_settings));
+			settingList.add((String) mContext.getResources().getText(R.string.hardware_setup));
+			settingList.add((String) mContext.getResources().getText(R.string.invoice_information));
+			settingList.add((String) mContext.getResources().getText(R.string.home));
+			settingList.add((String) mContext.getResources().getText(R.string.trend_chart));
+			settingList.add((String) mContext.getResources().getText(R.string.languages));
 			setList(settingList);
 			break;
 		case TYPE_SEARCH:
 			searchList = new ArrayList<String>();
-			searchList.add("名称查找");
-			searchList.add("编号查找");
-			searchList.add("价格查找");
-			searchList.add("日期查找");
+			searchList.add((String) mContext.getResources().getText(R.string.name_search));
+			searchList.add((String) mContext.getResources().getText(R.string.number_search));
+			searchList.add((String) mContext.getResources().getText(R.string.price_search));
+			searchList.add((String) mContext.getResources().getText(R.string.date_search));
 			setList(searchList);
 			break;
 		case TYPE_MANAGE:
 			manageList = new ArrayList<String>();
-			manageList.add("帐号管理");
-			manageList.add("添加店员");
-			manageList.add("新增产品");
-			manageList.add("新增类别");
-			manageList.add("库存管理");
+			manageList.add((String) mContext.getResources().getText(R.string.account_manager));
+			manageList.add((String) mContext.getResources().getText(R.string.add_saler));
+			manageList.add((String) mContext.getResources().getText(R.string.add_products));
+			manageList.add((String) mContext.getResources().getText(R.string.add_type));
+			manageList.add((String) mContext.getResources().getText(R.string.inventory_management));
 			setList(manageList);
 			break;
 		case TYPE_REPORT:
 			reportList = new ArrayList<String>();
-			reportList.add("销售趋势");
-			reportList.add("进销");
-			reportList.add("利润");
+			reportList.add((String) mContext.getResources().getText(R.string.sales_trends));
+			reportList.add((String) mContext.getResources().getText(R.string.purchase_and_sale));
+			reportList.add((String) mContext.getResources().getText(R.string.profit));
 			setList(reportList);
 			break;
+		case TYPE_LANGUAGE:
+			reportList = new ArrayList<String>();
+			reportList.add((String) mContext.getResources().getText(R.string.flow_system));
+			reportList.add("English");
+			reportList.add("中文");
+			setList(reportList);
+			break;
+			
 		default:
 			break;
 		}
@@ -98,5 +116,6 @@ public class OptionList {
 	public void setList(List<String> list) {
 		this.list = list;
 	}
+	private Context mContext;
 
 }

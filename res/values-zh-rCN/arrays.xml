@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_name">
+        <item>Function</item>
+        <item>Function</item>
+        <item>Function</item>
+        <item>Function</item>
+        <item>Function</item>
+        <item>Function</item>
+        <item>Function</item>
+        <item>Function</item>
+    </string-array>
+    <string-array name="category_title">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+<!-- 	
+ <string-array name="product_type">
+        <item>类别一</item>
+        <item>类别二</item>
+        <item>类别三</item>
+        <item>类别四</item>
+        <item>类别五</item>
+    </string-array> 
+     -->
+</resources>

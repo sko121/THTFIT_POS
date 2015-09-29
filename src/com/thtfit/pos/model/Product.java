@@ -9,7 +9,8 @@ public class Product implements Serializable{
 	 */
 	private static final long serialVersionUID = -230841856084384812L;
 	
-	private int serial;//产品编号
+	private int proId;//产品号
+	private int serial;//序列号
 	private String name;//产品名称	
 	private String price;//价格
 	private String describe;//简介
@@ -25,9 +26,10 @@ public class Product implements Serializable{
 		super();
 	}
 
-	public Product(int serial, String name, String price, String describe,
+	public Product(int proId, int serial, String name, String price, String describe,
 			String note, String imagePath, String number,Integer type,String stock) {
 		super();
+		this.proId = proId;
 		this.serial = serial;
 		this.name = name;
 		this.price = price;
@@ -42,12 +44,20 @@ public class Product implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "Product [serial=" + serial + ", name=" + name + ", price="
+		return "Product [proId=" + proId +", serial=" + serial + ", name=" + name + ", price="
 				+ price + ", describe=" + describe + ", note=" + note
 				+ ", imagePath=" + imagePath + ", number=" + number + ", type="
 				+ type + ", stock=" + stock + "]";
 	}
 
+	public int getProId() {
+		return proId;
+	}
+	
+	public void setProId(int proId) {
+		this.proId = proId;
+	}
+	
 	public int getSerial() {
 		return serial;
 	}

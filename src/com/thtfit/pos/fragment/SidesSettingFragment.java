@@ -34,7 +34,7 @@ public class SidesSettingFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 
 		data = new ArrayList<String>();
-		OptionList optionList = new OptionList();
+		OptionList optionList = new OptionList(getActivity());
 		optionList.parse(TYPE_SETTING);
 
 		data = optionList.getList();
@@ -68,6 +68,8 @@ public class SidesSettingFragment extends ListFragment {
 			break;
 		case 4:
 			newContent = new IChartFragment();
+		case 5:
+			newContent = new SettingLanguagesFragment();
 		default:
 			break;
 		}

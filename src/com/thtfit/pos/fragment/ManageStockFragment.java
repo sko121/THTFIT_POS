@@ -82,7 +82,7 @@ public class ManageStockFragment extends Fragment {
 
 			searchName = searchEditText.getText().toString().trim();
 			if ("".equals(searchName)) {
-				showMSG("搜索内容不为空");
+				showMSG((String) getActivity().getResources().getText(R.string.search_content_is_not_empty));
 				return;
 			}
 			dbcon = new DBContror(getActivity());
