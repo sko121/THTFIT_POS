@@ -721,7 +721,11 @@ public class TitlePageIndicator extends View implements PageIndicator {
             throw new IllegalStateException("ViewPager does not have adapter instance.");
         }
         mViewPager = view;
-        //mViewPager.setOnPageChangeListener(this);
+        //get the onpagechangelistener from the view
+        mListener = (ViewPager.OnPageChangeListener)(view.getAdapter());
+        //set this onpagechangelistener to the mViewPager
+        mViewPager.setOnPageChangeListener(this);
+        
         invalidate();
     }
 
