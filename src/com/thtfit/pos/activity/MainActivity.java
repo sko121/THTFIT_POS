@@ -335,6 +335,12 @@ public class MainActivity extends FragmentActivity
 	{
 		super.onPause();
 		PosApplication application = new PosApplication();
+		if (application.getIsFirGesture())
+		{
+			Intent intent = new Intent(this, LockSetupActivity.class);
+			startActivity(intent);
+			application.setIsFirGesture(false);
+		}
 		if (application.getIsVerification())
 		{
 			Intent intent = new Intent(this, LockActivity.class);

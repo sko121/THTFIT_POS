@@ -23,6 +23,7 @@ public class PosApplication extends FrontiaApplication{
     public static final String LOCK = "lock";
     public static final String LOCK_KEY = "lock_key";
     private static Boolean isVerification = false;
+    private static Boolean isFirGesture = false;
     
     public String patternString;
     
@@ -114,6 +115,13 @@ public class PosApplication extends FrontiaApplication{
 
 	public void setIsVerification(Boolean isVerification) {
 		this.isVerification = isVerification;
+	}
+	
+	public Boolean getIsFirGesture() {
+		return isFirGesture;
+	}
+	public void setIsFirGesture(Boolean isFirGesture) {
+		this.isFirGesture = isFirGesture;
 	}
 
 

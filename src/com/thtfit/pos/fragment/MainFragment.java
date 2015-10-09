@@ -163,9 +163,7 @@ public class MainFragment extends Fragment implements OnClickListener
 		String patternString = preferences.getString(PosApplication.LOCK_KEY, null);
 		if (patternString == null)
 		{
-			Intent intent = new Intent(getActivity(), LockSetupActivity.class);
-			startActivity(intent);
-			return false;
+			application.setIsFirGesture(true);
 		}
 		return true;
 		

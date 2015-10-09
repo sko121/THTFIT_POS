@@ -82,16 +82,12 @@ public class SettingLanguagesFragment extends Fragment
 		}
 		if(languages.equals("default")){
 			config.locale = Locale.getDefault();
-			Log.d("niotong","languages:default" );
 		}else if(languages.equals("zh_CN")){
 			config.locale = Locale.CHINESE;
-			Log.d("niotong","languages:cn");
 		}else if(languages.equals("en")){
 			config.locale = Locale.ENGLISH;
-			Log.d("niotong","languages:en");
 		}else{
 			config.locale = Locale.ENGLISH;
-			Log.d("niotong","languages:other");
 		}
 		data = new ArrayList<String>();
 		OptionList optionList = new OptionList(getActivity());
@@ -110,7 +106,6 @@ public class SettingLanguagesFragment extends Fragment
 				// TODO Auto-generated method stub
 				switch (position) {
 				case 0:
-					Log.d("niotong","item0");
 					config.locale = Locale.getDefault();
 					resources.updateConfiguration(config, dm);
 					languages = "default";
@@ -118,7 +113,6 @@ public class SettingLanguagesFragment extends Fragment
 					resources.flushLayoutCache();
 					break;
 				case 1:
-					Log.d("niotong","item1");
 					config.locale = Locale.ENGLISH;
 					resources.updateConfiguration(config, dm);
 					languages = "en";
@@ -126,7 +120,6 @@ public class SettingLanguagesFragment extends Fragment
 					resources.flushLayoutCache();
 					break;
 				case 2:
-					Log.d("niotong","item2");
 					config.locale = Locale.SIMPLIFIED_CHINESE;
 					resources.updateConfiguration(config, dm);
 					languages = "zh_CN";
