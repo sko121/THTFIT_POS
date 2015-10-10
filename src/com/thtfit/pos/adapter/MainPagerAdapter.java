@@ -87,7 +87,8 @@ public class MainPagerAdapter extends PagerAdapter implements
 
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
-		container.removeView(mFragments.get(position).getView()); // 移出viewpager两边之外的page布局
+		//注释掉下面一句，解决切换界面造成的闪屏问题
+		//container.removeView(mFragments.get(position).getView()); // 移出viewpager两边之外的page布局
 	}
 
 	@Override
