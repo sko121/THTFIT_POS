@@ -41,6 +41,7 @@ import android.view.ViewConfiguration;
 import java.util.ArrayList;
 
 import com.thtfit.pos.R;
+import com.thtfit.pos.activity.ShopingActivity;
 
 /**
  * A TitlePageIndicator is a PageIndicator which displays the title of left view
@@ -603,6 +604,7 @@ public class TitlePageIndicator extends View implements PageIndicator {
                     } else if (eventX > rightThird) {
                         if (mCurrentPage < count - 1) {
                             if (action != MotionEvent.ACTION_CANCEL) {
+                            	ShopingActivity.currentItem = mViewPager.getCurrentItem() + 2;
                                 mViewPager.setCurrentItem(mCurrentPage + 1);
                             }
                             return true;
