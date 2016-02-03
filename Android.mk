@@ -12,8 +12,8 @@ LOCAL_MODULE_TAGS	:=	optional
 LOCAL_SRC_FILES	:=	$(call all-subdir-java-files)
 
 LOCAL_JNI_SHARED_LIBRARIES	:=	liba01jni libJNIEMV libJNISerial libwltdecode \
-					libbdpush_V2_2 liblinphone_armeabi liblinphone_armeabi_v7a \
-					libffmpeg_linphone_arm
+					libbdpush_V2_2 liblinphone-armeabi liblinphone-armeabi-v7a \
+					libffmpeg-linphone-arm
 
 LOCAL_PACKAGE_NAME	:=	THTFITPOS
 
@@ -43,8 +43,8 @@ LOCAL_PREBUILT_LIBS	:=	liba01jni:libs/armeabi/liba01jni.so \
 				libJNISerial:libs/armeabi/libJNISerial.so \
 				libwltdecode:libs/armeabi/libwltdecode.so \
 				libbdpush_V2_2:libs/armeabi/libbdpush_V2_2.so \
-				libffmpeg_linphone_arm:libs/armeabi-v7a/libffmpeg_linphone_arm.so \
-				liblinphone_armeabi_v7a:libs/armeabi-v7a/liblinphone_armeabi_v7a.so\
-				liblinphone_armeabi:libs/armeabi/liblinphone_armeabi.so \
+				libffmpeg-linphone-arm:libs/armeabi-v7a/libffmpeg-linphone-arm.so \
+				liblinphone-armeabi-v7a:libs/armeabi-v7a/liblinphone-armeabi-v7a.so\
+				liblinphone-armeabi:libs/armeabi/liblinphone-armeabi.so 
 include $(BUILD_MULTI_PREBUILT)
 include $(call all-makefiles-under,$(LOCAL_PATH))
