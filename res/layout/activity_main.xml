@@ -7,51 +7,68 @@
     android:baselineAligned="true"
     android:orientation="horizontal" >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="738">
+        android:layout_weight="738"
+        android:orientation="vertical" >
 
-        <fragment
-            android:id="@+id/function_fragment_title_bar"
-            android:name="com.thtfit.pos.fragment.TitleBarFragment"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"/>
-
-        <fragment
-            android:id="@+id/function_fragment2"
-            android:name="com.thtfit.pos.fragment.MainFragment"
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_above="@+id/function_fragment_bottom_bar"
-            android:layout_below="@+id/function_fragment_title_bar"
-            android:layout_centerVertical="true" />
+            android:layout_weight="107" >
 
-        <fragment
-            android:id="@+id/function_fragment_bottom_bar"
-            android:name="com.thtfit.pos.fragment.BottomBarFragment"
+            <fragment
+                android:id="@+id/function_fragment_title_bar"
+                android:name="com.thtfit.pos.fragment.TitleBarFragment"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_alignParentBottom="true" />
-    </RelativeLayout>
+            android:layout_weight="600" >
+
+            <fragment
+                android:id="@+id/function_fragment2"
+                android:name="com.thtfit.pos.fragment.MainFragment"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:layout_weight="60" >
+
+            <fragment
+                android:id="@+id/function_fragment_bottom_bar"
+                android:name="com.thtfit.pos.fragment.BottomBarFragment"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="286" 
-        android:orientation="vertical">
+        android:layout_weight="286"
+        android:orientation="vertical" >
 
         <fragment
             android:id="@+id/function_fragment"
             android:name="com.thtfit.pos.fragment.CallFragment"
             android:layout_width="fill_parent"
-            android:layout_weight="707"
-            android:layout_height="0dp" />
+            android:layout_height="0dp"
+            android:layout_weight="707" />
+
         <TextView
             android:layout_width="fill_parent"
-            android:layout_height="0dp" 
+            android:layout_height="0dp"
             android:layout_weight="60"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
     </LinearLayout>
 
 </LinearLayout>

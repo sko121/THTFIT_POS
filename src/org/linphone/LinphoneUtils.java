@@ -456,5 +456,50 @@ public final class LinphoneUtils {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public static String SipAddrToIpName(String asStringUriOnly) {
+		// TODO Auto-generated method stub
+		String result=""; 
+		if(asStringUriOnly!=null)
+		{
+		
+			try
+			{
+				String[] ss=asStringUriOnly.split("@");
+				Log.e("######### "+ss[0]+"  "+ss[1]);
+				result = ss[0].split(":")[1];
+				
+				String[] ss1=ss[1].split("\\.");
+				Log.e("######### "+ss1[0].length());
+				result=String.format("%03d%03d%03d%03d",
+						Integer.parseInt(ss1[0]),
+						Integer.parseInt(ss1[1]),
+						Integer.parseInt(ss1[2]),
+						Integer.parseInt(ss1[3]));
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	public static  String IpNameToSipAddr(String sipaddr)
+	{
+		String name="";
+		try
+		{
+			name = String.format("%03d%03d%03d%03d", 
+					Integer.parseInt(sipaddr.split("\\.")[0]),
+					Integer.parseInt(sipaddr.split("\\.")[1]),
+					Integer.parseInt(sipaddr.split("\\.")[2]),
+					Integer.parseInt(sipaddr.split("\\.")[3]));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return name;
+	}
+	
 }
 

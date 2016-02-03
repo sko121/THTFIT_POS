@@ -89,7 +89,8 @@ public class POSService extends Service
 
 	public int connRetryCount = 0;
 
-	private final static String serverAddress = "192.168.200.239:8080/SmartPos";
+	//private final static String serverAddress = "192.168.200.239:8080/SmartPos";
+	private final static String serverAddress = "121.15.134.44:8020/SmartPos";
 
 	private DBContror dbcon = null;
 

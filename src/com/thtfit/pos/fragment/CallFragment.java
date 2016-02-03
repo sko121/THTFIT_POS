@@ -4,10 +4,15 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
+import java.util.List;
 
 import org.linphone.LinphoneManager;
+import org.linphone.LinphoneUtils;
+import org.linphone.core.LinphoneAddress;
 import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCore;
+import org.linphone.core.LinphoneCall.State;
+import org.linphone.mediastream.Log;
 import org.linphone.ui.AddressText;
 import org.linphone.ui.CallButton;
 import org.linphone.ui.EraseButton;
@@ -54,7 +59,8 @@ public class CallFragment extends Fragment implements OnClickListener{
 	private TextView local_ipaddr=null;
 	
 	private View mView;
-	
+	private LinphoneCall mCall;
+	private static CallFragment instance = null;
 	
 	private static String Local_IP_addr=null;
 	@Override
@@ -132,25 +138,11 @@ public class CallFragment extends Fragment implements OnClickListener{
 	}
     
 	protected void setipaddr(String addr) {
-		addr = ipaddrToDisplayName(addr);
+		addr = LinphoneUtils.IpNameToSipAddr(addr);
 		local_ipaddr.setText(addr);
 	}
 
-	private String ipaddrToDisplayName(String ipaddr)
-	{
-		String name="";
-		try
-		{
-			name = String.format("%03d%03d%03d%03d", 
-					Integer.parseInt(ipaddr.split("\\.")[0]),
-					Integer.parseInt(ipaddr.split("\\.")[1]),
-					Integer.parseInt(ipaddr.split("\\.")[2]),
-					Integer.parseInt(ipaddr.split("\\.")[3]));
-		}catch(Exception e){
-			
-		}
-		return name;
-	}
+
 	
    
 	@Override
@@ -383,6 +375,29 @@ public class CallFragment extends Fragment implements OnClickListener{
 
 		return strCurActiveNetIpAddr;
 	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		instance = this;
 
+		// Only one call ringing at a time is allowed
+		if (LinphoneManager.getLcIfManagerNotDestroyedOrNull() != null) {
+			List<LinphoneCall> calls = LinphoneUtils.getLinphoneCalls(LinphoneManager.getLc());
+			for (LinphoneCall call : calls) {
+				if (State.IncomingReceived == call.getState()) {
+					mCall = call;
+					break;
+				}
+			}
+		}
+		if (mCall == null) {
+			Log.e("Couldn't find incoming call");
+	
+		}else{
+			LinphoneAddress address = mCall.getRemoteAddress();
+			edit_call_num.setText(LinphoneUtils.SipAddrToIpName(address.asStringUriOnly()));
+		}
+	}
 	
 } 

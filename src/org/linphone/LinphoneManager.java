@@ -1117,7 +1117,7 @@ public class LinphoneManager implements LinphoneCoreListener, LinphoneChatMessag
 				mRingerPlayer = new MediaPlayer();
 				mRingerPlayer.setAudioStreamType(STREAM_RING);
 
-				String ringtone = LinphonePreferences.instance().getRingtone(android.provider.Settings.System.DEFAULT_NOTIFICATION_URI.toString());
+				String ringtone = LinphonePreferences.instance().getRingtone(android.provider.Settings.System.DEFAULT_RINGTONE_URI.toString());
 				try {
 					if (ringtone.startsWith("content://")) {
 						mRingerPlayer.setDataSource(mServiceContext, Uri.parse(ringtone));
