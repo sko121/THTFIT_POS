@@ -1,5 +1,7 @@
 package com.thtfit.pos.activity;
 
+import static android.content.Intent.ACTION_MAIN;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -8,11 +10,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.linphone.LinphoneService;
+import org.linphone.mediastream.Log;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.location.Location;
@@ -24,10 +30,10 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.baidu.android.pushservice.PushConstants;
@@ -41,6 +47,7 @@ import com.thtfit.pos.util.Utils;
 
 public class MainActivity extends FragmentActivity
 {
+	private static MainActivity instance;
 	private LocationManager locationManager;
 	private Location loc;
 	private POSLog posLog = new POSLog();
@@ -96,6 +103,8 @@ public class MainActivity extends FragmentActivity
 		super.onCreate(savedInstanceState);
 		initLanguagesConfig();
 
+		instance = this;
+		
 		/* shows the main UI surface. */
 		setContentView(R.layout.activity_main);
 
@@ -142,8 +151,41 @@ public class MainActivity extends FragmentActivity
 		startService(serviceIntent);
 
 		startPushServer();
+		
+		startlinphoneServer(); 
+	}
+	
+	private void startlinphoneServer() {
+		// Used to change for the lifetime of the app the name used to tag the logs
+				new Log(getResources().getString(R.string.app_name), !getResources().getBoolean(R.bool.disable_every_log));
+				
+				// Hack to avoid to draw twice LinphoneActivity on tablets
+		        if (getResources().getBoolean(R.bool.orientation_portrait_only)) {
+					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+				}
+		        
+		        if (LinphoneService.isReady()) {
+					onServiceReady();
+				} else {
+					// start linphone as background  
+					startService(new Intent(ACTION_MAIN).setClass(this, LinphoneService.class));
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							while(!LinphoneService.isReady()){
+								SystemClock.sleep(30);
+							}
+							onServiceReady();
+						}
+					}).start();
+				}
 	}
 
+	protected void onServiceReady() {
+		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(MainActivity.class);
+	}
+	
 	// 启动推送接收服务
 	public void startPushServer()
 	{
@@ -361,5 +403,19 @@ public class MainActivity extends FragmentActivity
 			e.printStackTrace();
 		}
 		super.onDestroy();
+	}
+
+	public static boolean isInstanciated() {
+		// TODO Auto-generated method stub
+		return instance != null;
+	}
+
+	public static MainActivity instance() {
+		// TODO Auto-generated method stub
+		return instance;
+	}
+
+	public void sendLogs(Context applicationContext, String info) {
+		
 	}
 }

@@ -8,22 +8,21 @@
     android:orientation="horizontal" >
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:baselineAligned="true" >
+        android:layout_weight="738">
 
         <fragment
             android:id="@+id/function_fragment_title_bar"
             android:name="com.thtfit.pos.fragment.TitleBarFragment"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="0dp"/>
 
         <fragment
             android:id="@+id/function_fragment2"
             android:name="com.thtfit.pos.fragment.MainFragment"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="0dp"
             android:layout_above="@+id/function_fragment_bottom_bar"
             android:layout_below="@+id/function_fragment_title_bar"
             android:layout_centerVertical="true" />
@@ -32,22 +31,27 @@
             android:id="@+id/function_fragment_bottom_bar"
             android:name="com.thtfit.pos.fragment.BottomBarFragment"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
+            android:layout_height="0dp"
             android:layout_alignParentBottom="true" />
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="2.5"
-        android:baselineAligned="true"
-        android:orientation="horizontal" >
+        android:layout_weight="286" 
+        android:orientation="vertical">
 
         <fragment
             android:id="@+id/function_fragment"
             android:name="com.thtfit.pos.fragment.CallFragment"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
+            android:layout_weight="707"
+            android:layout_height="0dp" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp" 
+            android:layout_weight="60"
+            android:visibility="invisible"/>
     </LinearLayout>
 
 </LinearLayout>

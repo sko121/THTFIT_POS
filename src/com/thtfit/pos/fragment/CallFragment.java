@@ -1,14 +1,33 @@
 package com.thtfit.pos.fragment;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+
+import org.linphone.LinphoneManager;
+import org.linphone.core.LinphoneCall;
+import org.linphone.core.LinphoneCore;
+import org.linphone.ui.AddressText;
+import org.linphone.ui.CallButton;
+import org.linphone.ui.EraseButton;
+
+
 import android.content.Context;
 import android.media.AudioManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 
 import com.thtfit.pos.R;
 
@@ -27,10 +46,17 @@ public class CallFragment extends Fragment implements OnClickListener{
 	private ImageButton btnNum9 = null;
 	private ImageButton btnNum10 = null;
 	private ImageButton btnNum11 = null;
-    private ImageButton btnCallOn = null;
+    private CallButton  btnCallOn = null;
     private ImageButton btnCallOff = null;
 	private ImageButton imageVolume;
+	private AddressText  edit_call_num=null;
+	private EraseButton erase_call_num=null;
+	private TextView local_ipaddr=null;
+	
 	private View mView;
+	
+	
+	private static String Local_IP_addr=null;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -58,9 +84,32 @@ public class CallFragment extends Fragment implements OnClickListener{
         btnNum9 = (ImageButton) mView.findViewById(R.id.image_num_9);
         btnNum10 = (ImageButton) mView.findViewById(R.id.image_num_asterisk);
         btnNum11 = (ImageButton) mView.findViewById(R.id.image_num_octothorpe);
-        btnCallOn = (ImageButton) mView.findViewById(R.id.image_num_13);
-		btnCallOff = (ImageButton) mView.findViewById(R.id.image_num_14);
+        btnCallOn = (CallButton) mView.findViewById(R.id.image_num_callon);
+		btnCallOff = (ImageButton) mView.findViewById(R.id.image_num_calloff);
 		imageVolume = (ImageButton) mView.findViewById(R.id.image_num_volume);
+		edit_call_num = (AddressText) mView.findViewById(R.id.edit_call_num);
+		edit_call_num.setText("");
+		erase_call_num = (EraseButton) mView.findViewById(R.id.erase_call_num);
+		
+		btnCallOn.setAddressWidget(edit_call_num);
+		erase_call_num.setAddressWidget(edit_call_num);
+		local_ipaddr = (TextView)mView.findViewById(R.id.local_ipaddr);
+		
+		
+		if(Local_IP_addr==null)
+		{
+			local_ipaddr.setText("No NetWork");
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					Local_IP_addr = GetLocalIpAddress();
+					setipaddr(Local_IP_addr);
+				}
+			}).start();
+		}else{
+			setipaddr(Local_IP_addr);
+		}
 		
 		imageVolume.setOnClickListener(this);
 
@@ -76,52 +125,264 @@ public class CallFragment extends Fragment implements OnClickListener{
 		btnNum9.setOnClickListener(this);
 		btnNum10.setOnClickListener(this);
 		btnNum11.setOnClickListener(this);
-		btnCallOn.setOnClickListener(this);
+//		btnCallOn.setOnClickListener(this);
 		btnCallOff.setOnClickListener(this);
+//		erase_call_num.setOnClickListener(this);
+		
 	}
     
+	protected void setipaddr(String addr) {
+		addr = ipaddrToDisplayName(addr);
+		local_ipaddr.setText(addr);
+	}
 
+	private String ipaddrToDisplayName(String ipaddr)
+	{
+		String name="";
+		try
+		{
+			name = String.format("%03d%03d%03d%03d", 
+					Integer.parseInt(ipaddr.split("\\.")[0]),
+					Integer.parseInt(ipaddr.split("\\.")[1]),
+					Integer.parseInt(ipaddr.split("\\.")[2]),
+					Integer.parseInt(ipaddr.split("\\.")[3]));
+		}catch(Exception e){
+			
+		}
+		return name;
+	}
+	
    
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.image_num_volume:
-			AudioManager mAudioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
-			mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,AudioManager.ADJUST_SAME,
-	                AudioManager.FX_FOCUS_NAVIGATION_UP);
-			break;
-       case R.id.image_num_0:
-            break;
-       case R.id.image_num_1:
-            break;
-       case R.id.image_num_2:
-            break;
-       case R.id.image_num_3:
-            break;
-       case R.id.image_num_4:
-            break;
-       case R.id.image_num_5:
-            break;
-       case R.id.image_num_6:
-            break;
-       case R.id.image_num_7:
-            break;
-       case R.id.image_num_8:
-            break;
-       case R.id.image_num_9:
-            break;
-       case R.id.image_num_13:
-            break;
-       case R.id.image_num_14:
-            break;
-       case R.id.image_num_asterisk:
-            break;
-       case R.id.image_num_octothorpe:
-            break;
-		default:
-			break;
+	public void onClick(View v)
+	{
+		switch (v.getId())
+		{
+			case R.id.image_num_volume:
+				AudioManager mAudioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+				mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_SAME,
+						AudioManager.FX_FOCUS_NAVIGATION_UP);
+				break;
+			case R.id.image_num_0:
+				appendnum("0");
+				break;
+			case R.id.image_num_1:
+				appendnum("1");
+				break;
+			case R.id.image_num_2:
+				appendnum("2");
+				break;
+			case R.id.image_num_3:
+				appendnum("3");
+				break;
+			case R.id.image_num_4:
+				appendnum("4");
+				break;
+			case R.id.image_num_5:
+				appendnum("5");
+				break;
+			case R.id.image_num_6:
+				appendnum("6");
+				break;
+			case R.id.image_num_7:
+				appendnum("7");
+				break;
+			case R.id.image_num_8:
+				appendnum("8");
+				break;
+			case R.id.image_num_9:
+				appendnum("9");
+				break;
+//			case R.id.image_num_callon:
+//				callTo();
+//				break;
+			case R.id.image_num_calloff:
+				callEnd();
+				break; 
+			case R.id.image_num_asterisk:
+				appendnum("*");
+				break;
+			case R.id.image_num_octothorpe:
+				appendnum("#");
+				break;
+//			case R.id.erase_call_num:
+//				deleteOnenum();
+//				break;
+			default:
+				break;
 		}
 		
 	}
+	private void callEnd()
+	{
+		hangUp();
+	}
+
+	private void hangUp() {
+		LinphoneCore lc = LinphoneManager.getLc();
+		LinphoneCall currentCall = lc.getCurrentCall();
+		
+		if (currentCall != null) {
+			lc.terminateCall(currentCall);
+		} else if (lc.isInConference()) {
+			lc.terminateConference();
+		} else {
+			lc.terminateAllCalls();
+		}
+	}
+
+	private void appendnum(String text)
+	{
+		StringBuilder callNumSb=new StringBuilder();
+		callNumSb.append(edit_call_num.getText());
+		callNumSb.append(text);
+		edit_call_num.setText(callNumSb.toString());
+	}
+	private String mCachedLocalIpAddr="";
+	private String GetLocalIpAddress() {
+		String strCurActiveNetIpAddr = "";
+
+		do
+		{
+			if(0 < mCachedLocalIpAddr.length())
+			{
+				strCurActiveNetIpAddr = mCachedLocalIpAddr;
+				break;
+			}
+			//
+			try {
+				//try to get cur active net link
+				do
+				{
+//					if(null == mContext)
+//					{
+//						break;
+//					}
+//					ConnectivityManagerEx connMgrEx = new ConnectivityManagerEx();
+//					if(null == connMgrEx)
+//					{
+//						break;
+//					}
+//					ConnectivityManager connMgr = (ConnectivityManager)mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+//					if(null == connMgr)
+//					{
+//						break;
+//					}
+//					LinkProperties curLinkProp = connMgrEx.getActiveLinkProperties(connMgr);
+//					if(null == curLinkProp)
+//					{
+//						break;
+//					}
+//					Collection<InetAddress> linkInetAddrs = curLinkProp.getAddresses();
+//					if(null == linkInetAddrs)
+//					{
+//						break;
+//					}
+//					Iterator <InetAddress> itInetAddr = linkInetAddrs.iterator();
+//					while(itInetAddr.hasNext())
+//					{
+//						InetAddress inetAddr = itInetAddr.next();
+//						if(null == inetAddr)
+//						{
+//							continue;
+//						}
+//						if(false == inetAddr.isLoopbackAddress())
+//						{
+//							strCurActiveNetIpAddr = inetAddr.getHostAddress();
+//							mCachedLocalIpAddr = strCurActiveNetIpAddr;
+//							break;
+//						}
+//					}
+					if(0 < strCurActiveNetIpAddr.length())
+					{
+						break;
+					}
+				}while(false);
+				if(0 < strCurActiveNetIpAddr.length())
+				{
+					break;
+				}
+				//Ethernet
+				for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();en.hasMoreElements();) {
+					NetworkInterface intf = en.nextElement();
+					if(null == intf)
+					{
+						continue;
+					}
+					final String strNetIfName = intf.getName();
+					if(null == strNetIfName)
+					{
+						continue;
+					}
+					if(false == strNetIfName.startsWith("eth"))
+					{
+						continue;
+					}
+					for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+						InetAddress inetAddress = enumIpAddr.nextElement();
+						if (4 == inetAddress.getAddress().length && false == inetAddress.isLoopbackAddress()) {
+							String ip = inetAddress.getHostAddress();
+							if(null != ip && 0 < ip.length())
+							{
+								strCurActiveNetIpAddr = ip;
+								mCachedLocalIpAddr = strCurActiveNetIpAddr;
+								break;
+							}
+						}
+					}
+					if(0 < strCurActiveNetIpAddr.length())
+					{
+						break;
+					}
+				}
+				if(0 < strCurActiveNetIpAddr.length())
+				{
+					break;
+				}
+				//WIFI
+				for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();en.hasMoreElements();) {
+					NetworkInterface intf = en.nextElement();
+					if(null == intf)
+					{
+						continue;
+					}
+					final String strNetIfName = intf.getName();
+					if(null == strNetIfName)
+					{
+						continue;
+					}
+					if(false == strNetIfName.startsWith("wlan"))
+					{
+						continue;
+					}
+					for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+						InetAddress inetAddress = enumIpAddr.nextElement();
+						if (4 == inetAddress.getAddress().length && false == inetAddress.isLoopbackAddress()) {
+							String ip = inetAddress.getHostAddress();
+							if(null != ip && 0 < ip.length())
+							{
+								strCurActiveNetIpAddr = ip;
+								mCachedLocalIpAddr = strCurActiveNetIpAddr;
+								break;
+							}
+						}
+					}
+					if(0 < strCurActiveNetIpAddr.length())
+					{
+						break;
+					}
+				}
+				if(0 < strCurActiveNetIpAddr.length())
+				{
+					break;
+				}
+			} catch (SocketException ex) {
+				ex.printStackTrace();
+			}
+		}while(false);
+
+		return strCurActiveNetIpAddr;
+	}
+
 	
 } 

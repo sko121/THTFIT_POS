@@ -141,7 +141,6 @@ public abstract class PageFragment extends Fragment implements OnCompletedListen
 		{
 			if(mylist.size()>0)
 			{
-				
 				for(int index=0;index<mylist.size();index++)
 				{
 					if(mylist.get(index)!=null)
