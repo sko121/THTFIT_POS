@@ -1,6 +1,8 @@
 package com.thtfit.pos.fragment;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +45,10 @@ public class TotalFragment extends Fragment implements OnClickListener
 	public static List<Product> listItems = new ArrayList<Product>();
 	public static Map<String, String> numberList = new HashMap<String, String>();
 
+	public static final String KEY_CAREREADERA_PROPERTY="ro.thtfit.carereader";
+	public static final String DEF_CAREREADERA_PROPERTY="ges00";
+	public static final String GES00_CAREREADERA_NAME="ges00";
+	public static final String GES10_CAREREADERA_NAME="ges10";
 
 	public static Button checkout;
 	public static Button checkoutright;
@@ -182,7 +188,34 @@ public class TotalFragment extends Fragment implements OnClickListener
 		numberList.clear();
 		listItems.removeAll(listItems);
 	}
+    public static String getSystempProperties(String key,String def){
+        String result = "";
+        try {
 
+            Class clazz=Class.forName("android.os.SystemProperties");
+            Method methodstr = clazz.getMethod("get",String.class,String.class);
+            try {
+                result = (String) methodstr.invoke(null,key,def);
+            } catch (IllegalArgumentException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        } catch (IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClassNotFoundException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        return result;
+    } 
 	@Override
 	public void onClick(View v)
 	{
@@ -214,8 +247,15 @@ public class TotalFragment extends Fragment implements OnClickListener
 		}
 		Toast.makeText(getActivity(), "您要支付金额为：" + checkout.getText(), 3000).show();
 		// 跳转到支付
-		//Intent intent1 = new Intent(getActivity(), SwipeCardActivity.class);
-		Intent intent1 = new Intent(getActivity(), ZCSwipeCardActivity.class);
+		String strCareReaderType = DEF_CAREREADERA_PROPERTY;
+		strCareReaderType = getSystempProperties(KEY_CAREREADERA_PROPERTY,strCareReaderType);
+		Log.d("niotongyuan",""+strCareReaderType);
+		Intent intent1;
+		if(strCareReaderType.equals(GES10_CAREREADERA_NAME)){
+			intent1 = new Intent(getActivity(), ZCSwipeCardActivity.class);
+		}else{
+			intent1 = new Intent(getActivity(), SwipeCardActivity.class);
+		}
 		String amount = checkout.getText().toString();
 		amount = Utils.removeAmountDollar(amount);
 		intent1.putExtra("amount", amount);
