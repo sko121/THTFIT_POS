@@ -110,6 +110,8 @@ public class SwipeCardActivity extends FragmentActivity {
 	private String mReceiveAmount;
 	private Boolean mIsWorking = false;
 
+	private static String tlvOnlineProcessData = "";
+	
 	private static final int PROGRESS_UP = 1001;
 	private Handler updata_handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -859,7 +861,7 @@ public class SwipeCardActivity extends FragmentActivity {
 			mSuccessAmount = amountEditText.getText()
 					.toString();
 			pos.setAmount(Utils.removeAmountSymbol(amount),
-					cashbackAmount, "384", transactionType);
+					cashbackAmount, "0840", transactionType);
 			SwipeCardActivity.this.amount = Utils
 					.removeAmountDollar(amount);
 
@@ -917,6 +919,7 @@ public class SwipeCardActivity extends FragmentActivity {
 						.setText(R.string.replied_success);
 			}
 
+			tlvOnlineProcessData = tlv;
 			dialog.findViewById(R.id.confirmButton).setOnClickListener(
 					new OnClickListener() {
 
@@ -925,7 +928,7 @@ public class SwipeCardActivity extends FragmentActivity {
 							if (isPinCanceled) {
 								pos.sendOnlineProcessResult(null);
 							} else {
-								pos.sendOnlineProcessResult("8A023030");
+								pos.sendOnlineProcessResult("8A023030" + tlvOnlineProcessData);//server accept
 								// emvSwipeController.sendOnlineProcessResult(str);
 							}
 							dismissDialog();
@@ -935,6 +938,13 @@ public class SwipeCardActivity extends FragmentActivity {
 			dialog.show();
 		}
 
+		public void onServerDecline() {
+			if (!tlvOnlineProcessData.isEmpty()) {
+				pos.sendOnlineProcessResult("8A023035" + tlvOnlineProcessData);//server decline
+				tlvOnlineProcessData = "";
+			}
+		}
+		
 		@Override
 		public void onRequestTime() {
 			if (mIsWorking == false) {
