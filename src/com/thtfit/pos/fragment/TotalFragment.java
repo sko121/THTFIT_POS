@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.thtfit.pos.debug.DebugPrint;
 import com.thtfit.pos.model.Product;
 import com.thtfit.pos.util.Utils;
 
+@SuppressLint("ValidFragment")
 public class TotalFragment extends Fragment implements OnClickListener
 {
 	private String TAG = TotalFragment.class.getSimpleName();
@@ -74,7 +76,7 @@ public class TotalFragment extends Fragment implements OnClickListener
 		totalFragment.setArguments(bundle);
 		return totalFragment;
 	}
-
+	
 	public synchronized static TotalFragment getInstance(Context context)
 	{
 		return totalFragment == null ? totalFragment = new TotalFragment(context) : totalFragment;
@@ -257,6 +259,7 @@ public class TotalFragment extends Fragment implements OnClickListener
 			intent1 = new Intent(getActivity(), SwipeCardActivity.class);
 		}
 		String amount = checkout.getText().toString();
+		Log.d("luzhaojie", "amount == " + amount);
 		amount = Utils.removeAmountDollar(amount);
 		intent1.putExtra("amount", amount);
 		intent1.putExtra("listItems", (Serializable) listItems);

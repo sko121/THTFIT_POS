@@ -45,6 +45,7 @@ import com.thtfit.pos.util.receiver.AlarmReceiver;
 
 public class POSService extends Service
 {
+	//http://121.15.134.44:8082/SmartPos//clients/clientsLogin.action?loginName=admin@admin&passWord=123456
 
 	public static final String RECEIVE_DATA = "com.thtfit.pos.service.Receiver.action.Main.RECEIVE_DATA";
 	// 接收前台 请求

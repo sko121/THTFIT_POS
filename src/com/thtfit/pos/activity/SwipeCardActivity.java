@@ -25,6 +25,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,7 +64,10 @@ import com.dspread.xpos.QPOSService.UpdateInformationResult;
 import com.thtfit.pos.R;
 import com.thtfit.pos.adapter.PayListAdapter;
 import com.thtfit.pos.api.Money;
+import com.thtfit.pos.bean.IntegralBean;
 import com.thtfit.pos.model.Product;
+import com.thtfit.pos.util.DBUtils;
+import com.thtfit.pos.util.MyDBHelper;
 import com.thtfit.pos.util.Utils;
 
 public class SwipeCardActivity extends FragmentActivity {
@@ -75,6 +79,9 @@ public class SwipeCardActivity extends FragmentActivity {
 
 	private Button doTradeButton;
 	private EditText amountEditText;
+	private EditText integralEditText;//by Lu
+	private EditText showDb;//by Lu
+	private int myIntegral;
 	private EditText statusEditText;
 	private ListView totalList;
 	private ListView appListView;
@@ -82,6 +89,7 @@ public class SwipeCardActivity extends FragmentActivity {
 
 	private Button btnBT;
 	private Button btnDisconnect;
+	private Button testBtn; // by Lu
 
 	private QPOSService pos;
 	private MyPosListener listener;
@@ -276,6 +284,8 @@ public class SwipeCardActivity extends FragmentActivity {
 		mContext = this;
 		mIsWorking = true;
 
+		//by Lu
+		MyDBHelper helper = new MyDBHelper(getApplicationContext());
 		setContentView(R.layout.activity_swipe);
 		mReceiveAmount = getIntent().getStringExtra("amount");
 		listItems = (List<Product>) getIntent().getSerializableExtra("listItems");
@@ -288,7 +298,7 @@ public class SwipeCardActivity extends FragmentActivity {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+					int position, long id) {	
 				onBTPosSelected(view, position);
 				m_ListView.setVisibility(View.GONE);
 				animScan.stop();
@@ -312,7 +322,10 @@ public class SwipeCardActivity extends FragmentActivity {
 		};
 
 		doTradeButton = (Button) findViewById(R.id.doTradeButton);
+		testBtn = (Button) findViewById(R.id.test_btn);
 		amountEditText = (EditText) findViewById(R.id.amountEditText);
+		integralEditText = (EditText) findViewById(R.id.integralEditText);
+		showDb = (EditText) findViewById(R.id.show_db);
 		statusEditText = (EditText) findViewById(R.id.statusEditText);
 		btnBT = (Button) findViewById(R.id.btnBT);
 		btnDisconnect = (Button) findViewById(R.id.disconnect);
@@ -320,6 +333,7 @@ public class SwipeCardActivity extends FragmentActivity {
 		doTradeButton.setOnClickListener(myOnClickListener);
 		btnBT.setOnClickListener(myOnClickListener);
 		btnDisconnect.setOnClickListener(myOnClickListener);
+		testBtn.setOnClickListener(myOnClickListener);
 		
 
 		mBtnAction = (ImageButton) findViewById(R.id.action);
@@ -743,6 +757,7 @@ public class SwipeCardActivity extends FragmentActivity {
 			amount = "";
 			cashbackAmount = "";
 			amountEditText.setText("");
+			integralEditText.setText("");
 		}
 
 		@Override
@@ -858,6 +873,8 @@ public class SwipeCardActivity extends FragmentActivity {
 			
 			String amount = money.toString();
 			amountEditText.setText(amount);
+			integralEditText.setText(money.divide(money, 1000).toStringForIntegral()); // by Lu
+			myIntegral = money.toInt() / 1000; // by Lu
 			mSuccessAmount = amountEditText.getText()
 					.toString();
 			pos.setAmount(Utils.removeAmountSymbol(amount),
@@ -1071,6 +1088,7 @@ public class SwipeCardActivity extends FragmentActivity {
 			}
 			dismissDialog();
 			amountEditText.setText("");
+			integralEditText.setText("");
 			if (errorState == Error.CMD_NOT_AVAILABLE) {
 				statusEditText
 						.setText(getString(R.string.command_not_available));
@@ -1395,6 +1413,7 @@ public class SwipeCardActivity extends FragmentActivity {
 				}
 				isPinCanceled = false;
 				amountEditText.setText("");
+				integralEditText.setText("");
 				statusEditText.setText(R.string.starting);
 
 				pos.doTrade(60);
@@ -1417,6 +1436,22 @@ public class SwipeCardActivity extends FragmentActivity {
 				startActivity(intent);
 				finish();
 				// startActivityForResult(intent, VariablesComm.RESULT_OK);
+			} else if (v == testBtn) { //by Lu
+				Log.d("luzhaojie", "click test_btn");
+				IntegralBean integralBean = new IntegralBean();
+				integralBean.setIntegral(myIntegral);
+				DBUtils.insert(getApplicationContext(), integralBean);
+				Toast.makeText(getApplicationContext(), "积分已经录入数据库", 0).show();
+				
+				List<IntegralBean> integrals = DBUtils.query(getApplicationContext());
+				StringBuilder result = new StringBuilder();
+				result.append("_id\t\tintegral\n");
+				result.append("-----------------------------------\n");
+				for(int i = 0; i < integrals.size(); i++) {
+					result.append(integrals.get(i).toString());
+				}
+				showDb.setText(result);
+				return;
 			}
 		}
 	}

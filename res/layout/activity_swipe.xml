@@ -168,6 +168,14 @@
                         android:layout_weight="1"
                         android:enabled="false"
                         android:text="@string/swipe_disconnect" />
+                    
+                    <!-- by Lu -->
+                    <Button
+                        android:id="@+id/test_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="刷卡成功测试" />
                 </LinearLayout>
 
                 <ScrollView
@@ -183,6 +191,16 @@
 
                         <EditText
                             android:id="@+id/amountEditText"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dip"
+                            android:layout_marginRight="5dip"
+                            android:editable="false"
+                            android:gravity="center" />
+                        
+                        <!-- by Lu -->
+                        <EditText
+                            android:id="@+id/integralEditText"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dip"
@@ -210,6 +228,15 @@
                             android:scaleType="fitCenter"
                             android:src="@drawable/proceed"
                             android:visibility="gone" />
+                        
+                        <!-- by Lu -->
+                        <EditText 
+                            android:id="@+id/show_db"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dip"
+                            android:layout_marginRight="5dip"
+                            android:editable="false" />
                     </LinearLayout>
                 </ScrollView>
             </LinearLayout>

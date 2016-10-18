@@ -210,7 +210,7 @@ public class Money {
     public String toFormattedString() {
         return NumberFormat.getCurrencyInstance(Locale.CHINA).format(toDouble());
     }
-
+    
     public int toInt() {
         return _value.intValue();
     }
@@ -225,5 +225,9 @@ public class Money {
 
     public String toString() {
         return toFormattedString();
+    }
+    
+    public String toStringForIntegral() {
+        return String.valueOf("Integral : " + toInt());
     }
 }
