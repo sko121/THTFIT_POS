@@ -218,7 +218,7 @@ public class MainGridAdapter extends BaseAdapter
 		/**
 		 * 根据position去获取图片
 		 */
-		DebugPrint.d(TAG,"--imageloader--path-->" + products.get(position).getImagePath());
+		DebugPrint.d("luzhaojie","--imageloader--path-->" + products.get(position).getImagePath());
 		try
 		{
 			if (products.get(position).getImagePath().contains("content:"))

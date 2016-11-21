@@ -139,7 +139,7 @@ public class LockSetupActivity extends FragmentActivity implements
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case R.id.left_btn:
+		case R.id.left_btn: //cancel
 			if (step == STEP_1 || step == STEP_3 || step == STEP_4) {
 				finish();
 			} else if (step == STEP_2) {
@@ -148,7 +148,7 @@ public class LockSetupActivity extends FragmentActivity implements
 			}
 			break;
 
-		case R.id.right_btn:
+		case R.id.right_btn: //confirm
 			if (step == STEP_2) {
 				step = STEP_3;
 				updateView();

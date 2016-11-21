@@ -120,6 +120,11 @@ public class MainActivity extends FragmentActivity
 		/* set system info for test. */
 		setSysInfo();
 
+		//by Lu
+//		SnmpServer snmpServer = new SnmpServer(this);
+//		String string = snmpServer.stringFromJNI();
+//		Log.i("luzhaojie", string);
+		
 		DebugPrint.d(TAG,"start MainActivity");
 	}
 

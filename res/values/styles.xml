@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -206,6 +206,15 @@
 		<item name="android:textColor">@color/colorH</item>
 		<item name="android:textAllCaps">true</item>
 		<item name="android:textSize">50sp</item>
+	</style>
+	
+	<!-- popupwindow -->
+	<style name="popItem" parent="@android:style/TextAppearance.DeviceDefault.Widget.TextView">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:gravity">center</item>
+		<item name="android:textSize">22sp</item>
+		<item name="android:background">#949494</item>
 	</style>
 
 </resources>

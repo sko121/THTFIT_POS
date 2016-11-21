@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/menu_start_connection"
+        android:title="@string/start_connection"
+        android:visible="true" />
+    <item android:id="@+id/menu_stop_connection"
+        android:title="@string/stop_connection"
+        android:visible="true" />
+    <item android:id="@+id/menu_get_deivce_info"
+        android:title="@string/get_info"
+        android:orderInCategory="100" />
+    <item android:id="@+id/menu_get_ksn"
+        android:title="@string/get_ksn"
+        android:orderInCategory="100" />
+    <item android:id="@+id/emv_activity"
+        android:title="EMV"
+        android:orderInCategory="200" />
+    <item android:id="@+id/icc_activity"
+        android:title="ICC"
+        android:orderInCategory="200" />
+    <item android:id="@+id/capk_activity"
+        android:title="CAPK"
+        android:orderInCategory="200" />
+</menu>

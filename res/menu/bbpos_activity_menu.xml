@@ -1,0 +1,37 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_start_connection"
+        android:title="@string/start_connection"
+        android:showAsAction="ifRoom"
+        android:visible="true" />
+    <item android:id="@+id/menu_stop_connection"
+        android:title="@string/stop_connection"
+        android:visible="true" />
+    <item android:id="@+id/menu_get_deivce_info"
+        android:title="@string/get_info"
+        android:orderInCategory="100" />
+    <item android:id="@+id/menu_get_ksn"
+        android:title="@string/get_ksn"
+        android:orderInCategory="100" />
+    <item android:id="@+id/menu_cancel_check_card"
+        android:title="@string/cancel_check_card"
+        android:orderInCategory="100" />
+    <item android:id="@+id/menu_auto_config"
+        android:title="@string/auto_config"
+        android:orderInCategory="100" />
+    <item android:id="@+id/menu_encrypt_data"
+        android:title="@string/encrypt_data"
+        android:orderInCategory="100" />
+    <item android:id="@+id/icc_activity"
+        android:title="ICC"
+        android:orderInCategory="200" />
+    <item android:id="@+id/nfc_activity"
+        android:title="NFC"
+        android:orderInCategory="200" />
+    <item android:id="@+id/capk_activity"
+        android:title="CAPK"
+        android:orderInCategory="200" />
+    <!-- EEE -->
+    <item android:id="@+id/integrity_check"
+        android:title="Integrity Check"
+        android:orderInCategory="200" />
+</menu>
