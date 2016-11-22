@@ -230,4 +230,9 @@ public class Money {
     public String toStringForIntegral() {
         return String.valueOf("Integral : " + toInt());
     }
+    
+    //by Lu
+    public String toDefaultString() {
+    	return _value.toString();
+    }
 }

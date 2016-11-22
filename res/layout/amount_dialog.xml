@@ -11,9 +11,9 @@
         android:layout_height="wrap_content"
         android:hint="@string/amount" />
     -->
-
+	<!-- 
     <com.thtfit.pos.ui.PreventCursorPositionEditText
-        android:id="@+id/amountEditText"
+        android:id="@+id/amountEditTextP"
         style="@style/EditTextBackground"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -24,7 +24,21 @@
         android:inputType="numberDecimal"
         android:text="@string/zero"
         android:textColor="@color/black"
-        android:textSize="15.0sp" />
+        android:textSize="15.0sp" /> -->
+    <EditText 
+        android:id="@+id/amountEditTextP"
+        style="@style/EditTextBackground"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:hint="@string/amount"
+        android:inputType="numberDecimal"
+        android:text="@string/zero"
+        android:textColor="@color/black"
+        android:textSize="15.0sp"
+        />
 
     <EditText
         android:id="@+id/cashbackAmountEditText"

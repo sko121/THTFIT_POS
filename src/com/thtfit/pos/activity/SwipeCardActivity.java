@@ -35,6 +35,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,7 +87,7 @@ import com.thtfit.pos.util.DBUtils;
 import com.thtfit.pos.util.MyDBHelper;
 import com.thtfit.pos.util.Utils;
 
-public class SwipeCardActivity extends EMVBaseActivity {
+public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 	private String LOG_TAG = "SwipeCardActivity";
 	
 	public static List<Product> listItems = new ArrayList<Product>();
@@ -376,6 +377,7 @@ public class SwipeCardActivity extends EMVBaseActivity {
 						@Override
 						public void onClick(View v) {
 							Intent intent = new Intent(SwipeCardActivity.this, BBPosMainActivity.class);
+							intent.putExtra("amount", mReceiveAmount);
 							startActivity(intent);
 						}
 					});
@@ -405,7 +407,7 @@ public class SwipeCardActivity extends EMVBaseActivity {
 		isSelectedBBPos = false;
 
 		//by Lu
-		MyDBHelper helper = new MyDBHelper(getApplicationContext());
+//		MyDBHelper helper = new MyDBHelper(getApplicationContext());
 		setContentView(R.layout.activity_swipe);
 		mReceiveAmount = getIntent().getStringExtra("amount");
 		listItems = (List<Product>) getIntent().getSerializableExtra("listItems");
@@ -520,12 +522,12 @@ public class SwipeCardActivity extends EMVBaseActivity {
 		} 
 		
 		//by Lu : bbpos's close
-		if(emvSwipeController == null) {
-			return;
-		}
-		if(posType == POS_TYPE.USB) {
-			emvSwipeController.stopUsb();
-		}
+//		if(emvSwipeController == null) {
+//			return;
+//		}
+//		if(posType == POS_TYPE.USB) {
+//			emvSwipeController.stopUsb();
+//		}
 	}
 
 	class UpdateThread extends Thread {
@@ -590,17 +592,17 @@ public class SwipeCardActivity extends EMVBaseActivity {
 		// System.exit(0);
 		// finish();
 		
-		//by Lu
-		if(isSwitchingActivity) {
-    		isSwitchingActivity = false;
-    	} else {
-    		if (emvSwipeController.getConnectionMode() == ConnectionMode.AUDIO)
-    			emvSwipeController.stopAudio();
-    		else if (emvSwipeController.getConnectionMode() == ConnectionMode.USB)
-    			emvSwipeController.stopUsb();
-    		emvSwipeController.resetEmvSwipeController();
-    		emvSwipeController = null;
-    	}
+		//by Lu : bbpos
+//		if(isSwitchingActivity) {
+//    		isSwitchingActivity = false;
+//    	} else {
+//    		if (emvSwipeController.getConnectionMode() == ConnectionMode.AUDIO)
+//    			emvSwipeController.stopAudio();
+//    		else if (emvSwipeController.getConnectionMode() == ConnectionMode.USB)
+//    			emvSwipeController.stopUsb();
+//    		emvSwipeController.resetEmvSwipeController();
+//    		emvSwipeController = null;
+//    	}
 	}
 
 	public void dismissDialog() {
@@ -1465,10 +1467,11 @@ public class SwipeCardActivity extends EMVBaseActivity {
 			}
 			if (v == doTradeButton) {
 				//by Lu : BBPos's job
-				if(isSelectedBBPos == true) { 
-					promptForCheckCard();
-					
-				} else { //QPos's job
+//				if(isSelectedBBPos == true) { 
+//					promptForCheckCard(); //bbpos‘s Start btn
+//					
+//				} else { 
+					//QPos's job
 					if (pos == null) {
 						statusEditText.setText(R.string.scan_bt_pos_error);
 						return;
@@ -1487,7 +1490,7 @@ public class SwipeCardActivity extends EMVBaseActivity {
 					statusEditText.setText(R.string.starting);
 					
 					pos.doTrade(60);
-				}
+//				}
 			} else if (v == btnBT) {
 				//by Lu
 				isChooseBtnClick = true;
@@ -1509,7 +1512,7 @@ public class SwipeCardActivity extends EMVBaseActivity {
 				startActivity(intent);
 				finish();
 				// startActivityForResult(intent, VariablesComm.RESULT_OK);
-			} else if (v == testBtn) { //by Lu
+			} else if (v == testBtn) { //by Lu : 积分刷卡测试
 				Log.d("luzhaojie", "click test_btn");
 				IntegralBean integralBean = new IntegralBean();
 				integralBean.setIntegral(myIntegral);
@@ -1704,559 +1707,5 @@ public class SwipeCardActivity extends EMVBaseActivity {
 		}
 		Log.d(LOG_TAG, "swipe card:" + content);
 		return content;
-	}
-	/*
-	 * BBPOS 回调
-	*/
-	
-	@Override
-	public void onWaitingForCard(CheckCardMode checkCardMode) {
-		// TODO Auto-generated method stub
-		switch (checkCardMode) {
-		case INSERT:
-			statusEditText.setText(getString(R.string.please_insert_card));
-			break;
-		case SWIPE:
-			statusEditText.setText(getString(R.string.please_swipe_card));
-			break;
-		case SWIPE_OR_INSERT:
-			statusEditText.setText(getString(R.string.please_swipe_or_insert_card));
-			break;
-		case TAP:
-			statusEditText.setText(getString(R.string.please_tap_card));
-			break;
-		default:
-			break;
-		}
-	}
-
-	@Override
-	public void onBatchDataDetected() {
-		// TODO Auto-generated method stub
-		statusEditText.setText(getString(R.string.batch_data_detected));
-	}
-
-	@Override
-	public void onOnlineProcessDataDetected() {
-		// TODO Auto-generated method stub
-		statusEditText.setText(getString(R.string.online_process_data_detected));
-	}
-
-	@Override
-	public void onReversalDataDetected() {
-		// TODO Auto-generated method stub
-		statusEditText.setText(getString(R.string.reversal_data_detected));
-	}
-
-	@Override
-	public void onReturnCheckCardResult(CheckCardResult checkCardResult,
-			Hashtable<String, String> decodeData) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnCancelCheckCardResult(boolean isSuccess) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnEncryptPinResult(Hashtable<String, String> data) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnEncryptDataResult(boolean isSuccess,
-			Hashtable<String, String> data) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnStartEmvResult(StartEmvResult result, String ksn) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnDeviceInfo(Hashtable<String, String> deviceInfoData) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnCAPKList(List<CAPK> capkList) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnCAPKDetail(CAPK capk) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnCAPKLocation(String location) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnUpdateCAPKResult(boolean isSuccess) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnEmvReportList(Hashtable<String, String> data) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnEmvReport(String tlv) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnTransactionResult(
-			com.bbpos.emvswipe.EmvSwipeController.TransactionResult transResult) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnTransactionResult(
-			com.bbpos.emvswipe.EmvSwipeController.TransactionResult transResult,
-			Hashtable<String, String> data) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnBatchData(String tlv) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnTransactionLog(String tlv) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnReversalData(String tlv) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnPowerOnIccResult(boolean isSuccess, String ksn,
-			String atr, int atrLength) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnPowerOffIccResult(boolean isSuccess) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnApduResult(boolean isSuccess, String apdu,
-			int apduLength) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnApduResultWithPkcs7Padding(boolean isSuccess,
-			String apdu) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnViposExchangeApduResult(String apdu) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnViposBatchExchangeApduResult(
-			Hashtable<Integer, String> data) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnEmvCardBalance(boolean isSuccess, String tlv) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnEmvCardDataResult(boolean isSuccess, String tlv) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnEmvCardNumber(String cardNumber) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnEmvTransactionLog(String[] transactionLogs) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnEmvLoadLog(String[] loadLogs) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnKsn(Hashtable<String, String> ksntable) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnUpdateTerminalSettingResult(
-			TerminalSettingStatus terminalSettingStatus) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnReadTerminalSettingResult(
-			TerminalSettingStatus terminalSettingStatus, String value) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnNfcDataExchangeResult(boolean isSuccess,
-			Hashtable<String, String> data) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReturnNfcDetectCardResult(Hashtable<String, Object> data) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRequestSelectApplication(ArrayList<String> appList) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRequestSetAmount() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRequestPinEntry() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRequestVerifyID(String tlv) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRequestCheckServerConnectivity() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRequestOnlineProcess(String tlv) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRequestTerminalTime() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRequestDisplayText(DisplayText displayText) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRequestClearDisplay() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRequestReferProcess(String pan) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRequestAdviceProcess(String tlv) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRequestFinalConfirm() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onAutoConfigProgressUpdate(double percentage) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onAutoConfigCompleted(boolean isDefaultSettings,
-			String autoConfigSettings) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onAutoConfigError(AutoConfigError autoConfigError) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onBatteryLow(BatteryStatus batteryStatus) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onNoDeviceDetected() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onDevicePlugged() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onDeviceUnplugged() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onDeviceHere(boolean isHere) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onError(com.bbpos.emvswipe.EmvSwipeController.Error errorState,
-			String errorMessage) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onPowerDown() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onUsbConnected() {
-		// TODO Auto-generated method stub
-		doTradeButton.setEnabled(true);
-	}
-
-	@Override
-	public void onUsbDisconnected() {
-		// TODO Auto-generated method stub
-		doTradeButton.setEnabled(false);
-	}
-	
-    public void promptForCheckCard() {
-    	dismissDialog();
-    	dialog = new Dialog(SwipeCardActivity.this);
-		dialog.setContentView(R.layout.check_card_mode_dialog);
-		dialog.setTitle(getString(R.string.select_mode));
-		
-		View.OnClickListener onClickListener = new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View view) {
-				RadioButton swipeRadioButton = (RadioButton)dialog.findViewById(R.id.swipeRadioButton);
-				RadioButton insertRadioButton = (RadioButton)dialog.findViewById(R.id.insertRadioButton);
-				RadioButton tapRadioButton = (RadioButton)dialog.findViewById(R.id.tapRadioButton);
-				RadioButton swipeOrInsertRadioButton = (RadioButton)dialog.findViewById(R.id.swipeOrInsertRadioButton);
-				RadioButton swipeOrTapRadioButton = (RadioButton)dialog.findViewById(R.id.swipeOrTapRadioButton);
-				RadioButton insertOrTapRadioButton = (RadioButton)dialog.findViewById(R.id.insertOrTapRadioButton);
-				RadioButton swipeOrInsertOrTapRadioButton = (RadioButton)dialog.findViewById(R.id.swipeOrInsertOrTapRadioButton);
-				
-				if(swipeRadioButton.isChecked()) {
-					checkCardMode = CheckCardMode.SWIPE;
-				} else if(insertRadioButton.isChecked()) {
-					checkCardMode = CheckCardMode.INSERT;
-				} else if(tapRadioButton.isChecked()) {
-					checkCardMode = CheckCardMode.TAP;
-				} else if(swipeOrInsertRadioButton.isChecked()) {
-					checkCardMode = CheckCardMode.SWIPE_OR_INSERT;
-				} else if(swipeOrTapRadioButton.isChecked()) {
-					checkCardMode = CheckCardMode.SWIPE_OR_TAP;
-				} else if(insertOrTapRadioButton.isChecked()) {
-					checkCardMode = CheckCardMode.INSERT_OR_TAP;
-				} else if(swipeOrInsertOrTapRadioButton.isChecked()) {
-					checkCardMode = CheckCardMode.SWIPE_OR_INSERT_OR_TAP;
-				} else {
-					dismissDialog();
-					return;
-				}
-				
-				isPinCanceled = false;
-				amountEditText.setText("");
-				statusEditText.setText(R.string.starting);
-				
-				if ((checkCardMode == CheckCardMode.TAP) || (checkCardMode == CheckCardMode.SWIPE_OR_TAP) || (checkCardMode == CheckCardMode.INSERT_OR_TAP) || (checkCardMode == CheckCardMode.SWIPE_OR_INSERT_OR_TAP)) {
-					String terminalTime = new SimpleDateFormat("yyMMddHHmmss").format(Calendar.getInstance().getTime());
-					Hashtable<String, Object> data = new Hashtable<String, Object>();
-					data.put("terminalTime", terminalTime);
-					data.put("checkCardTimeout", "120");
-					data.put("setAmountTimeout", "120");
-					data.put("selectApplicationTimeout", "120");
-					data.put("finalConfirmTimeout", "120");
-					data.put("onlineProcessTimeout", "120");
-					data.put("pinEntryTimeout", "120");
-					data.put("emvOption", "START");
-					data.put("checkCardMode", checkCardMode);
-					if(fidsSpinner.getSelectedItem().equals("FID46")) {
-						data.put("randomNumber", "0123456789ABCDEF");
-					} else if(fidsSpinner.getSelectedItem().equals("FID61")) {
-						data.put("orderID", "0123456789ABCDEF0123456789ABCDEF");
-						data.put("randomNumber", "012345");
-					} else if(fidsSpinner.getSelectedItem().equals("FID65")) {
-						// Note : The following encWorkingKey and workingKeyKcv should be generated and given by the server. 
-						// Plain working key should never be transmitted through the mobile application. Here is just an example to demonstrate how to encrypt the working key can calculate the Kcv
-						String encWorkingKey = encrypt(fid65WorkingKey, fid65MasterKey);
-					    String workingKeyKcv = encrypt("0000000000000000", fid65WorkingKey);
-					    
-						data.put("encPinKey", encWorkingKey + workingKeyKcv);
-						data.put("encDataKey", encWorkingKey + workingKeyKcv);
-						data.put("encMacKey", encWorkingKey + workingKeyKcv);
-					}
-					emvSwipeController.startEmv(data);
-				} else {
-					Hashtable<String, Object> data = new Hashtable<String, Object>();
-					data.put("checkCardTimeout", "120");
-					data.put("checkCardMode", checkCardMode);
-					if(fidsSpinner.getSelectedItem().equals("FID46")) {
-						data.put("randomNumber", "0123456789ABCDEF");
-					} else if(fidsSpinner.getSelectedItem().equals("FID61")) {
-						data.put("orderID", "0123456789ABCDEF0123456789ABCDEF");
-						data.put("randomNumber", "012345");
-					} else if(fidsSpinner.getSelectedItem().equals("FID65")) {
-						// Note : The following encWorkingKey and workingKeyKcv should be generated and given by the server. 
-						// Plain working key should never be transmitted through the mobile application. Here is just an example to demonstrate how to encrypt the working key can calculate the Kcv
-						String encWorkingKey = encrypt(fid65WorkingKey, fid65MasterKey);
-					    String workingKeyKcv = encrypt("0000000000000000", fid65WorkingKey);
-					    
-						data.put("encPinKey", encWorkingKey + workingKeyKcv);
-						data.put("encDataKey", encWorkingKey + workingKeyKcv);
-						data.put("encMacKey", encWorkingKey + workingKeyKcv);
-						data.put("amount", "1.0");
-					}
-					emvSwipeController.checkCard(data);
-				}
-				dismissDialog();
-			}
-		};
-		
-		RadioButton swipeRadioButton = (RadioButton)dialog.findViewById(R.id.swipeRadioButton);
-		RadioButton insertRadioButton = (RadioButton)dialog.findViewById(R.id.insertRadioButton);
-		RadioButton tapRadioButton = (RadioButton)dialog.findViewById(R.id.tapRadioButton);
-		RadioButton swipeOrInsertRadioButton = (RadioButton)dialog.findViewById(R.id.swipeOrInsertRadioButton);
-		
-		swipeRadioButton.setOnClickListener(onClickListener);
-		insertRadioButton.setOnClickListener(onClickListener);
-		tapRadioButton.setOnClickListener(onClickListener);
-		swipeOrInsertRadioButton.setOnClickListener(onClickListener);
-		
-		dialog.findViewById(R.id.cancelButton).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				dismissDialog();
-			}
-		});
-		dialog.show();
-    }
-    
-    public String encrypt(String data, String key) {
-    	if(key.length() == 16) {
-    		key += key.substring(0, 8);
-    	}
-    	byte[] d = hexToByteArray(data);
-    	byte[] k = hexToByteArray(key);
-    	
-    	SecretKey sk = new SecretKeySpec(k, "DESede");
-    	try {
-    		Cipher cipher = Cipher.getInstance("DESede/ECB/NoPadding");
-    		cipher.init(Cipher.ENCRYPT_MODE, sk);
-			byte[] enc = cipher.doFinal(d);
-			return toHexString(enc);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-    	return null;
-    }
-    
-    private static String toHexString(byte[] b) {
-		if(b == null) {
-			return "null";
-		}
-		String result = "";
-		for (int i=0; i < b.length; i++) {
-			result += Integer.toString( ( b[i] & 0xFF ) + 0x100, 16).substring( 1 );
-		}
-		return result;
-	}
-    
-    private static byte[] hexToByteArray(String s) {
-		if(s == null) {
-			s = "";
-		}
-		ByteArrayOutputStream bout = new ByteArrayOutputStream();
-		for(int i = 0; i < s.length() - 1; i += 2) {
-			String data = s.substring(i, i + 2);
-			bout.write(Integer.parseInt(data, 16));
-		}
-		return bout.toByteArray();
 	}
 }

@@ -23,6 +23,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -61,6 +62,8 @@ import com.bbpos.emvswipe.EmvSwipeController.TerminalSettingStatus;
 import com.bbpos.emvswipe.EmvSwipeController.TransactionResult;
 import com.bbpos.emvswipe.EmvSwipeController.TransactionType;
 import com.thtfit.pos.R;
+import com.thtfit.pos.api.Money;
+import com.thtfit.pos.ui.PreventCursorPositionEditText;
 
 public class BBPosMainActivity extends EMVBaseActivity {
 	
@@ -85,6 +88,8 @@ public class BBPosMainActivity extends EMVBaseActivity {
     private TextView nfcActivity;
     private TextView capkActivity;
     private TextView integrityCheck;
+    private EditText dialogAmountEditText;//by Lu
+    private String mReceiveAmount;//by Lu
 	
 	private boolean isAskingForAmount = false;
 	
@@ -119,6 +124,7 @@ public class BBPosMainActivity extends EMVBaseActivity {
         statusEditText = (EditText)findViewById(R.id.statusEditText);
         //by Lu
         menuBtn = (Button) findViewById(R.id.btn_menu);
+        mReceiveAmount = getIntent().getStringExtra("amount");
         
         MyOnClickListener myOnClickListener = new MyOnClickListener();
         checkCardButton.setOnClickListener(myOnClickListener);
@@ -369,6 +375,10 @@ public class BBPosMainActivity extends EMVBaseActivity {
 		dialog.setContentView(R.layout.amount_dialog);
 		dialog.setTitle(getString(R.string.set_amount));
 		
+		// by Lu
+		dialogAmountEditText = (EditText)dialog.findViewById(R.id.amountEditTextP);
+		dialogAmountEditText.setText(mReceiveAmount);
+		
 		String[] transactionTypes = new String[] {
 				"GOODS",
 				"SERVICES",
@@ -384,7 +394,8 @@ public class BBPosMainActivity extends EMVBaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				String amount = ((EditText)(dialog.findViewById(R.id.amountEditText))).getText().toString();
+//				dialogAmountEditText = (EditText)dialog.findViewById(R.id.amountEditTextP);
+//				String amount = dialogAmountEditText.getText().toString();
 				String cashbackAmount = ((EditText)(dialog.findViewById(R.id.cashbackAmountEditText))).getText().toString();
 				String transactionTypeString = (String)((Spinner)dialog.findViewById(R.id.transactionTypeSpinner)).getSelectedItem();
 				
@@ -412,8 +423,22 @@ public class BBPosMainActivity extends EMVBaseActivity {
 					currencyCode = "840";
 				}
 				
+				//by Lu : receive the amount from SwipeCardActivity
+				Money money = new Money(mReceiveAmount);
+				boolean hasNoError = true;
+				if (!money.isGreaterThanZero()) {
+					Log.d("luzhaojie", getString(R.string.price_is_zero));
+					Toast.makeText(BBPosMainActivity.this, getString(R.string.price_is_zero), Toast.LENGTH_SHORT).show();
+					hasNoError = false;
+				}
+				if (!hasNoError) {
+					return;
+				}
+				String amount = money.toDefaultString();
+				Toast.makeText(currentActivity, "mReceiveAmount == " + mReceiveAmount, 1).show();
+				
 				if(emvSwipeController.setAmount(amount, cashbackAmount, currencyCode, transactionType)) {
-					amountEditText.setText("$" + amount);
+					dialogAmountEditText.setText("$" + amount);
 					BBPosMainActivity.this.amount = amount;
 					BBPosMainActivity.this.cashbackAmount = cashbackAmount;
 					dismissDialog();
