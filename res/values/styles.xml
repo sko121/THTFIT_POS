@@ -2,23 +2,21 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.    -->
+    <style name="AppBaseTheme" parent="@android:style/Theme.Holo.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
+            backward-compatibility can go here.        -->
     </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <!-- 隐藏状态栏 -->
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
+        <!-- item name="android:dialogTheme">@style/Dialog</item> -->
     </style>
 
     <style name="LoginFormContainer">
@@ -32,7 +30,6 @@
     </style>
 
     <style name="Transparent" parent="android:Theme">
-
         <!-- <item name="android:windowBackground">@drawable/logo</item>对话框的背景 -->
         <item name="android:windowIsTranslucent">true</item>
         <!-- 对话框是否透明 -->
@@ -79,14 +76,19 @@
         <item name="android:textSize">15.0dip</item>
         <item name="android:textColor">#ff666666</item>
     </style>
-
+    
+    <style name="DialogWindowTitle">  
+        <item name="android:textSize">22sp</item>  
+        <item name="android:textColor">@color/blue</item>  
+    </style>  
+    
     <style name="Dialog" parent="android:style/Theme.Dialog">
-        <item name="android:background">#00000000</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowNoTitle">true</item>
+        <!-- item name="android:background">#979797</item> -->
+        <!-- item name="android:windowBackground">@android:color/transparent</item> -->
+        <!-- item name="android:windowNoTitle">true</item> -->
         <item name="android:windowIsFloating">true</item>
+        <!-- item name="android:textAppearance">@style/DialogWindowTitle</item> -->
     </style>
-
 
 	<style name="Default" parent="android:Theme.Holo.Light" />
 	<style name="NoTitle" parent="android:Theme.Holo.Light.NoActionBar" />
@@ -211,10 +213,10 @@
 	<!-- popupwindow -->
 	<style name="popItem" parent="@android:style/TextAppearance.DeviceDefault.Widget.TextView">
 		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_height">45dp</item>
 		<item name="android:gravity">center</item>
-		<item name="android:textSize">22sp</item>
-		<item name="android:background">#949494</item>
+		<item name="android:textSize">20sp</item>
+		<item name="android:background">#ffffff</item>
 	</style>
 
 </resources>

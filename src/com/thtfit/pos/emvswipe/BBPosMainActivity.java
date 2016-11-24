@@ -114,7 +114,7 @@ public class BBPosMainActivity extends EMVBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.bbpos_activity_main);
+        setContentView(R.layout.bbpos_activity_main1);
         
         ((TextView)findViewById(R.id.modelTextView)).setText(Build.MANUFACTURER.toUpperCase(Locale.ENGLISH) + " - " + Build.MODEL + " (Android " + Build.VERSION.RELEASE + ")");
         
@@ -254,7 +254,7 @@ public class BBPosMainActivity extends EMVBaseActivity {
     public void promptForCheckCard() {
     	dismissDialog();
     	dialog = new Dialog(BBPosMainActivity.this);
-		dialog.setContentView(R.layout.check_card_mode_dialog);
+		dialog.setContentView(R.layout.bbpos1_check_card_mode_dialog);
 		dialog.setTitle(getString(R.string.select_mode));
 		
 		View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -376,7 +376,7 @@ public class BBPosMainActivity extends EMVBaseActivity {
 		dialog.setTitle(getString(R.string.set_amount));
 		
 		// by Lu
-		dialogAmountEditText = (EditText)dialog.findViewById(R.id.amountEditTextP);
+		dialogAmountEditText = (EditText)dialog.findViewById(R.id.amountEditText);
 		dialogAmountEditText.setText(mReceiveAmount);
 		
 		String[] transactionTypes = new String[] {

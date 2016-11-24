@@ -82,7 +82,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             
-                        <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.CALL" />
                 <action android:name="android.intent.action.CALL_PRIVILEGED" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -155,6 +155,17 @@
             android:name="com.thtfit.pos.emvswipe.NfcActivity"/>
         <activity 
             android:name="com.thtfit.pos.emvswipe.BBPosMainActivity"/>
+         <!-- bbpos contain bt -->
+        <activity 
+            android:name="com.thtfit.pos.bbpos.BBPosBTMainActivity"/>
+        <activity 
+            android:name="com.thtfit.pos.bbpos.ApduActivity"/>
+        <activity 
+            android:name="com.thtfit.pos.bbpos.CAPKActivity"/>
+        <activity 
+            android:name="com.thtfit.pos.bbpos.GprsWifiActivity"/>
+        <activity 
+            android:name="com.thtfit.pos.bbpos.BaseActivity"/>
 
         <service
             android:name="com.thtfit.pos.service.POSService"

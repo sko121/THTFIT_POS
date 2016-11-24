@@ -15,18 +15,18 @@
         android:orientation="horizontal" >
         
         <Button 
-	        android:id="@+id/getCAPKListButton"
+	        android:id="@+id/powerOnIccButton"
 	        android:layout_weight=".5"
 	        android:layout_width="0dip"
 	        android:layout_height="wrap_content"
-	        android:text="@string/get_capk_list" />
+	        android:text="@string/power_on_icc" />
         
-        <Button 
-	        android:id="@+id/getCAPKDetailButton"
+         <Button 
+	        android:id="@+id/clearLogButton"
 	        android:layout_weight=".5"
 	        android:layout_width="0dip"
 	        android:layout_height="wrap_content"
-	        android:text="@string/get_capk_detail" />
+	        android:text="@string/clear_log" />
         
     </LinearLayout>
     
@@ -36,44 +36,22 @@
         android:orientation="horizontal" >
         
         <Button 
-	        android:id="@+id/findCAPKButton"
+	        android:id="@+id/powerOffIccButton"
 	        android:layout_weight=".5"
 	        android:layout_width="0dip"
 	        android:layout_height="wrap_content"
-	        android:text="@string/find_capk" />
+	        android:text="@string/power_off_icc" />
         
         <Button 
-			android:id="@+id/updateCAPKButton"
-			android:layout_weight=".5"
-	        android:layout_width="0dip"
-	        android:layout_height="wrap_content"
-	        android:singleLine="true"
-			android:text="@string/update_capk" />
-        
-    </LinearLayout>
-    
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-        
-        <Button 
-	        android:id="@+id/getEmvReportListButton"
+	        android:id="@+id/apduButton"
 	        android:layout_weight=".5"
 	        android:layout_width="0dip"
 	        android:layout_height="wrap_content"
-	        android:text="@string/get_emv_report_list" />
-        
-        <Button 
-			android:id="@+id/getEmvReportButton"
-			android:layout_weight=".5"
-	        android:layout_width="0dip"
-	        android:layout_height="wrap_content"
-	        android:singleLine="true"
-			android:text="@string/get_emv_report" />
+	        android:text="@string/send_apdu" />
         
     </LinearLayout>
-    
+
+       
     <LinearLayout 
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -81,11 +59,14 @@
         
         <EditText
             android:id="@+id/statusEditText"
+            android:layout_weight=".5"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="5dip"
-	    	android:layout_marginRight="5dip"
-            android:editable="false" />
-        
+            android:layout_height="0dip"
+            android:editable="false"
+            android:gravity="top"
+            android:scrollbars="vertical"
+            android:ellipsize="end"
+            android:textSize="14sp" />
+
     </LinearLayout>
 </LinearLayout>

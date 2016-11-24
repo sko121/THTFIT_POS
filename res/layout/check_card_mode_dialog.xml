@@ -4,54 +4,10 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
     
-    <RadioGroup
+    <ListView
+        android:id="@+id/swipeInsertTapList"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center" >
-        
-        <RadioButton 
-            android:id="@+id/swipeRadioButton"
-            android:layout_width="fill_parent"
-        	android:layout_height="wrap_content"
-        	android:text="@string/swipe" />
-        
-        <RadioButton
-            android:id="@+id/insertRadioButton" 
-            android:layout_width="fill_parent"
-        	android:layout_height="wrap_content"
-        	android:text="@string/insert" />
-        
-        <RadioButton 
-            android:id="@+id/tapRadioButton"
-            android:layout_width="fill_parent"
-        	android:layout_height="wrap_content"
-        	android:text="@string/tap" />
-        
-        <RadioButton 
-            android:id="@+id/swipeOrInsertRadioButton"
-            android:layout_width="fill_parent"
-        	android:layout_height="wrap_content"
-        	android:text="@string/swipe_or_insert" />
-        
-        <RadioButton 
-            android:id="@+id/swipeOrTapRadioButton"
-            android:layout_width="fill_parent"
-        	android:layout_height="wrap_content"
-        	android:text="@string/swipe_or_tap" />
-        
-        <RadioButton 
-            android:id="@+id/insertOrTapRadioButton"
-            android:layout_width="fill_parent"
-        	android:layout_height="wrap_content"
-        	android:text="@string/insert_or_tap" />
-        
-        <RadioButton 
-            android:id="@+id/swipeOrInsertOrTapRadioButton"
-            android:layout_width="fill_parent"
-        	android:layout_height="wrap_content"
-        	android:text="@string/swipe_or_insert_or_tap" />
-        
-    </RadioGroup>
+        android:layout_height="wrap_content" />
     
     <LinearLayout 
         android:layout_width="fill_parent"

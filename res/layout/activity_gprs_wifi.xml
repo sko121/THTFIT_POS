@@ -8,25 +8,25 @@
         android:id="@+id/modelTextView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
-    
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
         
         <Button 
-	        android:id="@+id/getCAPKListButton"
-	        android:layout_weight=".5"
-	        android:layout_width="0dip"
+	        android:id="@+id/updateGprsSettingButton"
+	        android:layout_weight="1"
+	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
-	        android:text="@string/get_capk_list" />
+	        android:text="@string/update_gprs_setting" />
         
         <Button 
-	        android:id="@+id/getCAPKDetailButton"
-	        android:layout_weight=".5"
-	        android:layout_width="0dip"
+	        android:id="@+id/clearLogButton"
+	        android:layout_weight="1"
+	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
-	        android:text="@string/get_capk_detail" />
+	        android:text="@string/clear_log" />
         
     </LinearLayout>
     
@@ -36,19 +36,18 @@
         android:orientation="horizontal" >
         
         <Button 
-	        android:id="@+id/findCAPKButton"
-	        android:layout_weight=".5"
-	        android:layout_width="0dip"
+	        android:id="@+id/updateWifiSettingButton"
+	        android:layout_weight="1"
+	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
-	        android:text="@string/find_capk" />
+	        android:text="@string/update_wifi_setting" />
         
         <Button 
-			android:id="@+id/updateCAPKButton"
-			android:layout_weight=".5"
-	        android:layout_width="0dip"
+	        android:id="@+id/readGprsSettingButton"
+	        android:layout_weight="1"
+	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
-	        android:singleLine="true"
-			android:text="@string/update_capk" />
+	        android:text="@string/read_gprs_setting" />
         
     </LinearLayout>
     
@@ -58,20 +57,12 @@
         android:orientation="horizontal" >
         
         <Button 
-	        android:id="@+id/getEmvReportListButton"
-	        android:layout_weight=".5"
-	        android:layout_width="0dip"
+	        android:id="@+id/readWifiSettingButton"
+	        android:layout_weight="1"
+	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
-	        android:text="@string/get_emv_report_list" />
-        
-        <Button 
-			android:id="@+id/getEmvReportButton"
-			android:layout_weight=".5"
-	        android:layout_width="0dip"
-	        android:layout_height="wrap_content"
-	        android:singleLine="true"
-			android:text="@string/get_emv_report" />
-        
+	        android:text="@string/read_wifi_setting" />
+                
     </LinearLayout>
     
     <LinearLayout 
@@ -88,4 +79,5 @@
             android:editable="false" />
         
     </LinearLayout>
+    
 </LinearLayout>

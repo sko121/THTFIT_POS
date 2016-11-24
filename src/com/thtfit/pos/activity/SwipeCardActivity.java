@@ -80,6 +80,7 @@ import com.dspread.xpos.QPOSService.UpdateInformationResult;
 import com.thtfit.pos.R;
 import com.thtfit.pos.adapter.PayListAdapter;
 import com.thtfit.pos.api.Money;
+import com.thtfit.pos.bbpos.BBPosBTMainActivity;
 import com.thtfit.pos.bean.IntegralBean;
 import com.thtfit.pos.emvswipe.BBPosMainActivity;
 import com.thtfit.pos.model.Product;
@@ -376,7 +377,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 					toBBPos.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
-							Intent intent = new Intent(SwipeCardActivity.this, BBPosMainActivity.class);
+							Intent intent = new Intent(SwipeCardActivity.this, BBPosBTMainActivity.class);
 							intent.putExtra("amount", mReceiveAmount);
 							startActivity(intent);
 						}
@@ -427,7 +428,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 				imvAnimScan.setVisibility(View.GONE);
 				isChooseBtnClick = false;
 				isSelectedBBPos = false;
-				Log.d("luzhaojie", "onitemclick...");
 			}
 
 		});
@@ -652,7 +652,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 		@Override
 		public void onDoTradeResult(DoTradeResult result,
 				Hashtable<String, String> decodeData) {
-			Toast.makeText(mContext, "onDoTradeResult...", 1).show();//by Lu
 			if (mIsWorking == false) {
 				return;
 			}
@@ -739,7 +738,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 		@Override
 		public void onRequestTransactionResult(
 				TransactionResult transactionResult) {
-			Toast.makeText(mContext, "onRequestTransactionResult...", 1).show();//by Lu
 			Log.d(LOG_TAG, "onRequestTransactionResult");
 			if (mIsWorking == false) {
 				return;
@@ -804,7 +802,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 						@Override
 						public void onClick(View v) {
 							dismissDialog();
-							Toast.makeText(mContext, "si guo yi ...", 1).show();//by Lu
 						}
 					});
 
@@ -818,7 +815,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 
 		@Override
 		public void onRequestBatchData(String tlv) {
-			Toast.makeText(mContext, "onRequestBatchData...", 1).show();//by Lu
 			if (mIsWorking == false) {
 				return;
 			}
@@ -864,7 +860,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 
 		@Override
 		public void onRequestSelectEmvApp(ArrayList<String> appList) {
-			Toast.makeText(mContext, "onRequestSelectEmvApp...", 1).show();// by LU
 			if (mIsWorking == false) {
 				return;
 			}
@@ -948,7 +943,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 
 		@Override
 		public void onRequestIsServerConnected() {
-			Toast.makeText(mContext, "onRequestIsServerConnected...", 1).show();//by Lu
 			if (mIsWorking == false) {
 				return;
 			}
@@ -976,7 +970,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 
 		@Override
 		public void onRequestOnlineProcess(String tlv) {
-			Toast.makeText(mContext, "onRequestOnlineProcess...", 1).show();//by Lu
 			if (mIsWorking == false) {
 				return;
 			}
@@ -1004,10 +997,10 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 						@Override
 						public void onClick(View v) {
 							if (isPinCanceled) {
-								Toast.makeText(mContext, "onRequestOnlineProcess :: isPinCanceled : " + isPinCanceled, 1).show();//by Lu
+//								Toast.makeText(mContext, "onRequestOnlineProcess :: isPinCanceled : " + isPinCanceled, 1).show();//by Lu
 								pos.sendOnlineProcessResult(null);
 							} else {
-								Toast.makeText(mContext, "onRequestOnlineProcess :: isPinCanceled : " + isPinCanceled, 1).show();//by Lu
+//								Toast.makeText(mContext, "onRequestOnlineProcess :: isPinCanceled : " + isPinCanceled, 1).show();//by Lu
 //								pos.sendOnlineProcessResult("8A023030" + tlvOnlineProcessData);//server accept
 								pos.sendOnlineProcessResult("8A023030");//by Lu
 								// emvSwipeController.sendOnlineProcessResult(str);
@@ -1069,7 +1062,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 
 		@Override
 		public void onRequestFinalConfirm() {
-			Toast.makeText(mContext, "onRequestFinalConfirm...", 1).show();//by Lu
 			if (mIsWorking == false) {
 				return;
 			}
@@ -1302,7 +1294,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 
 		@Override
 		public void onRequestSetPin() {
-			Toast.makeText(mContext, "onRequestSetPin...", 1).show();//by Lu
 			if (mIsWorking == false) {
 				return;
 			}
