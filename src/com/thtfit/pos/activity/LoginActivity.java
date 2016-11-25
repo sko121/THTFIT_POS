@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -48,6 +49,15 @@ public class LoginActivity extends Activity implements OnClickListener
 				final String loginResult = intent.getStringExtra("loginResult");
 				if (loginResult.equals("success"))
 				{
+					//by Lu 
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							btLogin.setEnabled(false);
+							btLogin.setBackgroundColor(Color.GRAY);
+						}
+					});
+					
 					CustomDialog.Builder builder = new CustomDialog.Builder(LoginActivity.this);
 					builder.setTitle((String) getApplication().getResources().getText(R.string.login_prompt));
 					builder.setMessage((String) getApplication().getResources().getText(R.string.login_successfully));
@@ -107,6 +117,13 @@ public class LoginActivity extends Activity implements OnClickListener
 		btLogin = (Button) findViewById(R.id.signin_button);
 		btLogoutManager = (Button) findViewById(R.id.logout_manager_button);
 		btSwitchManager = (Button) findViewById(R.id.switch_manager_button);
+		//by Lu
+		SharedPreferences preferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+		loginStatus = preferences.getInt("loginStatus", 0);
+		if(loginStatus == 2) {
+			btLogin.setEnabled(false);
+			btLogin.setBackgroundColor(Color.GRAY);
+		}
 
 		btLogin.setOnClickListener(this);
 		btLogoutManager.setOnClickListener(this);
@@ -204,6 +221,7 @@ public class LoginActivity extends Activity implements OnClickListener
 					public void onClick(DialogInterface dialog, int which)
 					{
 						logoutManager();
+						btLogin.setEnabled(true);//by Lu
 						dialog.dismiss();
 						LoginActivity.this.finish();
 					}

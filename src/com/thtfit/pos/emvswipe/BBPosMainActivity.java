@@ -428,14 +428,12 @@ public class BBPosMainActivity extends EMVBaseActivity {
 				boolean hasNoError = true;
 				if (!money.isGreaterThanZero()) {
 					Log.d("luzhaojie", getString(R.string.price_is_zero));
-					Toast.makeText(BBPosMainActivity.this, getString(R.string.price_is_zero), Toast.LENGTH_SHORT).show();
 					hasNoError = false;
 				}
 				if (!hasNoError) {
 					return;
 				}
 				String amount = money.toDefaultString();
-				Toast.makeText(currentActivity, "mReceiveAmount == " + mReceiveAmount, 1).show();
 				
 				if(emvSwipeController.setAmount(amount, cashbackAmount, currencyCode, transactionType)) {
 					dialogAmountEditText.setText("$" + amount);
@@ -1771,7 +1769,6 @@ public class BBPosMainActivity extends EMVBaseActivity {
     	customView.setOnTouchListener(new OnTouchListener() {  
             @Override  
             public boolean onTouch(View v, MotionEvent event) {  
-            	Toast.makeText(currentActivity, "customView.setOnTouchListener...", 1).show();
                 closePopWindow();
                 return false;  
             }  

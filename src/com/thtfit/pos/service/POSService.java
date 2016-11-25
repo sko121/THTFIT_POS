@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -28,6 +30,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
@@ -237,6 +240,14 @@ public class POSService extends Service
 				.addAction("com.thtfit.pos.service.Receiver.action.START_AUTO_GET_SERVICE_DATA");
 		intentFilter.addAction("com.thtfit.pos.service.Receiver.action.LOGIN");
 		registerReceiver(Receiver_Service, intentFilter);
+		
+		//by Lu : 打开app即从网上拉取数据
+		Log.d("luzhaojie", "打开app即从网上拉取数据");
+		Intent tmpIntent = new Intent(
+				"com.thtfit.pos.service.Receiver.action.Service.RECEIVE_REQUEST");
+		tmpIntent.putExtra("requestAction",
+				"POSService.getMainData");
+		sendBroadcast(tmpIntent);
 	}
 
 	private void getMainData(final String url,
@@ -282,7 +293,8 @@ public class POSService extends Service
 					if (typeArray.length() > 0) {
 						dbcon = new DBContror(getApplicationContext());
 						dbcon.clearTypeDate();
-						dbcon.clearProDate();
+						dbcon.clearProDate();// error:11-25 01:09:16.674: E/AndroidRuntime(22012): java.lang.IllegalStateException: attempt to re-open an already-closed object: SQLiteDatabase: /data/data/com.thtfit.pos/databases/THTFITPOS.db
+
 
 						for (int i = 0; i < typeArray.length(); i++) {
 							JSONObject jsonItem = typeArray.getJSONObject(i);
@@ -417,66 +429,77 @@ public class POSService extends Service
 
 				if (HttpContent[4] != null) {
 					JSONObject jsonObject;
-					try {
-						jsonObject = new JSONObject(HttpContent[4]);
-						String loginResult = jsonObject.getString("Result")
-								.toString();
-
-						if ("success".equals(loginResult)) {
-
-							int loginStatus = 2;
-
-							SharedPreferences preferences = getSharedPreferences(
-									"login", Context.MODE_PRIVATE);
-
-							int loginStatusManager = preferences.getInt(
-									"loginStatusManager", 0);
-
-							if (0 == loginStatusManager){
+					Log.d("luzhaojie", "json == " + HttpContent[4]);//by Lu
+					//by Lu
+					Pattern p=Pattern.compile("Result"); //[\u4e00-\u9fa5]
+					Matcher m=p.matcher(HttpContent[4]);
+					if(!m.find()) {//by Lu
+						Log.d("luzhaojie", "It's Chinese.");
+						Intent responseIntent = new Intent(mainLoginResponseFilter);
+						responseIntent.putExtra("loginResult", HttpContent[4]);
+						sendBroadcast(responseIntent);
+					} else {
+						try {
+							jsonObject = new JSONObject(HttpContent[4]);
+							String loginResult = jsonObject.getString("Result")
+									.toString();
+							
+							if ("success".equals(loginResult)) {
 								
-								Config.addSaveOption("loginNameManager",
-										parameter.get(0).getValue());
-								Config.addSaveOption("passWordManager", parameter.get(1)
-										.getValue());
+								int loginStatus = 2;
+								
+								SharedPreferences preferences = getSharedPreferences(
+										"login", Context.MODE_PRIVATE);
+								
+								int loginStatusManager = preferences.getInt(
+										"loginStatusManager", 0);
+								
+								if (0 == loginStatusManager){
+									
+									Config.addSaveOption("loginNameManager",
+											parameter.get(0).getValue());
+									Config.addSaveOption("passWordManager", parameter.get(1)
+											.getValue());
 								}
-
-							Config.addSaveOption("loginName", parameter.get(0)
-									.getValue());
-							Config.addSaveOption("passWord", parameter.get(1)
-									.getValue());
-							Config.save();
-
-							loginStatusManager = loginStatusManager <= 0 ? loginStatusManager = 1
-									: loginStatusManager;
-
-							Editor editor = preferences.edit();
-							editor.putInt("loginStatus", loginStatus);
-							editor.putInt("loginStatusManager",
-									loginStatusManager);
-							editor.commit();
-
-							// 登录返回响应
-							Intent responseIntent = new Intent(
-									mainLoginResponseFilter);
-							responseIntent.putExtra("loginResult",
-									loginResult);
-							sendBroadcast(responseIntent);
-
-							// 登录成功从网络拉取数据
-							Intent tmpIntent = new Intent(
-									"com.thtfit.pos.service.Receiver.action.Service.RECEIVE_REQUEST");
-							tmpIntent.putExtra("requestAction",
-									"POSService.getMainData");
-							sendBroadcast(tmpIntent);
-						} else {
-							// 登录返回响应
-							Intent responseIntent = new Intent(
-									mainLoginResponseFilter);
-							responseIntent.putExtra("loginResult", loginResult);
-							sendBroadcast(responseIntent);
+								
+								Config.addSaveOption("loginName", parameter.get(0)
+										.getValue());
+								Config.addSaveOption("passWord", parameter.get(1)
+										.getValue());
+								Config.save();
+								
+								loginStatusManager = loginStatusManager <= 0 ? loginStatusManager = 1
+										: loginStatusManager;
+								
+								Editor editor = preferences.edit();
+								editor.putInt("loginStatus", loginStatus);
+								editor.putInt("loginStatusManager",
+										loginStatusManager);
+								editor.commit();
+								
+								// 登录返回响应
+								Intent responseIntent = new Intent(
+										mainLoginResponseFilter);
+								responseIntent.putExtra("loginResult",
+										loginResult);
+								sendBroadcast(responseIntent);
+								
+								// 登录成功从网络拉取数据
+//								Intent tmpIntent = new Intent(
+//										"com.thtfit.pos.service.Receiver.action.Service.RECEIVE_REQUEST");
+//								tmpIntent.putExtra("requestAction",
+//										"POSService.getMainData");
+//								sendBroadcast(tmpIntent);
+							} else {
+								// 登录返回响应
+								Intent responseIntent = new Intent(
+										mainLoginResponseFilter);
+								responseIntent.putExtra("loginResult", loginResult);
+								sendBroadcast(responseIntent);
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
 						}
-					} catch (Exception e) {
-						e.printStackTrace();
 					}
 				}
 			}

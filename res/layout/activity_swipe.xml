@@ -207,7 +207,8 @@
                             android:layout_marginLeft="5dip"
                             android:layout_marginRight="5dip"
                             android:editable="false"
-                            android:gravity="center" />
+                            android:gravity="center"
+                            android:visibility="gone" />
 
                         <EditText
                             android:id="@+id/statusEditText"

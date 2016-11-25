@@ -449,7 +449,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 		doTradeButton = (Button) findViewById(R.id.doTradeButton);
 		testBtn = (Button) findViewById(R.id.test_btn);
 		amountEditText = (EditText) findViewById(R.id.amountEditText);
-		integralEditText = (EditText) findViewById(R.id.integralEditText);
+//		integralEditText = (EditText) findViewById(R.id.integralEditText);
 		showDb = (EditText) findViewById(R.id.show_db); 
 		statusEditText = (EditText) findViewById(R.id.statusEditText);
 		btnBT = (Button) findViewById(R.id.btnBT);
@@ -663,8 +663,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 				statusEditText.setText(getString(R.string.icc_card_inserted));
 				Log.d(LOG_TAG, "EMV ICC Start");
 				pos.doEmvApp(EmvOption.START);
-				//by Lu
-				Toast.makeText(getApplicationContext(), "doEmvApp...", Toast.LENGTH_SHORT).show();
 			} else if (result == DoTradeResult.NOT_ICC) {
 				statusEditText.setText(getString(R.string.card_inserted));
 			} else if (result == DoTradeResult.BAD_SWIPE) {
@@ -810,7 +808,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 			amount = "";
 			cashbackAmount = "";
 			amountEditText.setText("");
-			integralEditText.setText("");
+//			integralEditText.setText("");
 		}
 
 		@Override
@@ -927,7 +925,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 			
 			String amount = money.toString();
 			amountEditText.setText(amount);
-			integralEditText.setText(money.divide(money, 1000).toStringForIntegral()); // by Lu
+//			integralEditText.setText(money.divide(money, 1000).toStringForIntegral()); // by Lu
 			myIntegral = money.toInt() / 1000; // by Lu
 			mSuccessAmount = amountEditText.getText()
 					.toString();
@@ -1028,7 +1026,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 			dismissDialog();
 			String terminalTime = new SimpleDateFormat("yyyyMMddHHmmss")
 					.format(Calendar.getInstance().getTime());
-			Toast.makeText(mContext, "onRequestTime :: terminalTime = " + terminalTime, 1).show();//by Lu
 			pos.sendTime(terminalTime);
 			statusEditText.setText(getString(R.string.request_terminal_time)
 					+ " " + terminalTime);
@@ -1146,7 +1143,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 			}
 			dismissDialog();
 			amountEditText.setText("");
-			integralEditText.setText("");
+//			integralEditText.setText("");
 			if (errorState == Error.CMD_NOT_AVAILABLE) {
 				statusEditText
 						.setText(getString(R.string.command_not_available));
@@ -1477,7 +1474,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 					}
 					isPinCanceled = false;
 					amountEditText.setText("");
-					integralEditText.setText("");
+//					integralEditText.setText("");
 					statusEditText.setText(R.string.starting);
 					
 					pos.doTrade(60);
@@ -1595,11 +1592,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 		Log.d(LOG_TAG, "decodeData: " + decodeData);
 		String content = getString(R.string.card_swiped);
 		String formatID = decodeData.get("formatID");
-		if(formatID == null) {
-			Toast.makeText(mContext, "formatID == null", 1).show();;
-		} else{
-			Toast.makeText(mContext, "formatID != null", 1).show();;
-		}
 		if (formatID.equals("31") || formatID.equals("40")
 				|| formatID.equals("37") || formatID.equals("17")
 				|| formatID.equals("11") || formatID.equals("10")) {
@@ -1636,7 +1628,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 			content += "activateCode: " + activateCode + "\n";
 			content += "trackRandomNumber: " + trackRandomNumber + "\n";
 		} else {
-			Toast.makeText(mContext, "Job else...", 1);
 			String maskedPAN = decodeData.get("maskedPAN");
 			String expiryDate = decodeData.get("expiryDate");
 			String cardHolderName = decodeData.get("cardholderName");
