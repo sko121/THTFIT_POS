@@ -135,6 +135,7 @@ public class POSService extends Service
 				// 接收前台 请求
 				if (receiveAction
 						.equals("com.thtfit.pos.service.Receiver.action.Service.RECEIVE_REQUEST")) {
+					
 					String requestAction = intent
 							.getStringExtra("requestAction");
 					requestAction = requestAction == null ? "" : requestAction;
@@ -149,7 +150,6 @@ public class POSService extends Service
 
 					// 登录验证
 					if (requestAction.equals("LoginActivity.login")) {
-
 						DebugPrint.d(TAG, "====start LoginActivity.login====");
 
 						String tmpLogin_UserName = intent
@@ -178,7 +178,6 @@ public class POSService extends Service
 					}
 					// 提交设备信息
 					else if (requestAction.equals("MainActivity.device")) {
-
 						DebugPrint.d(TAG, "====at MainActivity.device====");
 						// 处理提交的参数
 
@@ -201,7 +200,7 @@ public class POSService extends Service
 						String json = tmpJson.replace("\"", "'");
 
 						// http://192.168.200.239:8080/SmartPos/clients/registration.isu?json={'dClient':'A001','dSysversion':'1.0','info':[{'dName':'Brett','dGPS':'SDF','dMac':'00-00-00-00-00-00'},{'dName':'Ee','dGPS':'SDF','dMac':'00-00-00-00-00-01'}]}
-
+//						Log.d("luzhaojie", "url : " + "http://" + serverAddress + "/clients/registration.action?json=" + json);
 						connPostData("http://" + serverAddress + "/clients/registration.action?json=" + json, "",
 						 responseFilter, "postData");
 					}
@@ -293,8 +292,7 @@ public class POSService extends Service
 					if (typeArray.length() > 0) {
 						dbcon = new DBContror(getApplicationContext());
 						dbcon.clearTypeDate();
-						dbcon.clearProDate();// error:11-25 01:09:16.674: E/AndroidRuntime(22012): java.lang.IllegalStateException: attempt to re-open an already-closed object: SQLiteDatabase: /data/data/com.thtfit.pos/databases/THTFITPOS.db
-
+						dbcon.clearProDate();
 
 						for (int i = 0; i < typeArray.length(); i++) {
 							JSONObject jsonItem = typeArray.getJSONObject(i);
@@ -381,9 +379,13 @@ public class POSService extends Service
 				String[] HttpContent = { "", "", "0", "0", "" };
 				HttpContent = HttpConn.getServerHttpData(url, null,
 						sessionID);
+//				for(int i = 0; i < HttpContent.length; i++) {
+//					Log.d("luzhaojie", "HttpContent[" + i + "] : " + HttpContent[i]);
+//				}
 
 				// 连接失败
 				if (!HttpContent[0].equals("200")) {
+					Log.d("luzhaojie", "connPostData : 连接失败...");
 					Intent intent = new Intent(responseFilter);
 					intent.putExtra("responseCode", "-1");
 					sendBroadcast(intent);
@@ -429,11 +431,10 @@ public class POSService extends Service
 
 				if (HttpContent[4] != null) {
 					JSONObject jsonObject;
-					Log.d("luzhaojie", "json == " + HttpContent[4]);//by Lu
 					//by Lu
-					Pattern p=Pattern.compile("Result"); //[\u4e00-\u9fa5]
+					Pattern p=Pattern.compile("用户不存在"); //[\u4e00-\u9fa5]
 					Matcher m=p.matcher(HttpContent[4]);
-					if(!m.find()) {//by Lu
+					if(m.find()) {//by Lu 用户不存在或禁用，请重新登陆！
 						Log.d("luzhaojie", "It's Chinese.");
 						Intent responseIntent = new Intent(mainLoginResponseFilter);
 						responseIntent.putExtra("loginResult", HttpContent[4]);

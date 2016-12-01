@@ -163,7 +163,7 @@ public class MainGridAdapter extends BaseAdapter
 		return position;
 	}
 
-	@SuppressLint({ "InflateParams", "ViewHolder" })
+	@SuppressLint({ "InflateParams", "ViewHolder" }) 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{

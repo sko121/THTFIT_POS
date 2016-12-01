@@ -68,8 +68,8 @@ public class MainActivity extends FragmentActivity
 			if (intent.getAction().equals("com.thtfit.pos.service.Receiver.action.Main.RECEIVE_DATA"))
 			{
 				final String responseResult = intent.getStringExtra("responseResult");
-
-				DebugPrint.d(TAG,"response result : " + responseResult);
+				
+				DebugPrint.d("luzhaojie","response result : " + responseResult);
 				if ("{'Result':'1'}".equals(responseResult))
 				{
 					Toast.makeText(getApplicationContext(), "The background data has been upload", Toast.LENGTH_SHORT)
@@ -111,7 +111,7 @@ public class MainActivity extends FragmentActivity
 		/* started services. */
 		initServices();
 
-		/* register system broadcast. */
+		/* register system broadcast. */ 
 		registerBroadcasts();
 
 		/* login server. */
@@ -154,13 +154,13 @@ public class MainActivity extends FragmentActivity
 		Intent serviceIntent = new Intent(MainActivity.this, POSService.class);
 		serviceIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startService(serviceIntent);
-
+		
 		startPushServer();
 		
 		startlinphoneServer(); 
-	}
+	}                           
 	
-	private void startlinphoneServer() {
+	private void startlinphoneServer() {             
 		// Used to change for the lifetime of the app the name used to tag the logs
 				new Log(getResources().getString(R.string.app_name), !getResources().getBoolean(R.bool.disable_every_log));
 				
@@ -222,7 +222,7 @@ public class MainActivity extends FragmentActivity
 					// + getLocation(MainActivity.this)[1]);
 					tmpIntent.putExtra("dGPS", "116.417854,39.921988");
 					tmpIntent.putExtra("dClient", "A301");
-					sendBroadcast(tmpIntent);
+//					sendBroadcast(tmpIntent); //by Lu : cause A83T6.0 send to server return 505
 				}
 				catch (InterruptedException e)
 				{

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- android:background="@drawable/four_bg" -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/grid_itemId"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"  
     android:background="@drawable/four_bg"
     android:padding="1dp" >
 
+     <!-- android:layout_height="120dp" -->
     <ImageView
         android:id="@+id/grid_itemImage"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/image"
@@ -19,7 +21,7 @@
     <TextView
         android:textAppearance="?android:textAppearanceSmall"
         android:id="@+id/grid_itemName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_below="@+id/grid_itemImage"
         android:ellipsize="end"
@@ -31,7 +33,7 @@
     <!-- android:textSize="15sp" -->
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/grid_itemName"
         android:gravity="bottom"

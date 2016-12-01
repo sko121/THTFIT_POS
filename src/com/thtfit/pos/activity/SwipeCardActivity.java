@@ -1,8 +1,17 @@
 package com.thtfit.pos.activity;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.security.KeyStore;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +25,18 @@ import java.util.Map;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import org.apache.http.util.ByteArrayBuffer;
 
@@ -281,7 +302,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 
 		@Override
 		public int getCount() {
-			return m_DataMap.size();
+			return m_DataMap.size() - 1; // -1 : hide the bbpos
 		}
 
 		@Override
@@ -673,14 +694,33 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 //				statusEditText.setText(content);
 //				mBtnAction.setVisibility(View.VISIBLE);
 				
+				//截取content字段
+				Map<String, String> swipeResult = new HashMap<String, String>();
+				String[] sTemp;
+				String stringArr[] = content.split("\n|\r\n|\r");
+				System.out.println("stringArr : ");
+				for(int i = 0; i < stringArr.length; i++){
+//					System.out.println(stringArr[i]);
+					sTemp = stringArr[i].split(":");
+					if(sTemp.length == 2)
+						swipeResult.put(sTemp[0], sTemp[1]);
+					else
+						swipeResult.put(sTemp[0], null);
+				}
+//				System.out.println(swipeResult); //Expiry Date 2412
+				
 				Toast.makeText(getApplicationContext(), "刷卡成功！", Toast.LENGTH_SHORT).show();
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				
+				//发送刷卡结果到Apriva后台
+				sendToApriva();
+				
 				//跳转到签名
 				Intent intent = new Intent();
 				intent.setClass(mContext, SignatureActivity.class);
 				intent.putExtra("amount", mSuccessAmount);
 				intent.putExtra("listItems", (Serializable) listItems);
-				intent.putExtra("cardInfo", content);
+				intent.putExtra("cardInfo", content); 
 				startActivity(intent);
 				finish();
 				
@@ -733,6 +773,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 			statusEditText.setText(content);
 		}
 
+		//ic卡结果处理
 		@Override
 		public void onRequestTransactionResult(
 				TransactionResult transactionResult) {
@@ -1689,5 +1730,188 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 		}
 		Log.d(LOG_TAG, "swipe card:" + content);
 		return content;
+	}
+	
+	/*
+	 * *发送刷卡结果到Apriva后台
+	 */
+	static String clientCertFileName;
+	static String clientCertPassword;
+	static String serverTrustFileName;
+	static String serverTrustPassword;
+	static String clientCertFileNameBKS;
+	private String BDK = "0123456789ABCDEFFEDCBA9876543210";
+	private static InputStream input;
+	
+	private void sendToApriva() {
+		// Display the current local directory
+		String current;
+		try {
+			current = new java.io.File(".").getCanonicalPath();
+			System.out.println("Current dir: " + current);
+			
+			String HostName = "aibapp53.aprivaeng.com";
+			String HostPort = "11098";
+			
+			// The file containing the client certificate, private key, and chain
+			clientCertFileName = "cert/AprivaDeveloper.p12";
+			clientCertPassword = "P@ssword";
+			clientCertFileNameBKS = "cert/AprivaDeveloperBKS.p12";
+			input = getResources().getAssets().open(clientCertFileNameBKS);
+			
+			// The file containing the server trust chain
+			serverTrustFileName = "cert/AprivaTrust.jks";
+			serverTrustPassword = "P@ssword";
+			
+			final String host = HostName;
+			final int port = Integer.parseInt(HostPort);
+			System.out.println("Java Sample App v1.2 - AIB .53");
+			System.out.println("1. Running Test");
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					test(host, port);
+				}
+			}).start();
+//		test(host, port);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	protected static void test(String host, int port) {
+		try {
+			// Create an SSL factory and use it to create an SSL socket
+			SSLSocketFactory sslFactory = createSSLFactory();
+
+			System.out.println("4. Connecting to " + host + " port " + port);
+			SSLSocket socket = (SSLSocket) sslFactory.createSocket(host, port);
+
+			// Connect
+			socket.startHandshake();
+
+			// Send the XML request to the server
+			OutputStream outputstream = socket.getOutputStream();
+			OutputStreamWriter outputstreamwriter = new OutputStreamWriter(
+					outputstream);
+
+			BufferedWriter bufferedWriter = new BufferedWriter(
+					outputstreamwriter);
+
+			String testXML = "<AprivaPosXml DeviceAddress=\"7771314\"><Credit MessageType=\"Request\" Version=\"5.0\" ProcessingCode=\"Sale\"><Stan>1</Stan><CardPresent>YES</CardPresent><EntryMode>Manual</EntryMode><EntryModeType>Standard</EntryModeType><ExpireDate>17/08</ExpireDate><Amount>1.00</Amount><AccountNumber>4111111111111111</AccountNumber></Credit></AprivaPosXml>";
+			System.out.println("5. Sending Request --->>>>>>");
+			System.out.println(formatPrettyXML(testXML));
+
+			bufferedWriter.write(testXML);
+			bufferedWriter.flush();
+
+			System.out.println("6. Waiting for Response <<<<<<--------");
+			InputStream inputstream = socket.getInputStream();
+			InputStreamReader inputstreamreader = new InputStreamReader(
+					inputstream);
+			BufferedReader bufferedReader = new BufferedReader(
+					inputstreamreader);
+
+			String line = null;
+			while ((line = bufferedReader.readLine()) != null) {
+				System.out.println(formatPrettyXML(line));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	protected static String formatPrettyXML(String unformattedXML) {
+		String prettyXMLString = null;
+
+		try {
+			Transformer transformer = TransformerFactory.newInstance()
+					.newTransformer();
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty(
+					"{http://xml.apache.org/xslt}indent-amount", "2");
+			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
+					"yes");
+			StreamResult result = new StreamResult(new StringWriter());
+			StreamSource source = new StreamSource(new StringReader(
+					unformattedXML));
+			transformer.transform(source, result);
+			prettyXMLString = result.getWriter().toString();
+		} catch (TransformerConfigurationException e) {
+			System.out.println("Unable to transform XML " + e.getMessage());
+		} catch (TransformerFactoryConfigurationError e) {
+			System.out.println("Unable to transform XML " + e.getMessage());
+		} catch (TransformerException e) {
+			System.out.println("Unable to transform XML " + e.getMessage());
+		}
+		return prettyXMLString;
+	}
+	public static SSLSocketFactory createSSLFactory() {
+		try {
+			// *** Client Side Certificate *** //
+			System.out.println("2. Loading p12 file");
+
+			// Load the certificate file into the keystore
+			 KeyStore keystore = KeyStore.getInstance("BKS");
+//			KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+//			 FileInputStream inputFile = new FileInputStream(clientCertFileName);
+
+			char[] clientPassphrase = clientCertPassword.toCharArray();
+			keystore.load(input, clientPassphrase);
+
+			// Create the factory
+			KeyManagerFactory keyManagerFactory = KeyManagerFactory
+					.getInstance(KeyManagerFactory.getDefaultAlgorithm());//SunX509
+			keyManagerFactory.init(keystore, clientPassphrase);
+
+			// The following section demonstrates how to configure the server
+			// trust for production.
+			// It is not required for test environments and that is why the code
+			// is commented out.
+			// Each line required will have the term
+			// "JKS line needed for production" following it.
+			// The AprivaTrust.jks file included in this project can be used for
+			// production.
+
+			// *** Server Trust *** //
+			// System.out.println ("3. Loading JKS file");
+			// KeyStore truststore = KeyStore.getInstance("JKS"); //JKS line
+			// needed for production
+			// FileInputStream trustInputFile = new FileInputStream
+			// (serverTrustFileName); //JKS line needed for production
+
+			// char [] serverTrustPassphrase = serverTrustPassword.toCharArray
+			// (); //JKS line needed for production
+			// truststore.load (trustInputFile, serverTrustPassphrase); //JKS
+			// line needed for production
+
+			// TrustManagerFactory tmf =
+			// TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+			// //JKS line needed for production
+			// tmf.init (truststore); //JKS line needed for production
+
+			// TrustManager[] trustManagers = tmf.getTrustManagers (); //JKS
+			// line needed for production
+
+			// Create the SSL context and use it to initialize the factory
+			SSLContext ctx = SSLContext.getInstance("TLS");
+			// ctx.init (keyManagerFactory.getKeyManagers(), trustManagers,
+			// null); //JKS line needed for production
+			ctx.init(keyManagerFactory.getKeyManagers(), null, null); // This
+																		// line
+																		// should
+																		// be
+																		// removed
+																		// in
+																		// production,
+																		// the
+																		// line
+																		// above
+																		// replaces
+																		// it
+			SSLSocketFactory sslFactory = ctx.getSocketFactory();
+			return sslFactory;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
