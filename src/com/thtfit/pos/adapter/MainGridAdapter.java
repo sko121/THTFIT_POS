@@ -82,6 +82,7 @@ public class MainGridAdapter extends BaseAdapter
 		if (pro_list != null)
 		{
 			this.products = pro_list;
+			Log.d("luzhaojie", "MainGridAdapter :: pro_list.size() == " + pro_list.size()); // by Lu
 		}
 		this.context = context;
 		parentFragment = parent;
@@ -218,7 +219,7 @@ public class MainGridAdapter extends BaseAdapter
 		/**
 		 * 根据position去获取图片
 		 */
-		DebugPrint.d("luzhaojie","--imageloader--path-->" + products.get(position).getImagePath());
+//		DebugPrint.d("luzhaojie","--imageloader--path-->" + products.get(position).getImagePath());
 		try
 		{
 			if (products.get(position).getImagePath().contains("content:"))
@@ -228,7 +229,6 @@ public class MainGridAdapter extends BaseAdapter
 			else
 			{
 				application.imageLoader.displayImage("http://" + products.get(position).getImagePath(), image, options);
-
 			}
 		}
 		catch (Exception e)
@@ -262,7 +262,6 @@ public class MainGridAdapter extends BaseAdapter
 				catch (Exception e)
 				{
 					e.printStackTrace();
-
 				}
 
 				if (tmpNumber > 0)
@@ -288,7 +287,6 @@ public class MainGridAdapter extends BaseAdapter
 
 	public Bitmap imageProcessing(Uri myUri)
 	{
-
 		String[] proj = { MediaStore.Images.Media.DATA };
 		CursorLoader loader = new CursorLoader(context, myUri, proj, null, null, null);
 		Cursor cursor = loader.loadInBackground();
@@ -408,7 +406,6 @@ public class MainGridAdapter extends BaseAdapter
 				}
 				else
 				{
-
 					try
 					{
 						tmpNumber = Integer.parseInt(products.get(position).getNumber());
@@ -423,7 +420,6 @@ public class MainGridAdapter extends BaseAdapter
 						imageViewQuantityNumberBubble.setVisibility(View.VISIBLE);
 						tv_quantity.setVisibility(View.VISIBLE);
 						tv_quantity.setText(String.valueOf(tmpNumber));
-
 					}
 					else
 					{
@@ -435,12 +431,8 @@ public class MainGridAdapter extends BaseAdapter
 					 */
 					parent.postInvalidate();
 				}
-
 			}
-
-
 		}
-
 	}
 
 	public void clearProductNumber()
@@ -465,16 +457,13 @@ public class MainGridAdapter extends BaseAdapter
 			//products.addAll(pro_list);
 			notifyDataSetChanged();
 		}
-		
 	}
 
 	private BroadcastReceiver onRefashReceiver = new BroadcastReceiver()
 	{
-
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{
-
 			if (intent.getAction().equals(REFLASHACTION_ALL))
 			{
 				refresh();
@@ -492,9 +481,6 @@ public class MainGridAdapter extends BaseAdapter
 				clearProductNumber();
 				refresh();
 			}
-
 		}
-
 	};
-
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.thtfit.pos.model.Product;
 import com.thtfit.pos.service.PosApplication;
@@ -29,11 +30,13 @@ public class DataLoader {
 	@SuppressWarnings("unchecked")
 	public void startLoading(HashMap<String, String> mParams) {
 		if (mParams != null) {
+			Log.d("luzhaojie", "DataLoader :: startLoading...");//by Lu
 			LoadTask task = new LoadTask();
 			task.execute(mParams);
 		}
 	}
 
+	//从数据库加载数据，而不是从网络
 	@SuppressLint("NewApi")
 	private class LoadTask extends
 			AsyncTask<HashMap<String, String>, Void, List<Product>> {
@@ -64,7 +67,6 @@ public class DataLoader {
 				e.printStackTrace();
 			}
 			System.out.println("--DataLoader-----mylist--------"+mylist.size());
-
 			return mylist;
 		}
 
@@ -86,6 +88,5 @@ public class DataLoader {
 		public void onCompletedFailed(String str);
 
 		public void getCount(int count);
-
 	}
 }

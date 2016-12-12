@@ -160,6 +160,9 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 	private String mReceiveAmount;
 	private Boolean mIsWorking = false;
 	
+	private static Map<String, String> swipeResult;//by Lu
+	private static String swipeResultContent;//by Lu 
+	
 	//by Lu
 	private CheckCardMode checkCardMode;
 	protected static String fid65WorkingKey = "A1223344556677889900AABBCCDDEEFF";
@@ -691,11 +694,13 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 			} else if (result == DoTradeResult.MCR) {
 				//by Lu
 				String content = onDoTradeResultJob(decodeData);
+				swipeResultContent = content;//by Lu
+				Toast.makeText(getApplicationContext(), "swipeResultContent : " + swipeResultContent, 1).show();//by Lu
 //				statusEditText.setText(content);
 //				mBtnAction.setVisibility(View.VISIBLE);
 				
 				//截取content字段
-				Map<String, String> swipeResult = new HashMap<String, String>();
+				swipeResult = new HashMap<String, String>();
 				String[] sTemp;
 				String stringArr[] = content.split("\n|\r\n|\r");
 				System.out.println("stringArr : ");
@@ -1799,9 +1804,11 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 
 			String testXML = "<AprivaPosXml DeviceAddress=\"7771314\"><Credit MessageType=\"Request\" Version=\"5.0\" ProcessingCode=\"Sale\"><Stan>1</Stan><CardPresent>YES</CardPresent><EntryMode>Manual</EntryMode><EntryModeType>Standard</EntryModeType><ExpireDate>17/08</ExpireDate><Amount>1.00</Amount><AccountNumber>4111111111111111</AccountNumber></Credit></AprivaPosXml>";
 			System.out.println("5. Sending Request --->>>>>>");
+//			System.out.println(formatPrettyXML(testXML));
 			System.out.println(formatPrettyXML(testXML));
 
-			bufferedWriter.write(testXML);
+//			bufferedWriter.write(testXML);
+			bufferedWriter.write(swipeResultContent);
 			bufferedWriter.flush();
 
 			System.out.println("6. Waiting for Response <<<<<<--------");

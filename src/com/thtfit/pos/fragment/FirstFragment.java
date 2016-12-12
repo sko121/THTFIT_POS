@@ -52,11 +52,4 @@ public class FirstFragment extends PageFragment
 		return firstFragment;
 	}
 
-
-
-
-
-
-
-
 }

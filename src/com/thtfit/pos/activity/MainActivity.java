@@ -115,7 +115,7 @@ public class MainActivity extends FragmentActivity
 		registerBroadcasts();
 
 		/* login server. */
-		postDriveInfo();
+//		postDriveInfo();  //by Lu : cause A83T6.0 send to server return 505
 
 		/* set system info for test. */
 		setSysInfo();
@@ -222,7 +222,7 @@ public class MainActivity extends FragmentActivity
 					// + getLocation(MainActivity.this)[1]);
 					tmpIntent.putExtra("dGPS", "116.417854,39.921988");
 					tmpIntent.putExtra("dClient", "A301");
-//					sendBroadcast(tmpIntent); //by Lu : cause A83T6.0 send to server return 505
+					sendBroadcast(tmpIntent); 
 				}
 				catch (InterruptedException e)
 				{

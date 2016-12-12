@@ -74,7 +74,9 @@ public abstract class PageFragment extends Fragment implements OnCompletedListen
 			parent.removeView(mView);
 		}
 
-		init();
+		//偶尔会出现卸载重新安装，打开ShopingActivity 
+		//GridView数据没有显示出来的情况
+		init(); 
 
 		loaderMap.put("page", page + "");
 		loaderMap.put("page_size", PAGE_SIZE + "");
@@ -83,22 +85,23 @@ public abstract class PageFragment extends Fragment implements OnCompletedListen
 		loader = new DataLoader(getActivity());
 		loader.setOnCompletedListerner(this);
 		loader.startLoading(loaderMap);
-
+		
 		return mView;
 	}
 
 	private void init()
 	{
-
-		mainGridAdapter = new MainGridAdapter(mylist, getActivity(),this);// 自定义适配器
-		myGridView.setAdapter(mainGridAdapter);
+		Log.d("luzhaojie", "PageFragment :: init : mylist.size == " + mylist.size());//by Lu 0
+		mainGridAdapter = new MainGridAdapter(mylist, getActivity(), this);// 自定义适配器
+		myGridView.setAdapter(mainGridAdapter); 
+		Log.d("luzhaojie", "mainGridAdapter.getCount() == " + mainGridAdapter.getCount());//by Lu
 
 		myGridView.setOnScrollListener(new OnScrollListener()
 		{
 
 			@Override
 			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
-			{
+			{ 
 			}
 
 			@Override
@@ -205,7 +208,6 @@ public abstract class PageFragment extends Fragment implements OnCompletedListen
 	@Override
 	public void onCompletedSucceed(List<Product> l)
 	{
-
 		// 在添加数据之前删除最后的伪造item
 		if (mainGridAdapter.isFooterViewEnable())
 		{
@@ -218,19 +220,20 @@ public abstract class PageFragment extends Fragment implements OnCompletedListen
 			// 如果加载出来的数目小于指定条数，可视为已全部加载完成
 			isLoadFinished = true;
 			mylist.addAll(l);
-			mainGridAdapter.setFootreViewEnable(false);
 			mainGridAdapter.notifyDataSetChanged();
 		}
 		else
 		{
+			Log.d("luzhaojie", "最开始的加载,从数据库获取数据...");//by Lu
 			// 还有数据可加载。
 			mylist.addAll(l);
+			Log.d("luzhaojie", "PageFragment :: onCompletedSucceed : mylist.size == " + mylist.size());//by Lu 12
 			// 伪造一个空项来构造一个footerview;
 			mylist.add(null);
 			mainGridAdapter.setFootreViewEnable(true);
 			mainGridAdapter.notifyDataSetChanged();
+//			myGridView.setAdapter(mainGridAdapter);//by Lu
 		}
-
 	}
 
 	@Override

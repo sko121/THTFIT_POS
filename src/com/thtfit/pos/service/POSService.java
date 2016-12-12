@@ -208,6 +208,8 @@ public class POSService extends Service
 					// 拉取商品数据
 					else if (requestAction.equals("POSService.getMainData")) {
 //						 http://192.168.200.239:8080/SmartPos/clients/products.action
+						Log.d("luzhaojie", "broadcast : POSService.getMainData");// by Lu
+						Log.d("luzhaojie", "responseFilter == " + responseFilter);// by Lu
 						getMainData("http://" + serverAddress + "/clients/products.action",null,responseFilter,"");
 					}
 					//上传订单数据
@@ -241,12 +243,14 @@ public class POSService extends Service
 		registerReceiver(Receiver_Service, intentFilter);
 		
 		//by Lu : 打开app即从网上拉取数据
-		Log.d("luzhaojie", "打开app即从网上拉取数据");
-		Intent tmpIntent = new Intent(
-				"com.thtfit.pos.service.Receiver.action.Service.RECEIVE_REQUEST");
-		tmpIntent.putExtra("requestAction",
-				"POSService.getMainData");
-		sendBroadcast(tmpIntent);
+//		Log.d("luzhaojie", "打开app即从网上拉取数据 : POSService");
+//		Intent tmpIntent = new Intent(
+//				"com.thtfit.pos.service.Receiver.action.Service.RECEIVE_REQUEST");
+//		tmpIntent.putExtra("requestAction",
+//				"POSService.getMainData");
+//		sendBroadcast(tmpIntent);
+		//卸载重装之后偶尔出现打开商品界面商品加载不出来的情况，故取消广播通信，直接加载数据
+		getMainData("http://" + serverAddress + "/clients/products.action",null,null,"");
 	}
 
 	private void getMainData(final String url,
