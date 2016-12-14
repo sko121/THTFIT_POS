@@ -152,6 +152,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/swipe_scan_device" />
+                    
+                    <Button
+                        android:id="@+id/doQuickTradeButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/swipe_quicki_check_card" />
 
                     <Button
                         android:id="@+id/doTradeButton"

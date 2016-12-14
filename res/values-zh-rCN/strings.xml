@@ -98,6 +98,7 @@
     
     <string name="swipe_scan_device">选择设备</string>
     <string name="swipe_check_card">刷卡</string>
+    <string name="swipe_quicki_check_card">快速读卡</string>
     <string name="swipe_disconnect">中止刷卡</string>
     
     <string name="swipe_zc_connect">连接设备</string>
@@ -708,6 +709,9 @@
     <string name="capk1">capk</string>
     <string name="icc">icc</string>
     <string name="nfc">nfc</string>
+    <string name="hours">时</string>
+    <string name="minute">分</string>
+    <string name="seconds">秒</string>
     
     <!-- BBPOS contain BT -->
     <string name="please_swipe_insert_card">请刷卡/插卡</string>

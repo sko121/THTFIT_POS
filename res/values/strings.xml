@@ -98,6 +98,7 @@
     
     <string name="swipe_scan_device">Choose device</string>
     <string name="swipe_check_card">Swipe card</string>
+    <string name="swipe_quicki_check_card">Quick Trade</string>
     <string name="swipe_disconnect">Stop swipe card</string>
     
     <string name="swipe_zc_connect">Connect device</string>
@@ -917,6 +918,9 @@
     <string name="capk1">capk</string>
     <string name="icc">icc</string>
     <string name="nfc">nfc</string>
+    <string name="hours">hours</string>
+    <string name="minute">minutes</string>
+    <string name="seconds">seconds</string>
     
     <!-- bbpos contain bt  -->
     <string name="please_swipe_insert_card">Please swipe/insert card</string>

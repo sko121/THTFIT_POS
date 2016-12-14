@@ -11,6 +11,7 @@ import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.security.KeyStore;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -94,6 +95,7 @@ import com.dspread.xpos.QPOSService.Display;
 import com.dspread.xpos.QPOSService.DoTradeResult;
 import com.dspread.xpos.QPOSService.EmvOption;
 import com.dspread.xpos.QPOSService.Error;
+import com.dspread.xpos.QPOSService.LcdModeAlign;
 import com.dspread.xpos.QPOSService.QPOSServiceListener;
 import com.dspread.xpos.QPOSService.TransactionResult;
 import com.dspread.xpos.QPOSService.TransactionType;
@@ -107,6 +109,7 @@ import com.thtfit.pos.emvswipe.BBPosMainActivity;
 import com.thtfit.pos.model.Product;
 import com.thtfit.pos.util.DBUtils;
 import com.thtfit.pos.util.MyDBHelper;
+import com.thtfit.pos.util.QPOSUtil;
 import com.thtfit.pos.util.Utils;
 
 public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
@@ -117,12 +120,14 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 	private Context mContext;
 
 	private Button doTradeButton;
+	private Button doQuickTradeButton;//by Lu
 	private EditText amountEditText;
 	private EditText integralEditText;//by Lu
 	private EditText showDb;//by Lu
 	private Spinner fidsSpinner; //by Lu
 	private boolean isChooseBtnClick; //by Lu
 	private boolean isSelectedBBPos;//by Lu
+	private boolean isQuickTrade;//by Lu
 	private int myIntegral;
 	private EditText statusEditText;
 	private ListView totalList;
@@ -202,7 +207,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 			mAdapter.cancelDiscovery();
 			mAdapter = null;
 		}
-
 	}
 
 	private void onBTPosSelected( View itemView, int index) {
@@ -430,6 +434,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 		mIsWorking = true;
 		isChooseBtnClick = false;
 		isSelectedBBPos = false;
+		isQuickTrade = false;
 
 		//by Lu
 //		MyDBHelper helper = new MyDBHelper(getApplicationContext());
@@ -442,7 +447,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 
 		m_ListView = (ListView) findViewById(R.id.lv_indicator_BTPOS);
 		m_ListView.setOnItemClickListener(new OnItemClickListener() {
-
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {	
@@ -452,8 +456,11 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 				imvAnimScan.setVisibility(View.GONE);
 				isChooseBtnClick = false;
 				isSelectedBBPos = false;
+				//by Lu : set doTradeBtn & disconnectBtn visible
+				doTradeButton.setVisibility(View.VISIBLE);
+				doQuickTradeButton.setVisibility(View.VISIBLE);
+				btnDisconnect.setVisibility(View.VISIBLE);
 			}
-
 		});
 
 		imvAnimScan = (ImageView) findViewById(R.id.img_anim_scanbt);
@@ -471,6 +478,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 		};
 
 		doTradeButton = (Button) findViewById(R.id.doTradeButton);
+		doQuickTradeButton = (Button) findViewById(R.id.doQuickTradeButton);
 		testBtn = (Button) findViewById(R.id.test_btn);
 		amountEditText = (EditText) findViewById(R.id.amountEditText);
 //		integralEditText = (EditText) findViewById(R.id.integralEditText);
@@ -480,9 +488,14 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 		btnDisconnect = (Button) findViewById(R.id.disconnect);
 		MyOnClickListener myOnClickListener = new MyOnClickListener();
 		doTradeButton.setOnClickListener(myOnClickListener);
+		doQuickTradeButton.setOnClickListener(myOnClickListener);
 		btnBT.setOnClickListener(myOnClickListener);
 		btnDisconnect.setOnClickListener(myOnClickListener);
 		testBtn.setOnClickListener(myOnClickListener);
+		//by Lu : hide doTradeBtn and disconnectBtn
+		doTradeButton.setVisibility(View.GONE);
+		doQuickTradeButton.setVisibility(View.GONE);
+		btnDisconnect.setVisibility(View.GONE);
 		
 
 		mBtnAction = (ImageButton) findViewById(R.id.action);
@@ -595,6 +608,11 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		//by Lu
+		doQuickTradeButton.setVisibility(View.GONE);
+		doTradeButton.setVisibility(View.GONE);
+		btnDisconnect.setVisibility(View.GONE);
+		
 		mIsWorking = false;
 		dismissDialog();
 
@@ -695,7 +713,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 				//by Lu
 				String content = onDoTradeResultJob(decodeData);
 				swipeResultContent = content;//by Lu
-				Toast.makeText(getApplicationContext(), "swipeResultContent : " + swipeResultContent, 1).show();//by Lu
+//				Toast.makeText(getApplicationContext(), "swipeResultContent : " + swipeResultContent, 1).show();//by Lu
 //				statusEditText.setText(content);
 //				mBtnAction.setVisibility(View.VISIBLE);
 				
@@ -796,65 +814,77 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 			TextView messageTextView = (TextView) dialog
 					.findViewById(R.id.messageTextView);
 
-			if (transactionResult == TransactionResult.APPROVED) {
-				Log.d(LOG_TAG, "TransactionResult.APPROVED");
-				String message = getString(R.string.transaction_approved)
-						+ "\n" + getString(R.string.amount) + ": ￥" + amount
-						+ "\n";
-				if (!cashbackAmount.equals("")) {
-					message += getString(R.string.cashback_amount) + ": ￥"
-							+ cashbackAmount;
+			if (isQuickTrade) {
+				messageTextView.setText("please remove card. and send data to online");
+				String customDisplayString = "";
+				try {
+					byte[] paras = "\nPLS REMOVE CARD".getBytes("GBK");
+					customDisplayString = QPOSUtil.byteArray2Hex(paras);
+					pos.lcdShowCustomDisplay(LcdModeAlign.LCD_MODE_ALIGNCENTER, customDisplayString,10);
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}    
+				
+			} else {
+				if (transactionResult == TransactionResult.APPROVED) {
+					Log.d(LOG_TAG, "TransactionResult.APPROVED");
+					String message = getString(R.string.transaction_approved)
+							+ "\n" + getString(R.string.amount) + ": ￥" + amount
+							+ "\n";
+					if (!cashbackAmount.equals("")) {
+						message += getString(R.string.cashback_amount) + ": ￥"
+								+ cashbackAmount;
+					}
+					messageTextView.setText(message);
+				} else if (transactionResult == TransactionResult.TERMINATED) {
+					clearDisplay();
+					messageTextView
+					.setText(getString(R.string.transaction_terminated));
+				} else if (transactionResult == TransactionResult.DECLINED) {
+					messageTextView
+					.setText(getString(R.string.transaction_declined));
+				} else if (transactionResult == TransactionResult.CANCEL) {
+					clearDisplay();
+					messageTextView.setText(getString(R.string.transaction_cancel));
+				} else if (transactionResult == TransactionResult.CAPK_FAIL) {
+					messageTextView
+					.setText(getString(R.string.transaction_capk_fail));
+				} else if (transactionResult == TransactionResult.NOT_ICC) {
+					messageTextView
+					.setText(getString(R.string.transaction_not_icc));
+				} else if (transactionResult == TransactionResult.SELECT_APP_FAIL) {
+					messageTextView
+					.setText(getString(R.string.transaction_app_fail));
+				} else if (transactionResult == TransactionResult.DEVICE_ERROR) {
+					messageTextView
+					.setText(getString(R.string.transaction_device_error));
+				} else if (transactionResult == TransactionResult.CARD_NOT_SUPPORTED) {
+					messageTextView.setText(getString(R.string.card_not_supported));
+				} else if (transactionResult == TransactionResult.MISSING_MANDATORY_DATA) {
+					messageTextView
+					.setText(getString(R.string.missing_mandatory_data));
+				} else if (transactionResult == TransactionResult.CARD_BLOCKED_OR_NO_EMV_APPS) {
+					messageTextView
+					.setText(getString(R.string.card_blocked_or_no_evm_apps));
+				} else if (transactionResult == TransactionResult.INVALID_ICC_DATA) {
+					messageTextView.setText(getString(R.string.invalid_icc_data));
 				}
-				messageTextView.setText(message);
-			} else if (transactionResult == TransactionResult.TERMINATED) {
-				clearDisplay();
-				messageTextView
-						.setText(getString(R.string.transaction_terminated));
-			} else if (transactionResult == TransactionResult.DECLINED) {
-				messageTextView
-						.setText(getString(R.string.transaction_declined));
-			} else if (transactionResult == TransactionResult.CANCEL) {
-				clearDisplay();
-				messageTextView.setText(getString(R.string.transaction_cancel));
-			} else if (transactionResult == TransactionResult.CAPK_FAIL) {
-				messageTextView
-						.setText(getString(R.string.transaction_capk_fail));
-			} else if (transactionResult == TransactionResult.NOT_ICC) {
-				messageTextView
-						.setText(getString(R.string.transaction_not_icc));
-			} else if (transactionResult == TransactionResult.SELECT_APP_FAIL) {
-				messageTextView
-						.setText(getString(R.string.transaction_app_fail));
-			} else if (transactionResult == TransactionResult.DEVICE_ERROR) {
-				messageTextView
-						.setText(getString(R.string.transaction_device_error));
-			} else if (transactionResult == TransactionResult.CARD_NOT_SUPPORTED) {
-				messageTextView.setText(getString(R.string.card_not_supported));
-			} else if (transactionResult == TransactionResult.MISSING_MANDATORY_DATA) {
-				messageTextView
-						.setText(getString(R.string.missing_mandatory_data));
-			} else if (transactionResult == TransactionResult.CARD_BLOCKED_OR_NO_EMV_APPS) {
-				messageTextView
-						.setText(getString(R.string.card_blocked_or_no_evm_apps));
-			} else if (transactionResult == TransactionResult.INVALID_ICC_DATA) {
-				messageTextView.setText(getString(R.string.invalid_icc_data));
 			}
 
 			dialog.findViewById(R.id.confirmButton).setOnClickListener(
 					new OnClickListener() {
-
 						@Override
 						public void onClick(View v) {
 							dismissDialog();
 						}
 					});
-
 			dialog.show();
 
 			amount = "";
 			cashbackAmount = "";
 			amountEditText.setText("");
 //			integralEditText.setText("");
+			isQuickTrade = false;
 		}
 
 		@Override
@@ -915,7 +945,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 			dialog.setTitle(R.string.please_select_app);
 
 			String[] appNameList = new String[appList.size()];
-			Toast.makeText(mContext, "appNameList = " + appNameList, 1).show();//by Lu
+//			Toast.makeText(mContext, "appNameList = " + appNameList, 1).show();//by Lu
 			for (int i = 0; i < appNameList.length; ++i) {
 				Log.d(LOG_TAG, "i=" + i + "," + appList.get(i));
 				appNameList[i] = appList.get(i);
@@ -991,25 +1021,28 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 				return;
 			}
 			Log.d(LOG_TAG, "在线过程请求");
-			dismissDialog();
-			dialog = new Dialog(SwipeCardActivity.this);
-			dialog.setContentView(R.layout.alert_dialog);
-			dialog.setTitle(R.string.online_process_requested);
-
-			((TextView) dialog.findViewById(R.id.messageTextView))
-					.setText(R.string.replied_connected);
-
-			dialog.findViewById(R.id.confirmButton).setOnClickListener(
-					new OnClickListener() {
-
-						@Override
-						public void onClick(View v) {
-							pos.isServerConnected(true);
-							dismissDialog();
-						}
-					});
-
-			dialog.show();
+			if (isQuickTrade) {
+				pos.isServerConnected(true);
+				
+			} else {
+				dismissDialog();
+				dialog = new Dialog(SwipeCardActivity.this);
+				dialog.setContentView(R.layout.alert_dialog);
+				dialog.setTitle(R.string.online_process_requested);
+				
+				((TextView) dialog.findViewById(R.id.messageTextView))
+				.setText(R.string.replied_connected);
+				
+				dialog.findViewById(R.id.confirmButton).setOnClickListener(
+						new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								pos.isServerConnected(true);
+								dismissDialog();
+							}
+						});
+				dialog.show();
+			}
 		}
 
 		@Override
@@ -1017,43 +1050,48 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 			if (mIsWorking == false) {
 				return;
 			}
-			Log.d(LOG_TAG, "向服务器请求数据");
-			dismissDialog();
-			dialog = new Dialog(SwipeCardActivity.this);
-			dialog.setContentView(R.layout.alert_dialog);
-			dialog.setTitle(R.string.request_data_to_server);
-			Log.d(LOG_TAG, "tlv:" + tlv);
-			// Log.d(LOG_TAG, "str:"+str);
-			Hashtable<String, String> decodeData = pos.anlysEmvIccData(tlv);
-			Log.d(LOG_TAG, "onlineProcess: " + decodeData);
-			if (isPinCanceled) {
-				((TextView) dialog.findViewById(R.id.messageTextView))
-						.setText(R.string.replied_failed);
+			if (isQuickTrade) {
+				pos.sendOnlineProcessResult("8A023030");//8A025A33
+				
 			} else {
-				((TextView) dialog.findViewById(R.id.messageTextView))
-						.setText(R.string.replied_success);
-			}
-
-			tlvOnlineProcessData = tlv;
-			dialog.findViewById(R.id.confirmButton).setOnClickListener(
-					new OnClickListener() {
-
-						@Override
-						public void onClick(View v) {
-							if (isPinCanceled) {
+				Log.d(LOG_TAG, "向服务器请求数据");
+				dismissDialog();
+				dialog = new Dialog(SwipeCardActivity.this);
+				dialog.setContentView(R.layout.alert_dialog);
+				dialog.setTitle(R.string.request_data_to_server);
+				Log.d(LOG_TAG, "tlv:" + tlv);
+				// Log.d(LOG_TAG, "str:"+str);
+				Hashtable<String, String> decodeData = pos.anlysEmvIccData(tlv);
+				Log.d(LOG_TAG, "onlineProcess: " + decodeData);
+				if (isPinCanceled) {
+					((TextView) dialog.findViewById(R.id.messageTextView))
+					.setText(R.string.replied_failed);
+				} else {
+					((TextView) dialog.findViewById(R.id.messageTextView))
+					.setText(R.string.replied_success);
+				}
+				
+				tlvOnlineProcessData = tlv;
+				dialog.findViewById(R.id.confirmButton).setOnClickListener(
+						new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								if (isPinCanceled) {
 //								Toast.makeText(mContext, "onRequestOnlineProcess :: isPinCanceled : " + isPinCanceled, 1).show();//by Lu
-								pos.sendOnlineProcessResult(null);
-							} else {
+									pos.sendOnlineProcessResult(null);
+								} else {
 //								Toast.makeText(mContext, "onRequestOnlineProcess :: isPinCanceled : " + isPinCanceled, 1).show();//by Lu
 //								pos.sendOnlineProcessResult("8A023030" + tlvOnlineProcessData);//server accept
-								pos.sendOnlineProcessResult("8A023030");//by Lu
-								// emvSwipeController.sendOnlineProcessResult(str);
+									pos.sendOnlineProcessResult("8A023030");//by Lu
+									// emvSwipeController.sendOnlineProcessResult(str);
+								}
+								dismissDialog();
 							}
-							dismissDialog();
-						}
-					});
-
-			dialog.show();
+						});
+				
+				dialog.show();
+			}
 		}
 
 		public void onServerDecline() {
@@ -1168,6 +1206,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 			statusEditText.setText(getString(R.string.device_plugged) + "--用时"
 					+ Utils.formatLongToTimeStr(use_time));
 			doTradeButton.setEnabled(true);
+			doQuickTradeButton.setEnabled(true);
 			btnDisconnect.setEnabled(true);
 		}
 
@@ -1180,6 +1219,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 			statusEditText.setText(getString(R.string.device_unplugged));
 			btnDisconnect.setEnabled(false);
 			doTradeButton.setEnabled(false);
+			doQuickTradeButton.setEnabled(false);
 		}
 
 		@Override
@@ -1232,7 +1272,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 			content += tlv;
 			Log.d(LOG_TAG, "listener: onReturnReversalData: " + tlv);
 			statusEditText.setText(content);
-
 		}
 
 		@Override
@@ -1506,25 +1545,43 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 //					
 //				} else { 
 					//QPos's job
-					if (pos == null) {
+				if (pos == null) {
+					statusEditText.setText(R.string.scan_bt_pos_error);
+					return;
+				}
+
+				if (posType == POS_TYPE.BLUETOOTH) {
+					if (blueTootchAddress == null
+							|| "".equals(blueTootchAddress)) {
 						statusEditText.setText(R.string.scan_bt_pos_error);
 						return;
 					}
-					
-					if (posType == POS_TYPE.BLUETOOTH) {
-						if (blueTootchAddress == null
-								|| "".equals(blueTootchAddress)) {
-							statusEditText.setText(R.string.scan_bt_pos_error);
-							return;
-						}
-					}
-					isPinCanceled = false;
-					amountEditText.setText("");
-//					integralEditText.setText("");
-					statusEditText.setText(R.string.starting);
-					
-					pos.doTrade(60);
+				}
+				isPinCanceled = false;
+				amountEditText.setText("");
+				//					integralEditText.setText("");
+				statusEditText.setText(R.string.starting);
+
+				pos.doTrade(60);
 //				}
+			} else if(v == doQuickTradeButton) { //by Lu
+				isQuickTrade = true;
+				if (pos == null) {
+					statusEditText.setText(R.string.scan_bt_pos_error);
+					return;
+				}
+				if (posType == POS_TYPE.BLUETOOTH) {
+					if (blueTootchAddress == null
+							|| "".equals(blueTootchAddress)) {
+						statusEditText.setText(R.string.scan_bt_pos_error);
+						return;
+					}
+				}
+				isPinCanceled = false;
+				amountEditText.setText("");
+				//integralEditText.setText("");
+				statusEditText.setText(R.string.starting);
+				pos.doTrade(60);
 			} else if (v == btnBT) {
 				//by Lu
 				isChooseBtnClick = true;
