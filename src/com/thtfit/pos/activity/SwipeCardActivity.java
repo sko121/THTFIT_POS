@@ -511,7 +511,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 		animScan.stop();
 		imvAnimScan.setVisibility(View.GONE);
 
-		pos.doTrade(80);
+//		pos.doTrade(80);
 
 	}
 
@@ -714,38 +714,23 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 				String content = onDoTradeResultJob(decodeData);
 				swipeResultContent = content;//by Lu
 //				Toast.makeText(getApplicationContext(), "swipeResultContent : " + swipeResultContent, 1).show();//by Lu
-//				statusEditText.setText(content);
+				statusEditText.setText(content);
 //				mBtnAction.setVisibility(View.VISIBLE);
-				
-				//截取content字段
-				swipeResult = new HashMap<String, String>();
-				String[] sTemp;
-				String stringArr[] = content.split("\n|\r\n|\r");
-				System.out.println("stringArr : ");
-				for(int i = 0; i < stringArr.length; i++){
-//					System.out.println(stringArr[i]);
-					sTemp = stringArr[i].split(":");
-					if(sTemp.length == 2)
-						swipeResult.put(sTemp[0], sTemp[1]);
-					else
-						swipeResult.put(sTemp[0], null);
-				}
-//				System.out.println(swipeResult); //Expiry Date 2412
 				
 				Toast.makeText(getApplicationContext(), "刷卡成功！", Toast.LENGTH_SHORT).show();
 //				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 				
 				//发送刷卡结果到Apriva后台
-				sendToApriva();
+//				sendToApriva();
 				
 				//跳转到签名
-				Intent intent = new Intent();
-				intent.setClass(mContext, SignatureActivity.class);
-				intent.putExtra("amount", mSuccessAmount);
-				intent.putExtra("listItems", (Serializable) listItems);
-				intent.putExtra("cardInfo", content); 
-				startActivity(intent);
-				finish();
+//				Intent intent = new Intent();
+//				intent.setClass(mContext, SignatureActivity.class);
+//				intent.putExtra("amount", mSuccessAmount);
+//				intent.putExtra("listItems", (Serializable) listItems);
+//				intent.putExtra("cardInfo", content);
+//				startActivity(intent);
+//				finish();
 				
 			} else if (result == DoTradeResult.NO_RESPONSE) {
 				statusEditText.setText(getString(R.string.card_no_response));
@@ -876,6 +861,14 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 						@Override
 						public void onClick(View v) {
 							dismissDialog();
+							//跳转到签名
+//							Intent intent = new Intent();
+//							intent.setClass(mContext, SignatureActivity.class);
+//							intent.putExtra("amount", mSuccessAmount);
+//							intent.putExtra("listItems", (Serializable) listItems);
+//							intent.putExtra("cardInfo", "ICC");//by Lu
+//							startActivity(intent);
+//							finish();
 						}
 					});
 			dialog.show();
@@ -897,7 +890,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 			String content = getString(R.string.batch_data);
 			Log.d(LOG_TAG, "tlv:" + tlv);
 			content += tlv;
-			statusEditText.setText(content);
+			statusEditText.setText(content); 
 			mBtnAction.setVisibility(View.VISIBLE);
 		}
 
@@ -909,7 +902,7 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 			dismissDialog();
 			String content = getString(R.string.transaction_log);
 			content += tlv;
-			statusEditText.setText(content);
+			statusEditText.setText(content);  
 		}
 
 		@Override
@@ -1051,7 +1044,8 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 				return;
 			}
 			if (isQuickTrade) {
-				pos.sendOnlineProcessResult("8A023030");//8A025A33
+				pos.sendOnlineProcessResult("8A023030");
+				//8A025A33:reversal data  / 8A023030:batch data
 				
 			} else {
 				Log.d(LOG_TAG, "向服务器请求数据");
@@ -1402,10 +1396,10 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 
 			dialog.findViewById(R.id.bypassButton).setOnClickListener(
 					new OnClickListener() {
-
 						@Override
 						public void onClick(View v) {
-							pos.emptyPin();
+//							pos.emptyPin();
+							pos.sendPin("");
 							dismissDialog();
 						}
 					});
@@ -1542,7 +1536,6 @@ public class SwipeCardActivity extends FragmentActivity {//EMVBaseActivity
 				//by Lu : BBPos's job
 //				if(isSelectedBBPos == true) { 
 //					promptForCheckCard(); //bbpos‘s Start btn
-//					
 //				} else { 
 					//QPos's job
 				if (pos == null) {

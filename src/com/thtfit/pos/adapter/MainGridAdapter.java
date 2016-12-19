@@ -94,7 +94,6 @@ public class MainGridAdapter extends BaseAdapter
 		filter.addAction(REFLASHACTION_CLEARALL);
 		
 		context.registerReceiver(onRefashReceiver, filter);
-
 	}
 	
 	public void unRegisterReceiver(){
@@ -181,7 +180,6 @@ public class MainGridAdapter extends BaseAdapter
 				footerView.setLayoutParams(pl);
 				footerView.setOnClickListener(new OnClickListener()
 				{
-
 					@Override
 					public void onClick(View v)
 					{

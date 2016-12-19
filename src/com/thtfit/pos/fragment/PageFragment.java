@@ -98,7 +98,6 @@ public abstract class PageFragment extends Fragment implements OnCompletedListen
 
 		myGridView.setOnScrollListener(new OnScrollListener()
 		{
-
 			@Override
 			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
 			{ 
@@ -163,7 +162,6 @@ public abstract class PageFragment extends Fragment implements OnCompletedListen
 	{
 		if (loader != null)
 		{
-
 			page = page + 1;
 			loaderMap.put("page", page + "");
 			if (mainGridAdapter != null)

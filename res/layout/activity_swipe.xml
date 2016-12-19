@@ -148,41 +148,31 @@
 
                     <Button
                         android:id="@+id/btnBT"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/swipe_scan_device" />
+                        android:text="@string/swipe_scan_device" 
+                        style="@style/swipe_btn" />
                     
                     <Button
                         android:id="@+id/doQuickTradeButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        style="@style/swipe_btn"
                         android:enabled="false"
                         android:text="@string/swipe_quicki_check_card" />
 
                     <Button
                         android:id="@+id/doTradeButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        style="@style/swipe_btn"
                         android:enabled="false"
                         android:text="@string/swipe_check_card" />
 
                     <Button
                         android:id="@+id/disconnect"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        style="@style/swipe_btn"
                         android:enabled="false"
                         android:text="@string/swipe_disconnect" />
                     
                     <!-- by Lu -->
                     <Button
                         android:id="@+id/test_btn"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        style="@style/swipe_btn"
                         android:text="刷卡成功测试"
                         android:visibility="gone" />
                 </LinearLayout>
