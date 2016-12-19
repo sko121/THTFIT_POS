@@ -249,6 +249,7 @@ public class POSService extends Service
 //		tmpIntent.putExtra("requestAction",
 //				"POSService.getMainData");
 //		sendBroadcast(tmpIntent);
+		
 		//卸载重装之后偶尔出现打开商品界面商品加载不出来的情况，故取消广播通信，直接加载数据
 		getMainData("http://" + serverAddress + "/clients/products.action",null,null,"");
 	}

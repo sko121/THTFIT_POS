@@ -55,7 +55,6 @@ public abstract class PageFragment extends Fragment implements OnCompletedListen
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
 	}
 
 	@Override
@@ -91,10 +90,10 @@ public abstract class PageFragment extends Fragment implements OnCompletedListen
 
 	private void init()
 	{
-		Log.d("luzhaojie", "PageFragment :: init : mylist.size == " + mylist.size());//by Lu 0
+//		Log.d("luzhaojie", "PageFragment :: init : mylist.size == " + mylist.size());//by Lu 0
 		mainGridAdapter = new MainGridAdapter(mylist, getActivity(), this);// 自定义适配器
 		myGridView.setAdapter(mainGridAdapter); 
-		Log.d("luzhaojie", "mainGridAdapter.getCount() == " + mainGridAdapter.getCount());//by Lu
+//		Log.d("luzhaojie", "mainGridAdapter.getCount() == " + mainGridAdapter.getCount());//by Lu 0
 
 		myGridView.setOnScrollListener(new OnScrollListener()
 		{
@@ -219,6 +218,8 @@ public abstract class PageFragment extends Fragment implements OnCompletedListen
 			isLoadFinished = true;
 			mylist.addAll(l);
 			mainGridAdapter.notifyDataSetChanged();
+			//by Lu: 第二次加载数据已经全部加载完成，不再需要footerview提示加载
+			mainGridAdapter.setFootreViewEnable(false);
 		}
 		else
 		{

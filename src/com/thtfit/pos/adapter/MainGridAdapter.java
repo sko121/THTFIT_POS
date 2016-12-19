@@ -82,7 +82,7 @@ public class MainGridAdapter extends BaseAdapter
 		if (pro_list != null)
 		{
 			this.products = pro_list;
-			Log.d("luzhaojie", "MainGridAdapter :: pro_list.size() == " + pro_list.size()); // by Lu
+//			Log.d("luzhaojie", "MainGridAdapter :: pro_list.size() == " + pro_list.size()); // by Lu 0
 		}
 		this.context = context;
 		parentFragment = parent;
